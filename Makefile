@@ -8,6 +8,7 @@ SRC_DIR := src
 OBJ_DIR := obj
 BIN_DIR := bin
 INCLUDES_DIR := includes
+MLX_DIR := mlx_linux
 
 # Exclude files (relative to $(SRC_DIR))
 # Use EXCLUDE_DIRS for directories to exclude (e.g., dir1 dir2)
@@ -25,26 +26,26 @@ SRCS := $(filter-out $(EXCLUDE_FILES), $(SRC_FILES))
 OBJS := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 # Compiler settings
-CC := cc
-CFLAGS := -MMD -MP -Wall -Werror -Wextra $(if $(WARN), -w)
+CC := gcc
+CFLAGS := -MMD -MP -Wall -Werror -Wextra $(if $(WARN),-w)
 
 # Include directories to search for header files
-IDIRS := $(if $(wildcard $(INCLUDES_DIR)/*), $(addprefix -I, $(shell find $(INCLUDES_DIR)/ -type d)),)
+IDIRS := -Imlx_linux/ $(if $(wildcard $(INCLUDES_DIR)/*),$(addprefix -I, $(shell find $(INCLUDES_DIR)/ -type d)),)
 
 # Linker flags and libraries
-LDFLAGS :=
-LDLIBS :=
+LDFLAGS := -L$(MLX_DIR)/
+LDLIBS := -lmlx_Linux -lXext -lX11 -lm -lz
 
 # Default target
 all: $(BIN_DIR)/$(NAME)
 
 # Rule to build library
 $(BIN_DIR)/$(NAME): $(OBJS) | $(BIN_DIR)
-	$(CC) $^ -o $@
+	$(CC) $^ $(LDFLAGS) $(LDLIBS) -o $@
 
 # Pattern rule to compile source files
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
-	$(CC) $(CFLAGS) $(IDIRS) $(LDFLAGS) -c $< $(LDLIBS) -o $@
+	$(CC) $(CFLAGS) $(IDIRS) -c $< -o $@
 
 # Remove object directory
 clean:
