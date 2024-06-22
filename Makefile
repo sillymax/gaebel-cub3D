@@ -6,7 +6,8 @@ NAME := cub3D
 # Directory paths
 SRC_DIR := src
 OBJ_DIR := obj
-INCLUDE_DIR := include
+BIN_DIR := bin
+INCLUDES_DIR := includes
 
 # Exclude files (relative to $(SRC_DIR))
 # Use EXCLUDE_DIRS for directories to exclude (e.g., dir1 dir2)
@@ -17,33 +18,32 @@ EXCLUDE_FILES := $(addprefix $(SRC_DIR)/, $(addsuffix /*, $(EXCLUDE_DIRS))) \
 				 $(addprefix $(SRC_DIR)/, $(EXCLUDE_SRCS))
 
 # Source files
-SRC_FILES := $(shell find $(SRC_DIR)/ -type f -name "*.cpp")
+SRC_FILES := $(shell find $(SRC_DIR)/ -type f -name "*.c")
 SRCS := $(filter-out $(EXCLUDE_FILES), $(SRC_FILES))
 
 # Object files
-OBJS := $(SRCS:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
+OBJS := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 # Compiler settings
 CC := cc
 CFLAGS := -MMD -MP -Wall -Werror -Wextra $(if $(WARN), -w)
 
 # Include directories to search for header files
-IDIRS := $(if $(wildcard $(INCLUDE_DIR)/*), $(addprefix -I, $(shell find $(INCLUDE_DIR)/ -type d)),)
+IDIRS := $(if $(wildcard $(INCLUDES_DIR)/*), $(addprefix -I, $(shell find $(INCLUDES_DIR)/ -type d)),)
 
 # Linker flags and libraries
 LDFLAGS :=
 LDLIBS :=
 
 # Default target
-all: $(NAME)
+all: $(BIN_DIR)/$(NAME)
 
 # Rule to build library
-$(NAME): $(OBJS)
+$(BIN_DIR)/$(NAME): $(OBJS) | $(BIN_DIR)
 	$(CC) $^ -o $@
 
 # Pattern rule to compile source files
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
-	mkdir -p $(@D)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) $(IDIRS) $(LDFLAGS) -c $< $(LDLIBS) -o $@
 
 # Remove object directory
@@ -52,10 +52,14 @@ clean:
 
 # Remove generated files
 fclean: clean
-	rm -rf $(NAME)
+	rm -rf $(BIN_DIR)
 
 # Rebuild library
 re: fclean all
+
+# Create bin and obj directory if they don't exist
+$(BIN_DIR) $(OBJ_DIR):
+	mkdir -p $@
 
 # Phony targets
 .PHONY: all clean fclean re
