@@ -74,7 +74,7 @@ $(BIN_DIR) $(OBJ_DIR):
 	mkdir -p $@
 
 # Phony targets
-.PHONY: all clean fclean re
+.PHONY: all w clean fclean re
 
 # Include dependency files
 -include $(OBJS:.o=.d)
