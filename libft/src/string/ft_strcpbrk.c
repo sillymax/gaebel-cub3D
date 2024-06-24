@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   system.h                                           :+:      :+:    :+:   */
+/*   ft_strcpbrk.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/24 21:20:15 by ychng             #+#    #+#             */
-/*   Updated: 2024/06/24 23:11:39 by ychng            ###   ########.fr       */
+/*   Created: 2024/06/24 23:42:51 by ychng             #+#    #+#             */
+/*   Updated: 2024/06/24 23:44:29 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SYSTEM_H
-# define SYSTEM_H
+#include "libft.h"
 
-// Standard headers
-# include <stdio.h>
-# include <stdlib.h>
-# include <stdint.h>
-# include <stdbool.h>
-// # include <stdarg.h>
-// # include <stddef.h>
-
-// System-specific headers
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <fcntl.h>
-# include <unistd.h>
-
-
-#endif
+char	*ft_strcpbrk(const char *str, const char *reject)
+{
+	if (!str || !reject)
+		return (NULL);
+	while (*str)
+	{
+		if (ft_strchr(reject, *str) == NULL)
+			return ((char *)str);
+		str++;
+	}
+	return (NULL);
+}

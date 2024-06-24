@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   system.h                                           :+:      :+:    :+:   */
+/*   get_nextline_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/24 21:20:15 by ychng             #+#    #+#             */
-/*   Updated: 2024/06/24 23:11:39 by ychng            ###   ########.fr       */
+/*   Created: 2024/06/24 23:07:33 by ychng             #+#    #+#             */
+/*   Updated: 2024/06/24 23:08:03 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SYSTEM_H
-# define SYSTEM_H
+#include "main.h"
 
-// Standard headers
-# include <stdio.h>
-# include <stdlib.h>
-# include <stdint.h>
-# include <stdbool.h>
-// # include <stdarg.h>
-// # include <stddef.h>
+bool	contains_newline(char *remaining_line)
+{
+	return (ft_strchr(remaining_line, '\n'));
+}
 
-// System-specific headers
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <fcntl.h>
-# include <unistd.h>
+int	read_and_check(int fd, char *buffer, int buffer_size)
+{
+	int	bytes_read;
 
-
-#endif
+	bytes_read = read(fd, buffer, buffer_size);
+	if (bytes_read == -1)
+	{
+		printf("read failed for bytes_read\n");
+		exit(-1);
+	}
+	return (bytes_read);
+}
