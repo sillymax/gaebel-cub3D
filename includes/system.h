@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 21:20:15 by ychng             #+#    #+#             */
-/*   Updated: 2024/06/24 23:11:39 by ychng            ###   ########.fr       */
+/*   Updated: 2024/06/25 02:20:31 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@
 # include <stdint.h>
 # include <stdbool.h>
 // # include <stdarg.h>
-// # include <stddef.h>
+# include <stddef.h>
+# include <limits.h>
 
 // System-specific headers
 # include <sys/types.h>
