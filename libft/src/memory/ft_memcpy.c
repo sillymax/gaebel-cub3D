@@ -1,20 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/06/24 21:31:51 by ychng            ###   ########.fr       */
+/*   Created: 2024/04/22 17:29:49 by ychng             #+#    #+#             */
+/*   Updated: 2024/04/22 17:31:39 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
+#include "libft.h"
 
-# include "system.h"
-# include "libft.h"
-# include "mlx.h"
+void	*ft_memcpy(void *dest, const void *src, size_t size)
+{
+	char	*destination;
+	char	*source;
 
-#endif
+	if (!dest || !src)
+		return (dest);
+	destination = (char *)dest;
+	source = (char *)src;
+	while (size--)
+		*destination++ = *source++;
+	return (dest);
+}

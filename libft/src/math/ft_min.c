@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   ft_min.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/06/24 21:31:51 by ychng            ###   ########.fr       */
+/*   Created: 2024/04/22 18:30:30 by ychng             #+#    #+#             */
+/*   Updated: 2024/04/22 19:17:59 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
+#include "libft.h"
 
-# include "system.h"
-# include "libft.h"
-# include "mlx.h"
-
-#endif
+int	ft_min(int x, int y)
+{
+	if (x < y)
+		return (x);
+	return (y);
+}

@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/06/24 21:31:51 by ychng            ###   ########.fr       */
+/*   Created: 2024/04/23 20:22:46 by ychng             #+#    #+#             */
+/*   Updated: 2024/04/23 20:23:17 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
+#include "libft.h"
 
-# include "system.h"
-# include "libft.h"
-# include "mlx.h"
+bool	isspecifier(char c)
+{
+	char	specifiers[10];
 
-#endif
+	ft_strcpy(specifiers, "cspdiuxX%");
+	return (ft_strchr(specifiers, c));
+}

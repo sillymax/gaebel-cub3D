@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/06/24 21:31:51 by ychng            ###   ########.fr       */
+/*   Created: 2023/11/05 17:21:54 by ychng             #+#    #+#             */
+/*   Updated: 2024/04/22 17:56:18 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
+#include "libft.h"
 
-# include "system.h"
-# include "libft.h"
-# include "mlx.h"
+char	*ft_strdup(const char *str)
+{
+	int		len;
+	char	*new;
 
-#endif
+	if (!str)
+		return (NULL);
+	len = ft_strlen(str);
+	new = malloc(sizeof(char) * (len + 1));
+	if (!new)
+		return (NULL);
+	ft_strcpy(new, str);
+	return (new);
+}

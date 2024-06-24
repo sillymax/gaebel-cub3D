@@ -1,20 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/06/24 21:31:51 by ychng            ###   ########.fr       */
+/*   Created: 2024/02/16 19:41:15 by ychng             #+#    #+#             */
+/*   Updated: 2024/04/22 17:50:15 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
+#include "libft.h"
 
-# include "system.h"
-# include "libft.h"
-# include "mlx.h"
+char	*ft_strcat(char *dest, const char *src)
+{
+	int	i;
+	int	j;
 
-#endif
+	if (!dest || !src)
+		return (dest);
+	i = 0;
+	while (dest[i])
+		i++;
+	j = 0;
+	while (src[j])
+		dest[i++] = src[j++];
+	dest[i] = '\0';
+	return (dest);
+}

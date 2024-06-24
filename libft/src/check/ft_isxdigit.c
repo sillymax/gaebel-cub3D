@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   ft_isxdigit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/06/24 21:31:51 by ychng            ###   ########.fr       */
+/*   Created: 2024/04/21 06:11:10 by ychng             #+#    #+#             */
+/*   Updated: 2024/04/21 06:13:22 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
+#include "libft.h"
 
-# include "system.h"
-# include "libft.h"
-# include "mlx.h"
-
-#endif
+// Check if the character is a hexadecimal digit (0-9, a-f, A-F).
+int	ft_isxdigit(int c)
+{
+	return ((c >= '0' && c <= '9') \
+			|| (c >= 'a' && c <= 'f') \
+			|| (c >= 'A' && c <= 'F'));
+}

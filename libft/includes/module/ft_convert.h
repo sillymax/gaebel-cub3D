@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   ft_convert.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/06/24 21:31:51 by ychng            ###   ########.fr       */
+/*   Created: 2024/04/21 06:03:18 by ychng             #+#    #+#             */
+/*   Updated: 2024/04/22 19:27:03 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
+#ifndef FT_CONVERT_H
+# define FT_CONVERT_H
 
-# include "system.h"
-# include "libft.h"
-# include "mlx.h"
+// Conversion functions
+int			ft_tolower(int c);
+int			ft_toupper(int c);
+int			ft_atoi(const char *nptr);
+long long	ft_atoll(const char *nptr);
+double		ft_atof(const char *nptr);
+char		*ft_itoa(int num);
+char		*ft_lltoa(long long num);
 
 #endif

@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   ft_math.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/06/24 21:31:51 by ychng            ###   ########.fr       */
+/*   Created: 2024/04/21 07:50:11 by ychng             #+#    #+#             */
+/*   Updated: 2024/04/22 19:29:42 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
+#ifndef FT_MATH_H
+# define FT_MATH_H
 
-# include "system.h"
-# include "libft.h"
-# include "mlx.h"
+// Math functions
+int		ft_min(int x, int y);
+int		ft_max(int x, int y);
+double	ft_pow(double base, int exponent);
 
 #endif

@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/06/24 21:31:51 by ychng            ###   ########.fr       */
+/*   Created: 2024/04/22 17:26:12 by ychng             #+#    #+#             */
+/*   Updated: 2024/04/22 17:27:28 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
+#include  "libft.h"
 
-# include "system.h"
-# include "libft.h"
-# include "mlx.h"
+void	ft_bzero(void *str, size_t size)
+{
+	unsigned char	*string;
 
-#endif
+	string = (unsigned char *)str;
+	while (size--)
+		*string++ = 0;
+}

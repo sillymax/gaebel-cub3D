@@ -1,20 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   system.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/06/24 21:31:51 by ychng            ###   ########.fr       */
+/*   Created: 2024/04/21 04:43:44 by ychng             #+#    #+#             */
+/*   Updated: 2024/04/23 19:33:32 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
+#ifndef SYSTEM_H
+# define SYSTEM_H
 
-# include "system.h"
-# include "libft.h"
-# include "mlx.h"
+// Standard headers
+# include <stdio.h>
+# include <stdlib.h>
+# include <stdint.h>
+# include <stdbool.h>
+# include <stdarg.h>
+# include <stddef.h>
+
+// System-specific headers
+# include <unistd.h>
 
 #endif

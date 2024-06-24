@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   ft_strpbrk.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/06/24 21:31:51 by ychng            ###   ########.fr       */
+/*   Created: 2024/04/23 19:31:20 by ychng             #+#    #+#             */
+/*   Updated: 2024/04/23 19:34:20 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
+#include "libft.h"
 
-# include "system.h"
-# include "libft.h"
-# include "mlx.h"
-
-#endif
+char	*ft_strpbrk(const char *str, const char *accept)
+{
+	if (!str || !accept)
+		return (NULL);
+	while (*str)
+	{
+		if (ft_strchr(accept, *str) != NULL)
+			return ((char *)str);
+		str++;
+	}
+	return (NULL);
+}

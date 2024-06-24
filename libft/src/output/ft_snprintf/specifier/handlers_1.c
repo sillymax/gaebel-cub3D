@@ -1,20 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   handlers_1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/06/24 21:31:51 by ychng            ###   ########.fr       */
+/*   Created: 2024/04/23 20:14:17 by ychng             #+#    #+#             */
+/*   Updated: 2024/04/23 20:17:15 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
+#include "libft.h"
 
-# include "system.h"
-# include "libft.h"
-# include "mlx.h"
+void	handlechar(t_resultinfo *info, char c)
+{
+	write_tobuffer(info, c);
+}
 
-#endif
+void	handlestring(t_resultinfo *info, char *str)
+{
+	if (!str)
+		str = "(null)";
+	while (*str)
+	{
+		write_tobuffer(info, *str);
+		str++;
+	}
+}
+
+void	handlepercent(t_resultinfo *info)
+{
+	write_tobuffer(info, '%');
+}

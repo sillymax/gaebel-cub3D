@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/06/24 21:31:51 by ychng            ###   ########.fr       */
+/*   Created: 2024/04/23 19:23:19 by ychng             #+#    #+#             */
+/*   Updated: 2024/04/23 19:30:48 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
+#include "libft.h"
 
-# include "system.h"
-# include "libft.h"
-# include "mlx.h"
+void	*ft_calloc(size_t n, size_t size)
+{
+	size_t	totalsize;
+	void	*ptr;
 
-#endif
+	totalsize = n * size;
+	ptr = malloc(totalsize);
+	if (!ptr)
+		return (NULL);
+	ft_bzero(ptr, totalsize);
+	return (ptr);
+}

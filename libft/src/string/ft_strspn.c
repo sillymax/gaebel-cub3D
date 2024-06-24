@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   ft_strspn.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/06/24 21:31:51 by ychng            ###   ########.fr       */
+/*   Created: 2024/02/17 17:33:57 by ychng             #+#    #+#             */
+/*   Updated: 2024/04/22 18:23:24 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
+#include "libft.h"
 
-# include "system.h"
-# include "libft.h"
-# include "mlx.h"
+int	ft_strspn(const char *str, const char *accept)
+{
+	int	spanlen;
 
-#endif
+	if (!str || !accept)
+		return (0);
+	spanlen = 0;
+	while (str[spanlen] && ft_strchr(accept, str[spanlen]))
+		spanlen++;
+	return (spanlen);
+}

@@ -1,20 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   ft_realloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/06/24 21:31:51 by ychng            ###   ########.fr       */
+/*   Created: 2024/04/22 17:34:28 by ychng             #+#    #+#             */
+/*   Updated: 2024/04/22 18:46:32 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
+#include "libft.h"
 
-# include "system.h"
-# include "libft.h"
-# include "mlx.h"
+void	*ft_realloc(void *ptr, size_t originalsize, size_t newsize)
+{
+	void	*result;
+	size_t	copysize;
 
-#endif
+	if (!ptr)
+		return (malloc(newsize));
+	if (newsize == 0)
+	{
+		free(ptr);
+		return (NULL);
+	}
+	result = malloc(newsize);
+	if (!result)
+		return (NULL);
+	copysize = ft_min(originalsize, newsize);
+	ft_memcpy(result, ptr, copysize);
+	free(ptr);
+	return (result);
+}

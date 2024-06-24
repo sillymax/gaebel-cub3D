@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/06/24 21:31:51 by ychng            ###   ########.fr       */
+/*   Created: 2024/02/26 12:04:53 by ychng             #+#    #+#             */
+/*   Updated: 2024/04/22 18:24:52 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
+#include "libft.h"
 
-# include "system.h"
-# include "libft.h"
-# include "mlx.h"
+char	*ft_strtrim(const char *str, const char *delim)
+{
+	char	*start;
+	int		len;
 
-#endif
+	if (!str || !delim)
+		return (NULL);
+	start = (char *)str + ft_strspn(str, delim);
+	len = ft_strlen(start) - ft_rstrspn(start, delim);
+	return (ft_substr(start, 0, len));
+}
