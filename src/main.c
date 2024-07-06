@@ -50,12 +50,14 @@ typedef struct s_main
 int	error_with_message(char	*msg)
 {
 	ft_putstr_fd(msg, 2);
+	ft_putchr_fd('\n', 2);
 	return (ERROR);
 }
 
 void	exit_with_message(char *msg)
 {
 	ft_putstr_fd(msg, 2);
+	ft_putchr_fd('\n', 2);
 	exit(-1);
 }
 
@@ -252,13 +254,7 @@ bool	can_parse_mapdata(t_main *main, int fd)
 
 bool	is_empty_line(char *line)
 {
-	while (*line)
-	{
-		if (!ft_isblank(*line))
-			return (false);
-		line++;
-	}
-	return (true);
+	return (*line == '\0' || *line == '\n');
 }
 
 bool	has_valid_characters(char *line)
@@ -293,7 +289,7 @@ int	store_map_in_2d_array(t_map *map, char *line)
 		if (!new_map2d)	
 			return (error_with_message("error: failed to realloc memory."));
 		map->map2d = new_map2d;
-		map->alloc_rows = new_size;
+		map->alloc_rows = new_alloc_rows;
 	}
 	map->map2d[map->used_rows] = ft_strtrim(line, "\n");
 	map->used_rows++;
@@ -368,6 +364,8 @@ int	validate_map_content(t_map *map)
 
 bool	validate_2dmap(t_map *map)
 {
+	if (!map->map2d)
+		return (error_with_message("error: no map.") == -1);
 	if (validate_top_and_bottom_border(map) == -1)
 		return (false);
 	if (validate_left_and_right_border(map) == -1)
@@ -473,5 +471,4 @@ int main(int argc, char **argv)
 		// return (write_error());
 	initialize_main(&main);
 	parse_map(&main, argv[1]);
-	printf("hi");
 }
