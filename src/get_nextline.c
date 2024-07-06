@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 23:06:49 by ychng             #+#    #+#             */
-/*   Updated: 2024/06/24 23:07:18 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/06 15:42:34 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static char	*read_fd_until_newline(int fd, char *remaining_line)
 		if (bytes_read == 0)
 			break ;
 		buffer[bytes_read] = '\0';
-		remaining_line = custom_strjoin(remaining_line, buffer);
+		remaining_line = ft_strjoin(remaining_line, buffer, 1);
 	}
 	free(buffer);
 	return (remaining_line);
