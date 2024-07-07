@@ -316,27 +316,49 @@ int	store_map_in_2d_array(t_map *map, char *line)
 // 	return (SUCCESS);
 // }
 
-// int	validate_left_and_right_border(t_map *map)
-// {
-// 	size_t	i;
-// 	size_t	curr_line_len;
-// 	char	first_char;
-// 	char	last_char;
+size_t	get_longest_row_len(t_map *map)
+{
+	size_t	max_col;
+	size_t	i;
 
-// 	i = 1;
-// 	while (i < (map->used_rows - 1))
-// 	{
-// 		curr_line_len = ft_strlen(map->map2d[i]);
-// 		first_char = map->map2d[i][0];
-// 		last_char = map->map2d[i][curr_line_len - 1];
-// 		if (!(first_char == '1'))
-// 			return (error_with_message("error: first column is not all 1"));
-// 		if (!(last_char == '1'))
-// 			return (error_with_message("error: last column is not all 1"));
-// 		i++;
-// 	}
-// 	return (SUCCESS);
-// }
+	max_col = ft_strlen(map->map2d[0]);
+	i = 0;
+	while (i < map->used_rows)
+	{
+		if (max_col < (size_t)ft_strlen(map->map2d[i]))
+			max_col = ft_strlen(map->map2d[i]);
+		i++;
+	}
+	return (max_col);
+}
+
+int	validate_left_and_right_border(t_map *map)
+{
+	size_t	row;
+	size_t	col;
+	char	first_char;
+	char	last_char;
+
+	row = 0;
+	while (row < map->used_rows)
+	{
+		first_char = '\0';
+		last_char = '\0';
+		col = 0;
+		while (col < get_longest_row_len(map))
+		{
+			if (first_char == '\0' && map->map2d[row][col] != ' ')
+				first_char = map->map2d[row][col];
+			if (map->map2d[row][col] != ' ')
+				last_char = map->map2d[row][col];
+			col++;
+		}
+		if (!(first_char == '1' && last_char == '1'))
+			return (error_with_message("error: there is left / right border gap."));
+		row++;
+	}
+	return (SUCCESS);
+}
 
 // int	validate_map_content(t_map *map)
 // {
@@ -362,35 +384,6 @@ int	store_map_in_2d_array(t_map *map, char *line)
 // 	return (SUCCESS);
 // }
 
-int	validate_2dmap(t_map *map)
-{
-	if (!map->map2d)
-		return (error_with_message("error: no map."));
-	// if (validate_top_and_bottom_border(map) == -1)
-	// 	return (false);
-	// if (validate_left_and_right_border(map) == -1)
-	// 	return (false);
-	// if (validate_map_content(map) == -1)
-	// 	return (false);
-	
-	return (true);
-}
-
-size_t	get_longest_row_len(t_map *map)
-{
-	size_t	max_col;
-	size_t	i;
-
-	max_col = ft_strlen(map->map2d[0]);
-	i = 0;
-	while (i < map->used_rows)
-	{
-		if (max_col < (size_t)ft_strlen(map->map2d[i]))
-			max_col = ft_strlen(map->map2d[i]);
-		i++;
-	}
-	return (max_col);
-}
 
 int	pad_row(char** row, size_t max_col)
 {
@@ -404,10 +397,112 @@ int	pad_row(char** row, size_t max_col)
 	*row = ft_realloc(*row, old_size, new_size);
 	if (*row == NULL)
 		return (error_with_message("error: failed to realloc."));
-	ft_memset(*row + curr_len, 'c', max_col - curr_len);
+	ft_memset(*row + curr_len, ' ', max_col - curr_len);
 	(*row)[max_col] = '\0';
 	return (SUCCESS);
 }
+
+int	validate_top_and_bottom_border(t_map *map)
+{
+	size_t	row;
+	size_t	col;
+	size_t	max_col;
+	char	first_char;
+	char	last_char;
+
+	col = 0;
+	max_col = get_longest_row_len(map);
+	while (col < max_col)
+	{
+		first_char = '\0';
+		last_char = '\0';
+		row = 0;
+		while (row < map->used_rows)
+		{
+			if (first_char == '\0' && map->map2d[row][col] != ' ')
+				first_char = map->map2d[row][col];
+			if (map->map2d[row][col] != ' ')
+				last_char = map->map2d[row][col];
+			row++;
+		}
+		if (!(first_char == '1' && last_char == '1'))
+			return (error_with_message("error: there is top / bottom border gap."));
+		col++;
+	}
+	return (SUCCESS);
+}
+
+int	validate_top_to_bottom(t_map *map)
+{
+	size_t	col;
+	size_t	row;
+	char	curr_col;
+	char	top_col;
+	char	bottom_col;
+
+	col = 0;
+	while (col < get_longest_row_len(map))
+	{
+		row = 1;
+		while (row < (map->used_rows - 1))
+		{
+			curr_col = map->map2d[row][col];
+			top_col = map->map2d[row - 1][col];
+			bottom_col = map->map2d[row + 1][col];
+			if (curr_col == '0' && !(top_col != ' ' && bottom_col != ' '))
+				return (error_with_message("error: there are top / bottom gap."));
+			row++;
+		}
+		col++;
+	}
+	return (SUCCESS);
+}
+
+int	validate_left_to_right(t_map *map)
+{
+	size_t	row;
+	size_t	col;
+	char	curr_col;
+	char	left_col;
+	char	right_col;
+
+	row = 0;
+	while (row < map->used_rows)
+	{
+		col = 1;
+		while (col < (get_longest_row_len(map) - 1))
+		{
+			curr_col = map->map2d[row][col];
+			left_col = map->map2d[row][col - 1];
+			right_col = map->map2d[row][col + 1];
+			if (curr_col == '0' && !(left_col != ' ' && right_col != ' '))
+				return (error_with_message("error: there are left / right gap."));
+			col++;
+		}
+		row++;
+	}
+	return (SUCCESS);
+}
+
+int	validate_2dmap(t_map *map)
+{
+	if (!map->map2d)
+		return (error_with_message("error: no map."));
+	// if (validate_top_and_bottom_border(map) == -1)
+	// 	return (false);
+	if (validate_top_and_bottom_border(map) == ERROR)
+		return (ERROR);
+	if (validate_left_and_right_border(map) == ERROR)
+		return (ERROR);
+	if (validate_top_to_bottom(map) == ERROR)
+		return (ERROR);
+	if (validate_left_and_right_border(map) == ERROR)
+		return (ERROR);
+	// if (validate_map_content(map) == -1)
+	// 	return (false);
+	return (SUCCESS);
+}
+
 
 bool	pad_2d_map(t_map *map)
 {
@@ -461,7 +556,7 @@ bool	can_parse_mapcontent(t_main *main, int fd)
 	// printf("%s\n", main->map.map2d[1]);
 	// printf("%s\n", main->map.map2d[2]);
 	// return (false);
-	return (validate_2dmap(&main->map));
+	return (validate_2dmap(&main->map) == SUCCESS);
 }
 
 void	parse_map(t_main *main, char *mapname)
