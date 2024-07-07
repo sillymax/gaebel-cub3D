@@ -296,82 +296,137 @@ int	store_map_in_2d_array(t_map *map, char *line)
 	return (SUCCESS);
 }
 
-//  1111
-// 110011
-//  1  1
-//  1111
+// //  1111
+// // 110011
+// //  1  1
+// //  1111
 
-// need to check for newline at the end of a map
-int	validate_top_and_bottom_border(t_map *map)
+// // need to check for newline at the end of a map
+// int	validate_top_and_bottom_border(t_map *map)
+// {
+// 	char	*first_line;
+// 	char	*last_line;
+
+// 	first_line = ft_strtrim(map->map2d[0], " ");
+// 	last_line = ft_strtrim(map->map2d[map->used_rows - 1], " ");
+// 	if (!(ft_strspn(first_line, "1 ") == ft_strlen(first_line)))
+// 		return (error_with_message("error: has invalid character in top row"));
+// 	if (!(ft_strspn(last_line, "1 ") == ft_strlen(last_line)))
+// 		return (error_with_message("error: has invalid character in bottom row"));
+// 	return (SUCCESS);
+// }
+
+// int	validate_left_and_right_border(t_map *map)
+// {
+// 	size_t	i;
+// 	size_t	curr_line_len;
+// 	char	first_char;
+// 	char	last_char;
+
+// 	i = 1;
+// 	while (i < (map->used_rows - 1))
+// 	{
+// 		curr_line_len = ft_strlen(map->map2d[i]);
+// 		first_char = map->map2d[i][0];
+// 		last_char = map->map2d[i][curr_line_len - 1];
+// 		if (!(first_char == '1'))
+// 			return (error_with_message("error: first column is not all 1"));
+// 		if (!(last_char == '1'))
+// 			return (error_with_message("error: last column is not all 1"));
+// 		i++;
+// 	}
+// 	return (SUCCESS);
+// }
+
+// int	validate_map_content(t_map *map)
+// {
+// 	size_t	i;
+// 	size_t	player_count;
+// 	char	*current_line;
+
+// 	i = 1;
+// 	player_count = 0;
+// 	while (i < (map->used_rows - 1))
+// 	{
+// 		current_line = map->map2d[i];
+// 		if (!(ft_strspn(current_line, "01NSEW ") == ft_strlen(current_line)))
+// 			return (error_with_message("error: has invalid characters in map content."));
+// 		if (ft_strpbrk(current_line, "NSWE"))
+// 		{
+// 			player_count++;
+// 			if (player_count > 1)
+// 				return (error_with_message("error: has more than 1 player in map."));
+// 		}
+// 		i++;
+// 	}
+// 	return (SUCCESS);
+// }
+
+int	validate_2dmap(t_map *map)
 {
-	char	*first_line;
-	char	*last_line;
-
-	first_line = ft_strtrim(map->map2d[0], " ");
-	last_line = ft_strtrim(map->map2d[map->used_rows - 1], " ");
-	if (!(ft_strspn(first_line, "1 ") == ft_strlen(first_line)))
-		return (error_with_message("error: has invalid character in top row"));
-	if (!(ft_strspn(last_line, "1 ") == ft_strlen(last_line)))
-		return (error_with_message("error: has invalid character in bottom row"));
-	return (SUCCESS);
+	if (!map->map2d)
+		return (error_with_message("error: no map."));
+	// if (validate_top_and_bottom_border(map) == -1)
+	// 	return (false);
+	// if (validate_left_and_right_border(map) == -1)
+	// 	return (false);
+	// if (validate_map_content(map) == -1)
+	// 	return (false);
+	
+	return (true);
 }
 
-int	validate_left_and_right_border(t_map *map)
+size_t	get_longest_row_len(t_map *map)
 {
+	size_t	max_col;
 	size_t	i;
-	size_t	curr_line_len;
-	char	first_char;
-	char	last_char;
 
-	i = 1;
-	while (i < (map->used_rows - 1))
+	max_col = ft_strlen(map->map2d[0]);
+	i = 0;
+	while (i < map->used_rows)
 	{
-		curr_line_len = ft_strlen(map->map2d[i]);
-		first_char = map->map2d[i][0];
-		last_char = map->map2d[i][curr_line_len - 1];
-		if (!(first_char == '1'))
-			return (error_with_message("error: first column is not all 1"));
-		if (!(last_char == '1'))
-			return (error_with_message("error: last column is not all 1"));
+		if (max_col < (size_t)ft_strlen(map->map2d[i]))
+			max_col = ft_strlen(map->map2d[i]);
 		i++;
 	}
+	return (max_col);
+}
+
+int	pad_row(char** row, size_t max_col)
+{
+	size_t	curr_len;
+	size_t	old_size;
+	size_t	new_size;
+
+	curr_len = ft_strlen(*row);
+	old_size = (curr_len + 1) * sizeof(char);
+	new_size = (max_col + 1) * sizeof(char);
+	*row = ft_realloc(*row, old_size, new_size);
+	if (*row == NULL)
+		return (error_with_message("error: failed to realloc."));
+	ft_memset(*row + curr_len, 'c', max_col - curr_len);
+	(*row)[max_col] = '\0';
 	return (SUCCESS);
 }
 
-int	validate_map_content(t_map *map)
+bool	pad_2d_map(t_map *map)
 {
+	size_t	max_col;
 	size_t	i;
-	size_t	player_count;
-	char	*current_line;
+	size_t	curr_row_len;
 
-	i = 1;
-	player_count = 0;
-	while (i < (map->used_rows - 1))
+	max_col = get_longest_row_len(map);
+	i = 0;
+	while (i < map->used_rows)
 	{
-		current_line = map->map2d[i];
-		if (!(ft_strspn(current_line, "01NSEW ") == ft_strlen(current_line)))
-			return (error_with_message("error: has invalid characters in map content."));
-		if (ft_strpbrk(current_line, "NSWE"))
+		curr_row_len = ft_strlen(map->map2d[i]);
+		if (curr_row_len < max_col)
 		{
-			player_count++;
-			if (player_count > 1)
-				return (error_with_message("error: has more than 1 player in map."));
+			if (pad_row(&map->map2d[i], max_col) == ERROR)
+				return (false);
 		}
 		i++;
 	}
-	return (SUCCESS);
-}
-
-bool	validate_2dmap(t_map *map)
-{
-	if (!map->map2d)
-		return (error_with_message("error: no map.") == -1);
-	if (validate_top_and_bottom_border(map) == -1)
-		return (false);
-	if (validate_left_and_right_border(map) == -1)
-		return (false);
-	if (validate_map_content(map) == -1)
-		return (false);
 	return (true);
 }
 
@@ -401,6 +456,11 @@ bool	can_parse_mapcontent(t_main *main, int fd)
 		}
 		free(line);
 	}
+	pad_2d_map(&main->map);
+	// printf("%s\n", main->map.map2d[0]);
+	// printf("%s\n", main->map.map2d[1]);
+	// printf("%s\n", main->map.map2d[2]);
+	// return (false);
 	return (validate_2dmap(&main->map));
 }
 
