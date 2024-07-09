@@ -15,6 +15,9 @@
 
 # define ERROR -1
 # define SUCCESS 0
+# define WINDOW_WIDTH 1280
+# define WINDOW_HEIGHT 720
+# define TILE_SIZE 20
 
 typedef struct s_data
 {
@@ -37,7 +40,7 @@ typedef struct s_data
 typedef struct s_map
 {
 	size_t	used_rows;
-	size_t	alloc_rows;	
+	size_t	alloc_rows;
 	char	**map2d;
 }	t_map;
 
@@ -50,11 +53,18 @@ typedef struct s_img
 	int		endian;
 }	t_img;
 
+typedef struct s_var
+{
+	void	*mlx;
+	void	*win;
+	t_img	data;
+}	t_var;
 
 typedef struct s_main
 {
 	t_data	data;
 	t_map	map;
+	t_var	var;
 }	t_main;
 
 int	error_with_message(char	*msg)
@@ -115,26 +125,6 @@ bool	is_within_unsigned_short(char *value_str)
 	value = ft_atoi(value_str);
 	return (value >= 0 && value <= USHRT_MAX);
 }
-
-// int	set_resolution(t_data *data)
-// {
-// 	char	*width_str;
-// 	char	*height_str;
-
-// 	width_str = ft_strtok(NULL, " ");
-// 	height_str = ft_strtok(NULL, " ");
-// 	if (!(width_str && height_str))
-// 		return (error_with_message("error: resolution must have both width and height."));
-// 	if (!(is_all_digits(width_str) && is_all_digits(height_str)))
-// 		return (error_with_message("error: resolution dimensions must be valid number."));
-// 	if (!(is_within_unsigned_short(width_str) && is_within_unsigned_short(height_str)))
-// 		return (error_with_message("error: resolution dimensions are out of range."));
-// 	data->width = (unsigned short)ft_atoi(width_str);
-// 	data->height = (unsigned short)ft_atoi(height_str);
-// 	data->is_width_set = true;
-// 	data->is_height_set = true;
-// 	return (SUCCESS);
-// }
 
 bool	is_valid_path(char *path)
 {
@@ -296,7 +286,7 @@ int	store_map_in_2d_array(t_map *map, char *line)
 		old_size = map->alloc_rows * sizeof(char *);
 		new_size = new_alloc_rows * sizeof(char *);
 		new_map2d = ft_realloc(map->map2d, old_size, new_size);
-		if (!new_map2d)	
+		if (!new_map2d)
 			return (error_with_message("error: failed to realloc memory."));
 		map->map2d = new_map2d;
 		map->alloc_rows = new_alloc_rows;
@@ -600,18 +590,35 @@ void	initialize_map(t_map *map)
 	map->map2d = NULL;
 }
 
+void	initialize_img(t_var *var)
+{
+	t_img	*data;
+
+	data = &var->data;
+	data->img = mlx_new_image(var->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel, &data->line_len, &data->endian);
+}
+
+void	initialize_var(t_var *var)
+{
+	var->mlx = mlx_init();
+	var->win = mlx_new_window(var->mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3D");
+	initialize_img(var);
+}
+
 
 void	initialize_main(t_main *main)
 {
 	initialize_data(&main->data);
 	initialize_map(&main->map);
+	initialize_var(&main->var);
 }
 
-void	my_mlx_pixel_put(t_img *img_data, int x, int y, int color)
+void	my_mlx_pixel_put(t_img *data, size_t x, size_t y, int color)
 {
 	char	*dst;
 
-	dst = img_data->addr + (y * img_data->line_len + x * (img_data->bits_per_pixel / 8));
+	dst = data->addr + (y * data->line_len + x * (data->bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
 }
 
@@ -641,72 +648,60 @@ int	get_b(int trgb)
 	return (trgb & 0xFF);
 }
 
-void	draw_tile(t_img *img_data, void	*mlx, void *win, int x, int y, int color)
+void	draw_tile(t_img *data, size_t x, size_t y, int color)
 {
-	int		start_x;
-	int		start_y;
-	size_t	width;
-	size_t	height;
+	size_t	start_x;
+	size_t	start_y;
+	size_t	x_span;
+	size_t	y_span;
 
-	start_x = x * 20;
-	start_y = y * 20;
-	width = 0;
-	while (width < 20)
+	start_x = x * TILE_SIZE;
+	start_y = y * TILE_SIZE;
+	x_span = 0;
+	while (x_span < TILE_SIZE)
 	{
-		height = 0;
-		while (height < 20)
+		y_span = 0;
+		while (y_span < TILE_SIZE)
 		{
-			my_mlx_pixel_put(img_data, start_x + width, start_y + height, color);
-			height++;
+			my_mlx_pixel_put(data, start_x + x_span, start_y + y_span, color);
+			y_span++;
 		}
-		width++;
+		x_span++;
 	}
 }
 
-void	draw_map(t_main	*main, t_img *img_data, void *mlx, void *win)
+void	draw_minimap(t_main *main)
 {
-	size_t	row;
-	size_t	col;
+	size_t	x;
+	size_t	y;
 
-	row = 0;
-	while (row < main->map.used_rows)
+	x = 0;
+	while (x < main->map.used_rows)
 	{
-		col = 0;
-		while (col < (size_t)ft_strlen(main->map.map2d[row]))
+		y = 0;
+		while (y < (size_t)ft_strlen(main->map.map2d[x]))
 		{
-			if (main->map.map2d[row][col] == '1')
-				draw_tile(img_data, mlx, win, col, row, create_trgb(1, 255, 255, 255));
-			else if (main->map.map2d[row][col] == '0')
-				draw_tile(img_data, mlx, win, col, row, create_trgb(1, 0, 0, 255));
-			else if (main->map.map2d[row][col] == 'N')
-			{
-				draw_tile(img_data, mlx, win, col, row, create_trgb(1, 255, 0, 0));
-			}
-			col++;
+			if (main->map.map2d[x][y] == '1')
+				draw_tile(&main->var.data, y, x, create_trgb(1, 255, 255, 255));
+			else if (main->map.map2d[x][y] == '0')
+				draw_tile(&main->var.data, y, x, create_trgb(1, 0, 0, 255));
+			else if (main->map.map2d[x][y] == 'N')
+				draw_tile(&main->var.data, y, x, create_trgb(1, 255, 0, 0));
+			y++;
 		}
-		row++;
+		x++;
 	}
 }
 
 int main(int argc, char **argv)
 {
-	(void)argc;
 	t_main	main;
 
-	// if (!(argc == 2))
-		// return (write_error());
+	if (!(argc == 2))
+		return (error_with_message("error: too many arguments."));
 	initialize_main(&main);
 	parse_map(&main, argv[1]);
-	void	*mlx;
-	void	*mlx_win;
-	t_img	img_data;
-
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, 1280, 720, "Hello World!");
-	img_data.img = mlx_new_image(mlx, 1280, 720);
-	img_data.addr = mlx_get_data_addr(img_data.img, &img_data.bits_per_pixel, &img_data.line_len, &img_data.endian);
-
-	draw_map(&main, &img_data, mlx, mlx_win);
-	mlx_put_image_to_window(mlx, mlx_win, img_data.img, 0, 0);
-	mlx_loop(mlx);
+	draw_minimap(&main);
+	mlx_put_image_to_window(main.var.mlx, main.var.win, main.var.data.img, 0, 0);
+	mlx_loop(main.var.mlx);
 }
