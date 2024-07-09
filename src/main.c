@@ -41,6 +41,16 @@ typedef struct s_map
 	char	**map2d;
 }	t_map;
 
+typedef struct s_img
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_len;
+	int		endian;
+}	t_img;
+
+
 typedef struct s_main
 {
 	t_data	data;
@@ -296,26 +306,6 @@ int	store_map_in_2d_array(t_map *map, char *line)
 	return (SUCCESS);
 }
 
-// //  1111
-// // 110011
-// //  1  1
-// //  1111
-
-// // need to check for newline at the end of a map
-// int	validate_top_and_bottom_border(t_map *map)
-// {
-// 	char	*first_line;
-// 	char	*last_line;
-
-// 	first_line = ft_strtrim(map->map2d[0], " ");
-// 	last_line = ft_strtrim(map->map2d[map->used_rows - 1], " ");
-// 	if (!(ft_strspn(first_line, "1 ") == ft_strlen(first_line)))
-// 		return (error_with_message("error: has invalid character in top row"));
-// 	if (!(ft_strspn(last_line, "1 ") == ft_strlen(last_line)))
-// 		return (error_with_message("error: has invalid character in bottom row"));
-// 	return (SUCCESS);
-// }
-
 size_t	get_longest_row_len(t_map *map)
 {
 	size_t	max_col;
@@ -360,29 +350,31 @@ int	validate_left_and_right_border(t_map *map)
 	return (SUCCESS);
 }
 
-// int	validate_map_content(t_map *map)
-// {
-// 	size_t	i;
-// 	size_t	player_count;
-// 	char	*current_line;
+int	validate_map_content(t_map *map)
+{
+	size_t	i;
+	size_t	player_count;
+	char	*current_line;
 
-// 	i = 1;
-// 	player_count = 0;
-// 	while (i < (map->used_rows - 1))
-// 	{
-// 		current_line = map->map2d[i];
-// 		if (!(ft_strspn(current_line, "01NSEW ") == ft_strlen(current_line)))
-// 			return (error_with_message("error: has invalid characters in map content."));
-// 		if (ft_strpbrk(current_line, "NSWE"))
-// 		{
-// 			player_count++;
-// 			if (player_count > 1)
-// 				return (error_with_message("error: has more than 1 player in map."));
-// 		}
-// 		i++;
-// 	}
-// 	return (SUCCESS);
-// }
+	i = 1;
+	player_count = 0;
+	while (i < (map->used_rows - 1))
+	{
+		current_line = map->map2d[i];
+		if (!(ft_strspn(current_line, "01NSEW ") == ft_strlen(current_line)))
+			return (error_with_message("error: has invalid characters in map content."));
+		if (ft_strpbrk(current_line, "NSWE"))
+		{
+			player_count++;
+			if (player_count > 1)
+				return (error_with_message("error: has more than 1 player in map."));
+		}
+		i++;
+	}
+	if (player_count == 0)
+		return (error_with_message("error: no player in map."));
+	return (SUCCESS);
+}
 
 
 int	pad_row(char** row, size_t max_col)
@@ -449,7 +441,7 @@ int	validate_top_to_bottom(t_map *map)
 			curr_col = map->map2d[row][col];
 			top_col = map->map2d[row - 1][col];
 			bottom_col = map->map2d[row + 1][col];
-			if (curr_col == '0' && !(top_col != ' ' && bottom_col != ' '))
+			if (ft_strchr("0NSEW", curr_col) && !(top_col != ' ' && bottom_col != ' '))
 				return (error_with_message("error: there are top / bottom gap."));
 			row++;
 		}
@@ -475,7 +467,7 @@ int	validate_left_to_right(t_map *map)
 			curr_col = map->map2d[row][col];
 			left_col = map->map2d[row][col - 1];
 			right_col = map->map2d[row][col + 1];
-			if (curr_col == '0' && !(left_col != ' ' && right_col != ' '))
+			if (ft_strchr("0NSEW", curr_col) && !(left_col != ' ' && right_col != ' '))
 				return (error_with_message("error: there are left / right gap."));
 			col++;
 		}
@@ -488,18 +480,16 @@ int	validate_2dmap(t_map *map)
 {
 	if (!map->map2d)
 		return (error_with_message("error: no map."));
-	// if (validate_top_and_bottom_border(map) == -1)
-	// 	return (false);
 	if (validate_top_and_bottom_border(map) == ERROR)
 		return (ERROR);
 	if (validate_left_and_right_border(map) == ERROR)
 		return (ERROR);
 	if (validate_top_to_bottom(map) == ERROR)
 		return (ERROR);
-	if (validate_left_and_right_border(map) == ERROR)
+	if (validate_left_to_right(map) == ERROR)
 		return (ERROR);
-	// if (validate_map_content(map) == -1)
-	// 	return (false);
+	if (validate_map_content(map) == -1)
+		return (ERROR);
 	return (SUCCESS);
 }
 
@@ -617,6 +607,87 @@ void	initialize_main(t_main *main)
 	initialize_map(&main->map);
 }
 
+void	my_mlx_pixel_put(t_img *img_data, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = img_data->addr + (y * img_data->line_len + x * (img_data->bits_per_pixel / 8));
+	*(unsigned int *)dst = color;
+}
+
+// Bitshifting color
+int	create_trgb(int t, int r, int g, int b)
+{
+	return (t << 24 | r << 16 | g << 8 | b);
+}
+
+int	get_t(int trgb)
+{
+	return ((trgb >> 24) & 0xFF);
+}
+
+int	get_r(int trgb)
+{
+	return ((trgb >> 16) & 0xFF);
+}
+
+int	get_g(int trgb)
+{
+	return ((trgb >> 8) & 0xFF);
+}
+
+int	get_b(int trgb)
+{
+	return (trgb & 0xFF);
+}
+
+void	draw_tile(t_img *img_data, void	*mlx, void *win, int x, int y, int color)
+{
+	int		start_x;
+	int		start_y;
+	size_t	width;
+	size_t	height;
+
+	start_x = x * 20;
+	start_y = y * 20;
+	width = 0;
+	while (width < 20)
+	{
+		height = 0;
+		while (height < 20)
+		{
+			my_mlx_pixel_put(img_data, start_x + width, start_y + height, color);
+			height++;
+		}
+		width++;
+	}
+}
+
+void	draw_map(t_main	*main, t_img *img_data, void *mlx, void *win)
+{
+	size_t	row;
+	size_t	col;
+
+	row = 0;
+	while (row < main->map.used_rows)
+	{
+		col = 0;
+		while (col < (size_t)ft_strlen(main->map.map2d[row]))
+		{
+			if (main->map.map2d[row][col] == '1')
+				draw_tile(img_data, mlx, win, col, row, create_trgb(1, 255, 255, 255));
+			else if (main->map.map2d[row][col] == '0')
+				draw_tile(img_data, mlx, win, col, row, create_trgb(1, 0, 0, 255));
+			else if (main->map.map2d[row][col] == 'N')
+			{
+				draw_tile(img_data, mlx, win, col, row, create_trgb(1, 255, 0, 0));
+			}
+			col++;
+		}
+		row++;
+	}
+}
+
 int main(int argc, char **argv)
 {
 	(void)argc;
@@ -626,4 +697,16 @@ int main(int argc, char **argv)
 		// return (write_error());
 	initialize_main(&main);
 	parse_map(&main, argv[1]);
+	void	*mlx;
+	void	*mlx_win;
+	t_img	img_data;
+
+	mlx = mlx_init();
+	mlx_win = mlx_new_window(mlx, 1280, 720, "Hello World!");
+	img_data.img = mlx_new_image(mlx, 1280, 720);
+	img_data.addr = mlx_get_data_addr(img_data.img, &img_data.bits_per_pixel, &img_data.line_len, &img_data.endian);
+
+	draw_map(&main, &img_data, mlx, mlx_win);
+	mlx_put_image_to_window(mlx, mlx_win, img_data.img, 0, 0);
+	mlx_loop(mlx);
 }
