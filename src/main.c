@@ -37,11 +37,19 @@ typedef struct s_data
 	bool			is_ceilingcolor_set;
 }	t_data;
 
+typedef struct s_player
+{
+	size_t	x;
+	size_t	y;
+	size_t	keys[255];
+}	t_player;
+
 typedef struct s_map
 {
-	size_t	used_rows;
-	size_t	alloc_rows;
-	char	**map2d;
+	size_t		used_rows;
+	size_t		alloc_rows;
+	char		**map2d;
+	t_player	player;
 }	t_map;
 
 typedef struct s_img
@@ -505,6 +513,32 @@ bool	pad_2d_map(t_map *map)
 	return (true);
 }
 
+void	set_player_pos(t_main *main)
+{
+	t_player	*player;
+	size_t		i;
+	size_t		j;
+	char		curr_col;
+
+	player = &main->map.player;
+	i = 0;
+	while (i < main->map.used_rows)
+	{
+		j = 0;
+		while (j < (size_t)ft_strlen(main->map.map2d[i]))
+		{
+			curr_col = main->map.map2d[i][j];
+			if (ft_strchr("NSEW", curr_col))
+			{
+				player->x = j;
+				player->y = i;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
 bool	can_parse_mapcontent(t_main *main, int fd)
 {
 	char	*line;
@@ -532,11 +566,10 @@ bool	can_parse_mapcontent(t_main *main, int fd)
 		free(line);
 	}
 	pad_2d_map(&main->map);
-	// printf("%s\n", main->map.map2d[0]);
-	// printf("%s\n", main->map.map2d[1]);
-	// printf("%s\n", main->map.map2d[2]);
-	// return (false);
-	return (validate_2dmap(&main->map) == SUCCESS);
+	if (validate_2dmap(&main->map) == ERROR)
+		return (false);
+	set_player_pos(main);
+	return (true);
 }
 
 void	parse_map(t_main *main, char *mapname)
@@ -588,6 +621,7 @@ void	initialize_map(t_map *map)
 	map->used_rows = 0;
 	map->alloc_rows = 0;
 	map->map2d = NULL;
+	ft_memset(map->player.keys, 0, sizeof(map->player.keys));
 }
 
 void	initialize_img(t_var *var)
@@ -693,6 +727,71 @@ void	draw_minimap(t_main *main)
 	}
 }
 
+void	move_player(t_main *main, int dx, int dy)
+{
+	int	new_x;
+	int	new_y;
+
+	new_x = main->map.player.x + dx;
+	new_y = main->map.player.y + dy;
+	if (new_x >= 0 && new_x < ft_strlen(main->map.map2d[new_y]) && new_y >= 0 && new_y < main->map.used_rows && main->map.map2d[new_y][new_x] != '1')
+	{
+		main->map.map2d[main->map.player.y][main->map.player.x] = '0';
+		main->map.map2d[new_y][new_x] = 'N';
+		main->map.player.x = new_x;
+		main->map.player.y = new_y;
+	}
+}
+
+int	key_press(int keycode, t_main *main)
+{
+	if (keycode < 256)
+		main->map.player.keys[keycode] = 1;
+	else if (keycode == 65307)
+	{
+		mlx_destroy_window(main->var.mlx, main->var.win);
+		exit(0);
+	}
+	return (SUCCESS);
+}
+
+void	process_movement(t_main *main)
+{
+	if (main->map.player.keys[119]) // W
+	{
+		move_player(main, 0, -1);
+		main->map.player.keys[119] = 0;
+	}
+	if (main->map.player.keys[97]) // A
+	{
+		move_player(main, -1, 0);
+		main->map.player.keys[97] = 0;
+	}
+	if (main->map.player.keys[100]) // D
+	{
+		move_player(main, 1, 0);
+		main->map.player.keys[100] = 0;
+	}
+	if (main->map.player.keys[115]) // S
+	{
+		move_player(main, 0, 1);
+		main->map.player.keys[115] = 0;
+	}
+}
+
+int	render_next_frame(void *s_main)
+{
+	t_main	*main;
+	t_var	*var;
+
+	main = (t_main *)s_main;
+	var = &main->var;
+	process_movement(main);
+	draw_minimap(main);
+	mlx_put_image_to_window(var->mlx, var->win, var->data.img, 0, 0);
+	return (SUCCESS);
+}
+
 int main(int argc, char **argv)
 {
 	t_main	main;
@@ -701,7 +800,7 @@ int main(int argc, char **argv)
 		return (error_with_message("error: too many arguments."));
 	initialize_main(&main);
 	parse_map(&main, argv[1]);
-	draw_minimap(&main);
-	mlx_put_image_to_window(main.var.mlx, main.var.win, main.var.data.img, 0, 0);
+	mlx_hook(main.var.win, 2, 1L<<0, key_press, &main);
+	mlx_loop_hook(main.var.mlx, render_next_frame, &main);
 	mlx_loop(main.var.mlx);
 }
