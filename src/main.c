@@ -18,6 +18,7 @@
 # define WINDOW_WIDTH 1280
 # define WINDOW_HEIGHT 720
 # define TILE_SIZE 20
+# define PLAYER_SIZE 10
 
 typedef struct s_data
 {
@@ -717,67 +718,91 @@ void	draw_minimap(t_main *main)
 		{
 			if (main->map.map2d[x][y] == '1')
 				draw_tile(&main->var.data, y, x, create_trgb(1, 255, 255, 255));
-			else if (main->map.map2d[x][y] == '0')
+			else if (ft_strchr("0N", main->map.map2d[x][y]))
 				draw_tile(&main->var.data, y, x, create_trgb(1, 0, 0, 255));
-			else if (main->map.map2d[x][y] == 'N')
-				draw_tile(&main->var.data, y, x, create_trgb(1, 255, 0, 0));
 			y++;
 		}
 		x++;
 	}
 }
 
-void	move_player(t_main *main, int dx, int dy)
+void	draw_player_dot(t_main *main)
 {
-	int	new_x;
-	int	new_y;
+	size_t	start_x;
+	size_t	start_y;
+	size_t	box_offset_x;
+	size_t	box_offset_y;
+	size_t	x_span;
+	size_t	y_span;
 
-	new_x = main->map.player.x + dx;
-	new_y = main->map.player.y + dy;
-	if (new_x >= 0 && new_x < ft_strlen(main->map.map2d[new_y]) && new_y >= 0 && new_y < main->map.used_rows && main->map.map2d[new_y][new_x] != '1')
+	start_x = main->map.player.x * TILE_SIZE;
+	start_y = main->map.player.y * TILE_SIZE;
+	box_offset_x = (TILE_SIZE - PLAYER_SIZE) / 2;
+	box_offset_y = (TILE_SIZE - PLAYER_SIZE) / 2;
+	x_span = 0;
+	while (x_span < PLAYER_SIZE)
 	{
-		main->map.map2d[main->map.player.y][main->map.player.x] = '0';
-		main->map.map2d[new_y][new_x] = 'N';
-		main->map.player.x = new_x;
-		main->map.player.y = new_y;
+		y_span = 0;
+		while (y_span < PLAYER_SIZE)
+		{
+			my_mlx_pixel_put(&main->var.data, start_x + box_offset_x + x_span, start_y + box_offset_y + y_span, create_trgb(1, 255, 0, 0));
+			y_span++;
+		}
+		x_span++;
 	}
 }
 
-int	key_press(int keycode, t_main *main)
-{
-	if (keycode < 256)
-		main->map.player.keys[keycode] = 1;
-	else if (keycode == 65307)
-	{
-		mlx_destroy_window(main->var.mlx, main->var.win);
-		exit(0);
-	}
-	return (SUCCESS);
-}
+// void	move_player(t_main *main, int dx, int dy)
+// {
+// 	int	new_x;
+// 	int	new_y;
 
-void	process_movement(t_main *main)
-{
-	if (main->map.player.keys[119]) // W
-	{
-		move_player(main, 0, -1);
-		main->map.player.keys[119] = 0;
-	}
-	if (main->map.player.keys[97]) // A
-	{
-		move_player(main, -1, 0);
-		main->map.player.keys[97] = 0;
-	}
-	if (main->map.player.keys[100]) // D
-	{
-		move_player(main, 1, 0);
-		main->map.player.keys[100] = 0;
-	}
-	if (main->map.player.keys[115]) // S
-	{
-		move_player(main, 0, 1);
-		main->map.player.keys[115] = 0;
-	}
-}
+// 	new_x = main->map.player.x + dx;
+// 	new_y = main->map.player.y + dy;
+// 	if (new_x >= 0 && new_x < ft_strlen(main->map.map2d[new_y]) && new_y >= 0 && new_y < main->map.used_rows && main->map.map2d[new_y][new_x] != '1')
+// 	{
+// 		main->map.map2d[main->map.player.y][main->map.player.x] = '0';
+// 		main->map.map2d[new_y][new_x] = 'N';
+// 		main->map.player.x = new_x;
+// 		main->map.player.y = new_y;
+// 	}
+// }
+
+// int	key_press(int keycode, t_main *main)
+// {
+// 	if (keycode < 256)
+// 		main->map.player.keys[keycode] = 1;
+// 	else if (keycode == 65307)
+// 	{
+// 		mlx_destroy_window(main->var.mlx, main->var.win);
+// 		exit(0);
+// 	}
+// 	return (SUCCESS);
+// }
+
+// void	process_movement(t_main *main)
+// {
+// 	if (main->map.player.keys[119]) // W
+// 	{
+// 		move_player(main, 0, -1);
+// 		main->map.player.keys[119] = 0;
+// 	}
+// 	if (main->map.player.keys[97]) // A
+// 	{
+// 		move_player(main, -1, 0);
+// 		main->map.player.keys[97] = 0;
+// 	}
+// 	if (main->map.player.keys[100]) // D
+// 	{
+// 		move_player(main, 1, 0);
+// 		main->map.player.keys[100] = 0;
+// 	}
+// 	if (main->map.player.keys[115]) // S
+// 	{
+// 		move_player(main, 0, 1);
+// 		main->map.player.keys[115] = 0;
+// 	}
+// }
 
 int	render_next_frame(void *s_main)
 {
@@ -786,8 +811,9 @@ int	render_next_frame(void *s_main)
 
 	main = (t_main *)s_main;
 	var = &main->var;
-	process_movement(main);
+	// process_movement(main);
 	draw_minimap(main);
+	draw_player_dot(main);
 	mlx_put_image_to_window(var->mlx, var->win, var->data.img, 0, 0);
 	return (SUCCESS);
 }
@@ -800,7 +826,7 @@ int main(int argc, char **argv)
 		return (error_with_message("error: too many arguments."));
 	initialize_main(&main);
 	parse_map(&main, argv[1]);
-	mlx_hook(main.var.win, 2, 1L<<0, key_press, &main);
+	// mlx_hook(main.var.win, 2, 1L<<0, key_press, &main);
 	mlx_loop_hook(main.var.mlx, render_next_frame, &main);
 	mlx_loop(main.var.mlx);
 }
