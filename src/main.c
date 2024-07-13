@@ -19,6 +19,9 @@
 # define WINDOW_HEIGHT 720
 # define TILE_SIZE 20
 # define PLAYER_SIZE 10
+# define PI 3.1415
+# define LINE_LENGTH 15
+
 
 typedef struct s_data
 {
@@ -40,8 +43,13 @@ typedef struct s_data
 
 typedef struct s_player
 {
-	size_t	x;
-	size_t	y;
+	double	x;
+	double	y;
+	int		turn_direction;
+	int		walk_direction;
+	double	rotating_angle;
+	double	move_speed;
+	double	rotation_speed;
 	size_t	keys[255];
 }	t_player;
 
@@ -617,12 +625,23 @@ void	initialize_data(t_data *data)
 	data->is_ceilingcolor_set = false;
 }
 
+void	initialize_player(t_player *player)
+{
+	ft_memset(player->keys, 0, sizeof(player->keys));
+	player->walk_direction = 0;
+	player->turn_direction = 0;
+	player->turn_direction = 0;
+	player->rotating_angle = PI / 2;
+	player->move_speed = 0.005f;
+	player->rotation_speed = 0.25 * (PI / 180);
+}
+
 void	initialize_map(t_map *map)
 {
 	map->used_rows = 0;
 	map->alloc_rows = 0;
 	map->map2d = NULL;
-	ft_memset(map->player.keys, 0, sizeof(map->player.keys));
+	initialize_player(&map->player);
 }
 
 void	initialize_img(t_var *var)
@@ -726,6 +745,66 @@ void	draw_minimap(t_main *main)
 	}
 }
 
+int ft_round(float num)
+{
+    return (int)(num + 0.5);
+}
+
+int ft_abs(int num)
+{
+	if (num < 0)
+		return (-num);
+    return (num);
+}
+
+
+void	draw_line(t_main *main, int x0, int y0, int x1, int y1)
+{
+	int	delta_x;
+	int	delta_y;
+	int	side_len;
+	float	x_inc;
+	float	y_inc;
+	float	current_x;
+	float	current_y;
+	int		i;
+
+	delta_x = (x1 - x0);
+	delta_y = (y1 - y0);
+	if (ft_abs(delta_x) >= ft_abs(delta_y))
+		side_len = ft_abs(delta_x);
+	else
+		side_len = ft_abs(delta_y);
+	x_inc = delta_x / (float)side_len;
+	y_inc = delta_y / (float)side_len;
+	current_x = x0;
+	current_y = y0;
+	i = 0;
+	while (i <= side_len)
+	{
+		my_mlx_pixel_put(&main->var.data, ft_round(current_x), ft_round(current_y), create_trgb(1, 255, 0, 0));
+		current_x += x_inc;
+		current_y += y_inc;
+		i++;
+	}
+}
+
+void	draw_angle_line(t_main *main)
+{
+	int	start_x;
+	int	start_y;
+	int	end_x;
+	int	end_y;
+
+	start_x = main->map.player.x * TILE_SIZE;
+	start_y = main->map.player.y * TILE_SIZE;
+	start_x = start_x + (TILE_SIZE / 2);
+	start_y = start_y + (TILE_SIZE / 2);
+	end_x = start_x + cos(main->map.player.rotating_angle) * LINE_LENGTH;
+	end_y = start_y + sin(main->map.player.rotating_angle) * LINE_LENGTH;
+	draw_line(main, start_x, start_y, end_x, end_y);
+}
+
 void	draw_player_dot(t_main *main)
 {
 	size_t	start_x;
@@ -750,6 +829,8 @@ void	draw_player_dot(t_main *main)
 		}
 		x_span++;
 	}
+	draw_angle_line(main);
+	// draw_line(main, start_x, start_y, start_x + (TILE_SIZE * 2), start_y + (TILE_SIZE * 2));
 }
 
 // void	move_player(t_main *main, int dx, int dy)
@@ -768,41 +849,52 @@ void	draw_player_dot(t_main *main)
 // 	}
 // }
 
-// int	key_press(int keycode, t_main *main)
-// {
-// 	if (keycode < 256)
-// 		main->map.player.keys[keycode] = 1;
-// 	else if (keycode == 65307)
-// 	{
-// 		mlx_destroy_window(main->var.mlx, main->var.win);
-// 		exit(0);
-// 	}
-// 	return (SUCCESS);
-// }
+int	key_press(int keycode, t_main *main)
+{
+	if (keycode < 256)
+		main->map.player.keys[keycode] = 1;
+	else if (keycode == 65307)
+	{
+		mlx_destroy_window(main->var.mlx, main->var.win);
+		exit(0);
+	}
+	return (SUCCESS);
+}
 
-// void	process_movement(t_main *main)
-// {
-// 	if (main->map.player.keys[119]) // W
-// 	{
-// 		move_player(main, 0, -1);
-// 		main->map.player.keys[119] = 0;
-// 	}
-// 	if (main->map.player.keys[97]) // A
-// 	{
-// 		move_player(main, -1, 0);
-// 		main->map.player.keys[97] = 0;
-// 	}
-// 	if (main->map.player.keys[100]) // D
-// 	{
-// 		move_player(main, 1, 0);
-// 		main->map.player.keys[100] = 0;
-// 	}
-// 	if (main->map.player.keys[115]) // S
-// 	{
-// 		move_player(main, 0, 1);
-// 		main->map.player.keys[115] = 0;
-// 	}
-// }
+int	key_release(int keycode, t_main *main)
+{
+	if (keycode < 256)
+		main->map.player.keys[keycode] = 0;
+	return (SUCCESS);
+}
+
+void	process_movement(t_main *main)
+{
+	if (main->map.player.keys[119]) // W
+		main->map.player.walk_direction = 1;
+	else if (main->map.player.keys[115]) // D
+		main->map.player.walk_direction = -1;
+	else
+		main->map.player.walk_direction = 0;
+
+	if (main->map.player.keys[97]) // A
+		main->map.player.turn_direction = 1;
+	else if (main->map.player.keys[100]) // S
+		main->map.player.turn_direction = -1;
+	else
+		main->map.player.turn_direction = 0;
+
+	if (main->map.player.turn_direction)
+		main->map.player.rotating_angle += main->map.player.turn_direction * main->map.player.rotation_speed;
+	if (main->map.player.walk_direction)
+	{
+		double	move_step;
+	
+		move_step = main->map.player.walk_direction * main->map.player.move_speed;
+		main->map.player.x += cos(main->map.player.rotating_angle) * move_step;
+		main->map.player.y += sin(main->map.player.rotating_angle) * move_step;
+	}
+}
 
 int	render_next_frame(void *s_main)
 {
@@ -811,7 +903,7 @@ int	render_next_frame(void *s_main)
 
 	main = (t_main *)s_main;
 	var = &main->var;
-	// process_movement(main);
+	process_movement(main);
 	draw_minimap(main);
 	draw_player_dot(main);
 	mlx_put_image_to_window(var->mlx, var->win, var->data.img, 0, 0);
@@ -826,7 +918,8 @@ int main(int argc, char **argv)
 		return (error_with_message("error: too many arguments."));
 	initialize_main(&main);
 	parse_map(&main, argv[1]);
-	// mlx_hook(main.var.win, 2, 1L<<0, key_press, &main);
+	mlx_hook(main.var.win, 2, 1L<<0, key_press, &main);
+	mlx_hook(main.var.win, 3, 1L<<1, key_release, &main);
 	mlx_loop_hook(main.var.mlx, render_next_frame, &main);
 	mlx_loop(main.var.mlx);
 }

@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 21:20:15 by ychng             #+#    #+#             */
-/*   Updated: 2024/06/25 02:20:31 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/13 22:32:37 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <unistd.h>
+# include <math.h>
 
 
 #endif
