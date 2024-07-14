@@ -41,6 +41,19 @@ typedef struct s_data
 	bool			is_ceilingcolor_set;
 }	t_data;
 
+typedef struct s_ray
+{
+	double	ray_angle;	
+}	t_ray;
+
+typedef struct s_raycast
+{
+	double	fov_angle;
+	size_t	wall_strip_width;
+	size_t	num_rays;
+	t_ray	*rays;
+}	t_raycast;
+
 typedef struct s_player
 {
 	double	x;
@@ -51,6 +64,7 @@ typedef struct s_player
 	double	move_speed;
 	double	rotation_speed;
 	size_t	keys[255];
+	t_raycast	raycast;
 }	t_player;
 
 typedef struct s_map
@@ -625,6 +639,14 @@ void	initialize_data(t_data *data)
 	data->is_ceilingcolor_set = false;
 }
 
+void	initialize_ray(t_raycast *raycast)
+{
+	raycast->fov_angle = 60 * (PI / 180);
+	raycast->wall_strip_width = 50;
+	raycast->num_rays = WINDOW_WIDTH / raycast->wall_strip_width;
+	raycast->rays = malloc(sizeof(t_raycast) * raycast->num_rays);
+}
+
 void	initialize_player(t_player *player)
 {
 	ft_memset(player->keys, 0, sizeof(player->keys));
@@ -634,6 +656,7 @@ void	initialize_player(t_player *player)
 	player->rotating_angle = PI / 2;
 	player->move_speed = 0.005f;
 	player->rotation_speed = 0.25 * (PI / 180);
+	initialize_ray(&player->raycast);
 }
 
 void	initialize_map(t_map *map)
@@ -904,6 +927,46 @@ void	process_movement(t_main *main)
 	}
 }
 
+void	cast_all_rays(t_player *player)
+{
+	size_t	column_id;
+	double	ray_angle;
+	size_t	i;
+
+	column_id;
+	ray_angle = player->rotating_angle - (player->raycast.fov_angle / 2);
+	i = 0;
+	while (i < player->raycast.num_rays)
+	{
+		player->raycast.rays[i].ray_angle = ray_angle;
+		ray_angle += player->raycast.fov_angle / player->raycast.num_rays;
+		column_id++;
+		i++;
+	}
+}
+
+void	draw_rays(t_main *main)
+{
+	int	start_x;
+	int	start_y;
+	int	end_x;
+	int	end_y;
+	int	i;
+
+	start_x = main->map.player.x * TILE_SIZE;
+	start_y = main->map.player.y * TILE_SIZE;
+	start_x = start_x + (TILE_SIZE) / 2;
+	start_y = start_y + (TILE_SIZE) / 2;
+	i = 0;
+	while (i < main->map.player.raycast.num_rays)
+	{
+		end_x = start_x + cos(main->map.player.raycast.rays[i].ray_angle) * 50;
+		end_y = start_y + sin(main->map.player.raycast.rays[i].ray_angle) * 50;
+		draw_line(main, start_x, start_y, end_x, end_y);
+		i++;
+	}
+}
+
 int	render_next_frame(void *s_main)
 {
 	t_main	*main;
@@ -913,6 +976,8 @@ int	render_next_frame(void *s_main)
 	var = &main->var;
 	process_movement(main);
 	draw_minimap(main);
+	cast_all_rays(&main->map.player);
+	draw_rays(main);
 	draw_player_dot(main);
 	mlx_put_image_to_window(var->mlx, var->win, var->data.img, 0, 0);
 	return (SUCCESS);
