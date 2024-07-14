@@ -18,9 +18,9 @@
 # define WINDOW_WIDTH 1280
 # define WINDOW_HEIGHT 720
 # define TILE_SIZE 20
-# define PLAYER_SIZE 5
+# define PLAYER_SIZE 3
 # define PI 3.1415
-# define LINE_LENGTH 10
+# define LINE_LENGTH 20
 
 
 typedef struct s_data
@@ -717,7 +717,7 @@ void	draw_tile(t_img *data, size_t x, size_t y, int color)
 		y_span = 0;
 		while (y_span < TILE_SIZE)
 		{
-			my_mlx_pixel_put(data, start_x + x_span, start_y + y_span, color);
+			my_mlx_pixel_put(data, start_x + x_span, start_y + y_span , color);
 			y_span++;
 		}
 		x_span++;
@@ -798,8 +798,8 @@ void	draw_angle_line(t_main *main)
 
 	start_x = main->map.player.x * TILE_SIZE;
 	start_y = main->map.player.y * TILE_SIZE;
-	start_x = start_x + (TILE_SIZE - 1) / 2;
-	start_y = start_y + (TILE_SIZE - 1) / 2;
+	start_x = start_x + (TILE_SIZE) / 2;
+	start_y = start_y + (TILE_SIZE) / 2;
 	end_x = start_x + cos(main->map.player.rotating_angle) * LINE_LENGTH;
 	end_y = start_y + sin(main->map.player.rotating_angle) * LINE_LENGTH;
 	draw_line(main, start_x, start_y, end_x, end_y);
@@ -807,17 +807,18 @@ void	draw_angle_line(t_main *main)
 
 void	draw_player_dot(t_main *main)
 {
-	size_t	start_x;
-	size_t	start_y;
-	size_t	box_offset_x;
-	size_t	box_offset_y;
+	double	start_x;
+	double	start_y;
+	double	box_offset_x;
+	double	box_offset_y;
 	size_t	x_span;
 	size_t	y_span;
 
-	start_x = main->map.player.x * TILE_SIZE;
-	start_y = main->map.player.y * TILE_SIZE;
-	box_offset_x = (TILE_SIZE - PLAYER_SIZE) / 2;
-	box_offset_y = (TILE_SIZE - PLAYER_SIZE) / 2;
+	start_x = (float)main->map.player.x * TILE_SIZE;
+	start_y = (float)main->map.player.y * TILE_SIZE;
+	box_offset_x = ceil((TILE_SIZE - PLAYER_SIZE) / (float)2);
+	box_offset_y = ceil((TILE_SIZE - PLAYER_SIZE) / (float)2);
+	// printf("%f\n", box_offset_x);
 	x_span = 0;
 	while (x_span < PLAYER_SIZE)
 	{
@@ -891,8 +892,15 @@ void	process_movement(t_main *main)
 		double	move_step;
 	
 		move_step = main->map.player.walk_direction * main->map.player.move_speed;
-		main->map.player.x += cos(main->map.player.rotating_angle) * move_step;
-		main->map.player.y += sin(main->map.player.rotating_angle) * move_step;
+		double	new_x;
+		double	new_y;
+		new_x = main->map.player.x + cos(main->map.player.rotating_angle) * move_step;
+		new_y = main->map.player.y + sin(main->map.player.rotating_angle) * move_step;
+		if (main->map.map2d[ft_round(new_y)][ft_round(new_x)] != '1')
+		{
+			main->map.player.x = new_x ;
+			main->map.player.y = new_y ;
+		}
 	}
 }
 
