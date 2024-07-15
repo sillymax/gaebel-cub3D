@@ -26,6 +26,7 @@ SRCS := $(filter-out $(EXCLUDE_FILES), $(SRC_FILES))
 
 # Object files
 OBJS := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+# OBJS := $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%,$(SRCS:.c=.o))
 
 # Compiler settings
 CC := gcc
@@ -51,7 +52,7 @@ $(BIN_DIR)/$(NAME): $(OBJS) | $(BIN_DIR)
 	$(CC) $^ $(LDFLAGS) $(LDLIBS) -o $@
 
 # Pattern rule to compile source files
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)/%/
 	$(CC) $(CFLAGS) $(IDIRS) -c $< -o $@
 
 # Target to set W=1
@@ -71,6 +72,10 @@ re: fclean all
 
 # Create bin and obj directory if they don't exist
 $(BIN_DIR) $(OBJ_DIR):
+	mkdir -p $@
+
+# Create obj directory for specific source file
+$(OBJ_DIR)/%/:
 	mkdir -p $@
 
 # Phony targets

@@ -1,24 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   meets_required_data.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/16 01:48:48 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/16 06:59:00 by ychng            ###   ########.fr       */
+/*   Created: 2024/07/16 04:17:55 by ychng             #+#    #+#             */
+/*   Updated: 2024/07/16 06:23:35 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-int	main(int argc, char **argv)
+bool	meets_required_data(t_main *main, int fd)
 {
-	t_main	main;	
-
-	if (argc != 2)
-		exit_with_error("wrong number of args.");
-	init_main(&main);
-	parse_map(&main, argv[1]);
-	return (PASS);
+	return (parse_data(main, fd) && \
+			validate_2d_map(&main->mapdata));
 }

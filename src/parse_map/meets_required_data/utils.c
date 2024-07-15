@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/16 01:48:48 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/16 06:59:00 by ychng            ###   ########.fr       */
+/*   Created: 2024/07/16 05:54:23 by ychng             #+#    #+#             */
+/*   Updated: 2024/07/16 06:07:44 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-int	main(int argc, char **argv)
+int	get_max_cols(t_mapdata *mapdata)
 {
-	t_main	main;	
+	int	i;
+	int	max_cols;
 
-	if (argc != 2)
-		exit_with_error("wrong number of args.");
-	init_main(&main);
-	parse_map(&main, argv[1]);
-	return (PASS);
+	i = 0;
+	max_cols = ft_strlen(mapdata->map2d[0]);
+	while (i < mapdata->rows)
+	{
+		if (max_cols < ft_strlen(mapdata->map2d[i]))
+			max_cols = ft_strlen(mapdata->map2d[i]);
+		i++;
+	}
+	return (max_cols);
 }

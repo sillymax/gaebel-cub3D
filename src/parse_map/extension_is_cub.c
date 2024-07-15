@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   extension_is_cub.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/16 01:48:48 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/16 06:59:00 by ychng            ###   ########.fr       */
+/*   Created: 2024/07/16 02:13:05 by ychng             #+#    #+#             */
+/*   Updated: 2024/07/16 02:34:21 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-int	main(int argc, char **argv)
+bool	extension_is_cub(char *mapname)
 {
-	t_main	main;	
+	int		count;
+	char	*token;
 
-	if (argc != 2)
-		exit_with_error("wrong number of args.");
-	init_main(&main);
-	parse_map(&main, argv[1]);
-	return (PASS);
+	count = 0;
+	token = ft_strdup(mapname);
+	token = ft_strtok(token, ".");
+	while (!(token == NULL))
+	{
+		if (ft_strcmp(token, "cub") == 0)
+			count++;
+		token = ft_strtok(NULL, ".");
+	}
+	free(token);
+	return (count == 1);
 }
