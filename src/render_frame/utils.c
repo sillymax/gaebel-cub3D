@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/16 01:48:48 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/16 22:52:52y ychng            ###   ########.fr       */
+/*   Created: 2024/07/16 23:40:34 by ychng             #+#    #+#             */
+/*   Updated: 2024/07/16 23:40:47 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-int	main(int argc, char **argv)
+int	rgb(int r, int g, int b)
 {
-	t_main	main;	
+	return (r << 16 | g << 8 | b);
+}
 
-	if (argc != 2)
-		exit_with_error("wrong number of args.");
-	init_main(&main);
-	parse_map(&main, argv[1]);
-	mlx_loop_hook(main.minilibx.mlx, render_frame, &main);
-	mlx_loop(main.minilibx.mlx);
-	return (PASS);
+void	pixel_put(t_image *image, int x, int y, int color)
+{
+	int		y_bytes;
+	int		x_bytes;
+	char	*dst;
+
+	y_bytes = y * image->stride;
+	x_bytes = x * (image->bpp / 8);
+	dst = image->addr + y_bytes + x_bytes; 
+	*(int *)dst = color;
 }

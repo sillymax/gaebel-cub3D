@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/16 06:21:50 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/17 00:25:45 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,16 @@
 
 # define PASS true
 # define FAIL false
+
+# define W_WIDTH 1280
+# define W_HEIGHT 736
+
+# define M_WALL '1'
+# define M_PATH '0'
+# define M_NORTH 'N'
+
+# define TILE_SIZE 32
+# define PLAYER_SIZE 4
 
 typedef struct	s_mapinfo
 {
@@ -43,10 +53,36 @@ typedef struct	s_mapdata
 	char	**map2d;
 }	t_mapdata;
 
+typedef struct	s_image
+{
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		stride;
+	int		endian;		
+}	t_image;
+
+typedef struct	s_minilibx
+{
+	void	*mlx;
+	void	*win;
+	t_image	image;
+}	t_minilibx;
+
+typedef struct	s_player
+{
+	int	center_x;
+	int	center_y;
+	int	topleft_x;
+	int	topleft_y;
+}	t_player;
+
 typedef struct	s_main
 {
 	t_mapinfo	mapinfo;
 	t_mapdata	mapdata;
+	t_minilibx	minilibx;
+	t_player	player;
 }	t_main;
 
 // get_nextline/
@@ -59,6 +95,7 @@ void	exit_with_error(char *msg);
 bool	return_with_error(char *msg);
 
 // initialize_struct/
+void	init_minilibx(t_minilibx *minilibx);
 void	init_main(t_main *main);
 
 // parse_map/
@@ -76,5 +113,12 @@ bool	validate_cols(t_mapdata *mapdata);
 bool	validate_2d_map(t_mapdata *mapdata);
 bool	meets_required_data(t_main *main, int fd);
 void	parse_map(t_main *main, char *mapname);
+
+// render_frame/
+int		rgb(int r, int g, int b);
+void	pixel_put(t_image *image, int x, int y, int color);
+void	draw_map(t_main *main);
+void	draw_player(t_main *main);
+int		render_frame(void *main);
 
 #endif

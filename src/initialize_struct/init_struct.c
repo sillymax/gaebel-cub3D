@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 02:08:16 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/16 06:10:52 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/17 00:25:55 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,18 @@ void	init_mapdata(t_mapdata *mapdata)
 	mapdata->map2d = NULL;
 }
 
+void	init_player(t_player *player)
+{
+	player->center_x = 0;
+	player->center_y = 0;
+	player->topleft_x = 0;
+	player->topleft_y = 0;
+}
+
 void	init_main(t_main *main)
 {
 	init_mapinfo(&main->mapinfo);
 	init_mapdata(&main->mapdata);
+	init_minilibx(&main->minilibx);
+	init_player(&main->player);
 }
