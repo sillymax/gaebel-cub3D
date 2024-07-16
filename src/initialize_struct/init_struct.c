@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 02:08:16 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/17 00:25:55 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/17 01:17:33 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	init_player(t_player *player)
 	player->center_y = 0;
 	player->topleft_x = 0;
 	player->topleft_y = 0;
+	player->rotation_angle = PI / 2;
+	player->rotation_speed = 0.25 * (PI / 180);
 }
 
 void	init_main(t_main *main)

@@ -760,6 +760,7 @@ void	cast(t_main *main, size_t i)
 	size_t	wall_hit_x;
 	size_t	wall_hit_y;
 
+
 	horizontal_wall_hit = false;
 	wall_hit_x = 0;
 	wall_hit_y = 0;

@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 23:41:29 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/17 00:11:30 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/17 00:27:50 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	img_to_win(t_main *main)
 
 int	render_frame(void *main)
 {
-	// draw_map(main);
+	draw_map(main);
 	draw_player(main);
 	img_to_win(main);
 	return (PASS);
