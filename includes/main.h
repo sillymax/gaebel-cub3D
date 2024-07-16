@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/17 03:55:02 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/17 05:05:21 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,13 +85,13 @@ typedef struct	s_minilibx
 
 typedef struct	s_player
 {
-	int		center_x;
-	int		center_y;
-	int		topleft_x;
-	int		topleft_y;
-	double	rotation_angle;
-	double	rotation_speed;
-	int		move_speed;
+	double		center_x;
+	double		center_y;
+	int			topleft_x;
+	int			topleft_y;
+	double		rotation_angle;
+	double		rotation_speed;
+	double		move_speed;
 }	t_player;
 
 typedef struct	s_main
