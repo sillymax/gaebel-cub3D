@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/17 05:33:36 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/17 06:01:39 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,7 @@ void	set_player_topleft(t_main *main);
 void	set_initial_player_pos(t_main *main);
 
 // keystates/
+bool	has_wall_at(t_main *main, double x, double y);
 void	rotate_player(t_main *main, int turn_direction);
 void	move_forward_backward(t_main *main, int walk_direction);
 void	move_left_right(t_main *main, int side_direction);

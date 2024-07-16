@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_frame.c                                     :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/17 05:28:06 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/17 06:01:25 by ychng            ###   ########.fr       */
+/*   Created: 2024/07/17 05:35:55 by ychng             #+#    #+#             */
+/*   Updated: 2024/07/17 05:37:34 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-void	img_to_win(t_main *main)
+bool	has_wall_at(t_main *main, double x, double y)
 {
-	mlx_put_image_to_window(
-		main->minilibx.mlx, \
-		main->minilibx.win, \
-		main->minilibx.image.img, \
-		0, 0);
-}
+	int	i;	
+	int	j;
 
-int	render_frame(void *main)
-{
-	draw_map(main);
-	draw_player(main);
-	apply_keystates(main);
-	img_to_win(main);
-	return (PASS);
+	i = floor(y / TILE_SIZE);
+	j = floor(x / TILE_SIZE);
+	return (main->mapdata.map2d[i][j] == '1');
 }
