@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/17 02:05:05 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/17 03:55:02 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include "system.h"
 # include "libft.h"
 # include "mlx.h"
+
+# define KEY_COUNT 65536
 
 # define PASS true
 # define FAIL false
@@ -32,6 +34,15 @@
 # define LINE_LENGTH 15
 
 # define PI 3.14159265358979323846264338327950288420
+
+# define UBUNTU_ESC 65307
+# define UBUNTU_LEFT_ARROW 65361
+# define UBUNTU_RIGHT_ARROW 65363
+
+# define UBUNTU_A_KEY 97
+# define UBUNTU_D_KEY 100
+# define UBUNTU_W_KEY 119
+# define UBUNTU_S_KEY 115
 
 typedef struct	s_mapinfo
 {
@@ -80,6 +91,7 @@ typedef struct	s_player
 	int		topleft_y;
 	double	rotation_angle;
 	double	rotation_speed;
+	int		move_speed;
 }	t_player;
 
 typedef struct	s_main
@@ -88,6 +100,7 @@ typedef struct	s_main
 	t_mapdata	mapdata;
 	t_minilibx	minilibx;
 	t_player	player;
+	int			key_states[KEY_COUNT];
 }	t_main;
 
 typedef struct	s_points
@@ -138,6 +151,10 @@ bool	validate_cols(t_mapdata *mapdata);
 bool	validate_2d_map(t_mapdata *mapdata);
 bool	meets_required_data(t_main *main, int fd);
 void	parse_map(t_main *main, char *mapname);
+
+// set_position.c
+void	set_player_topleft(t_main *main);
+void	set_initial_player_pos(t_main *main);
 
 // render_frame/
 int		rgb(int r, int g, int b);
