@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/17 06:01:39 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/17 06:53:53 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 
 # define TILE_SIZE 30
 # define PLAYER_SIZE 5
-# define LINE_LENGTH 15
+# define LINE_LENGTH 150
 
 # define PI 3.14159265358979323846264338327950288420
 
@@ -94,12 +94,31 @@ typedef struct	s_player
 	double		move_speed;
 }	t_player;
 
+typedef struct	s_ray
+{
+	int		columnid;
+	double	ray_angle;
+	bool	is_facing_up;
+	bool	is_facing_down;
+	bool	is_facing_left;
+	bool	is_facing_right;
+}	t_ray;
+
+typedef struct	s_raycast
+{
+	double	fov_angle;
+	int		ray_width;
+	int		num_of_rays;
+	t_ray	*rays;
+}	t_raycast;
+
 typedef struct	s_main
 {
 	t_mapinfo	mapinfo;
 	t_mapdata	mapdata;
 	t_minilibx	minilibx;
 	t_player	player;
+	t_raycast	raycast;
 	int			key_states[KEY_COUNT];
 }	t_main;
 
@@ -173,5 +192,7 @@ void	draw_map(t_main *main);
 void	draw_player(t_main *main);
 int		render_frame(void *main);
 
+// cast_rays/
+void	cast_rays(t_main *main);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 02:08:16 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/17 05:15:40 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/17 06:58:56 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,20 @@ void	init_player(t_player *player)
 	player->move_speed = 0.25;
 }
 
+void	init_raycast(t_raycast *raycast)
+{
+	raycast->fov_angle = 60 * (PI / 180);
+	raycast->ray_width = 50;
+	raycast->num_of_rays = W_WIDTH / raycast->ray_width;
+	raycast->rays = ft_calloc(sizeof(t_ray), raycast->num_of_rays);
+}
+
 void	init_main(t_main *main)
 {
 	init_mapinfo(&main->mapinfo);
 	init_mapdata(&main->mapdata);
 	init_minilibx(&main->minilibx);
 	init_player(&main->player);
+	init_raycast(&main->raycast);
 	ft_bzero(main->key_states, KEY_COUNT * sizeof(int));
 }
