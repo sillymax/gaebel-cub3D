@@ -1,31 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_frame.c                                     :+:      :+:    :+:   */
+/*   rotate_player.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/17 05:28:06 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/17 05:28:11 by ychng            ###   ########.fr       */
+/*   Created: 2024/07/17 05:29:10 by ychng             #+#    #+#             */
+/*   Updated: 2024/07/17 05:29:29 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-void	img_to_win(t_main *main)
+void	rotate_player(t_main *main, int turn_direction)
 {
-	mlx_put_image_to_window(
-		main->minilibx.mlx, \
-		main->minilibx.win, \
-		main->minilibx.image.img, \
-		0, 0);
-}
-
-int	render_frame(void *main)
-{
-	draw_map(main);
-	draw_player(main);
-	apply_keystates(main);
-	img_to_win(main);
-	return (PASS);
+	main->player.rotation_angle += turn_direction * main->player.rotation_speed;
 }

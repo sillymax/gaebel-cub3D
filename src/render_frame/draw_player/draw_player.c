@@ -6,12 +6,11 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 23:41:59 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/17 03:41:17 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/17 05:25:43 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
-
 
 void	draw_player_dot(t_main *main)
 {

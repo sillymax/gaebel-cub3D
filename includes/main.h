@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/17 05:05:21 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/17 05:33:36 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,14 @@ void	parse_map(t_main *main, char *mapname);
 void	set_player_topleft(t_main *main);
 void	set_initial_player_pos(t_main *main);
 
+// keystates/
+void	rotate_player(t_main *main, int turn_direction);
+void	move_forward_backward(t_main *main, int walk_direction);
+void	move_left_right(t_main *main, int side_direction);
+int		key_press(int keycode, t_main *main);
+int		key_release(int keycode, t_main *main);
+void	apply_keystates(t_main *main);
+
 // render_frame/
 int		rgb(int r, int g, int b);
 void	pixel_put(t_image *image, int x, int y, int color);
@@ -163,5 +171,6 @@ void	dda(t_main *main, t_points *points);
 void	draw_map(t_main *main);
 void	draw_player(t_main *main);
 int		render_frame(void *main);
+
 
 #endif

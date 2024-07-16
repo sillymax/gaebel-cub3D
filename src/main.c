@@ -5,31 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/16 01:48:48 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/16 22:52:52y ychng            ###   ########.fr       */
+/*   Created: 2024/07/17 05:25:54 by ychng             #+#    #+#             */
+/*   Updated: 2024/07/17 05:31:33 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
-
-
-int	key_press(int keycode, t_main *main)
-{
-	if (!(keycode >= 0 && keycode <= KEY_COUNT))
-		exit_with_error("can't support keys range.");
-	if (main->key_states[keycode] == 0)
-		main->key_states[keycode] = 1;
-	return (PASS);
-}
-
-int	key_release(int keycode, t_main *main)
-{
-	if (!(keycode >= 0 && keycode <= KEY_COUNT))
-		exit_with_error("can't support keys range.");
-	if (main->key_states[keycode] == 1)
-		main->key_states[keycode] = 0;
-	return (PASS);
-}
 
 int	main(int argc, char **argv)
 {
