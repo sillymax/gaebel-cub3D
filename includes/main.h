@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/17 14:26:52 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/17 15:37:28 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,6 +195,10 @@ void	draw_player(t_main *main);
 int		render_frame(void *main);
 
 // cast_rays/
+double	normalize_angle(double angle);
+bool	is_ray_facing_down(double angle);
+bool	is_ray_facing_right(double angle);
 void	cast_rays(t_main *main);
+
 
 #endif
