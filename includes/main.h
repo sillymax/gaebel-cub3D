@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/17 06:53:53 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/17 14:26:52 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@
 # define PI 3.14159265358979323846264338327950288420
 
 # define UBUNTU_ESC 65307
+# define UBUNTU_UP_ARROW 65362
+# define UBUNTU_DOWN_ARROW 65364
 # define UBUNTU_LEFT_ARROW 65361
 # define UBUNTU_RIGHT_ARROW 65363
 

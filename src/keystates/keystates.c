@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 05:31:22 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/17 05:32:08 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/17 14:27:12 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,10 @@ void	apply_keystates(t_main *main)
 		mlx_destroy_window(main->minilibx.mlx, main->minilibx.win);
 		exit(PASS);
 	}
+	if (main->key_states[UBUNTU_UP_ARROW])
+		move_forward_backward(main, 1);
+	if (main->key_states[UBUNTU_DOWN_ARROW])
+		move_forward_backward(main, -1);
 	if (main->key_states[UBUNTU_LEFT_ARROW])
 		rotate_player(main, -1);
 	if (main->key_states[UBUNTU_RIGHT_ARROW])
