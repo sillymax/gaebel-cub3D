@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/17 15:37:28 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/17 17:20:50 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,14 +96,23 @@ typedef struct	s_player
 	double		move_speed;
 }	t_player;
 
+typedef struct	s_impact
+{
+	int	x_intercept;
+	int	y_intercept;
+	int	x_step;
+	int	y_step;
+}	t_impact;
+
 typedef struct	s_ray
 {
-	int		columnid;
-	double	ray_angle;
-	bool	is_facing_up;
-	bool	is_facing_down;
-	bool	is_facing_left;
-	bool	is_facing_right;
+	int			columnid;
+	double		ray_angle;
+	bool		is_facing_up;
+	bool		is_facing_down;
+	bool		is_facing_left;
+	bool		is_facing_right;
+	t_impact	impact;
 }	t_ray;
 
 typedef struct	s_raycast
