@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/17 17:20:50 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/18 03:05:37 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 
 # define TILE_SIZE 30
 # define PLAYER_SIZE 5
-# define LINE_LENGTH 150
+# define LINE_LENGTH 15
 
 # define PI 3.14159265358979323846264338327950288420
 
@@ -98,10 +98,14 @@ typedef struct	s_player
 
 typedef struct	s_impact
 {
-	int	x_intercept;
-	int	y_intercept;
-	int	x_step;
-	int	y_step;
+	double	x_intercept;
+	double	y_intercept;
+	double	x_step;
+	double	y_step;
+	double	next_x;
+	double	next_y;
+	double	wall_hit_x;
+	double	wall_hit_y;
 }	t_impact;
 
 typedef struct	s_ray
@@ -112,7 +116,8 @@ typedef struct	s_ray
 	bool		is_facing_down;
 	bool		is_facing_left;
 	bool		is_facing_right;
-	t_impact	impact;
+	t_impact	horz;
+	t_impact	vertical;
 }	t_ray;
 
 typedef struct	s_raycast

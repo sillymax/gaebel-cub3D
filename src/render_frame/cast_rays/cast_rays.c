@@ -57,34 +57,40 @@ void	set_rays_angle(t_main *main)
 	}
 }
 
-void	find_y_intercept(t_player *player, t_ray *ray)
+
+
+void	set_horz_y_intercept(t_player *player, t_ray *ray)
 {
-	ray->impact.y_intercept = floor(player->center_y / TILE_SIZE) * TILE_SIZE;
+	ray->horz.y_intercept = floor(player->center_y / TILE_SIZE) * TILE_SIZE;
 	if (ray->is_facing_down)
-		ray->impact.y_intercept += TILE_SIZE;
+		ray->horz.y_intercept += TILE_SIZE;
 }
 
-void	find_x_intercept(t_player *player, t_ray *ray)
+void	set_horz_x_intercept(t_player *player, t_ray *ray)
 {
 	double	delta_y;
 
-	delta_y = ray->impact.y_intercept - player->center_y;
-	ray->impact.x_intercept = player->center_x + (delta_y / tan(ray->ray_angle));
+	delta_y = ray->horz.y_intercept - player->center_y;
+	ray->horz.x_intercept = player->center_x + (delta_y / tan(ray->ray_angle));
 }
 
-void	find_step_inc(t_ray *ray)
+
+void	set_horz_steps_inc(t_ray *ray)
 {
-	ray->impact.y_step = TILE_SIZE;
+	ray->horz.y_step = TILE_SIZE;
 	if (ray->is_facing_up)
-		ray->impact.y_step *= -1;
-	ray->impact.x_step = TILE_SIZE / tan(ray->ray_angle);
-	if (ray->is_facing_left && ray->impact.x_step > 0)
-		ray->impact.x_step *= -1;
-	if (ray->is_facing_right && ray->impact.x_step < 0)
-		ray->impact.x_step *= -1;
+		ray->horz.y_step *= -1;
+	ray->horz.x_step = TILE_SIZE / tan(ray->ray_angle);
+	if (ray->is_facing_left && ray->horz.x_step > 0)
+		ray->horz.x_step *= -1;
+	if (ray->is_facing_right && ray->horz.x_step < 0)
+		ray->horz.x_step *= -1;
 }
 
-void	find_horizontal_intersection(t_main *main, int i)
+
+
+
+void	set_horz_intersection(t_main *main, int i)
 {
 	t_player	*player;
 	t_raycast	*raycast;
@@ -93,9 +99,53 @@ void	find_horizontal_intersection(t_main *main, int i)
 	player = &main->player;
 	raycast = &main->raycast;
 	ray = &raycast->rays[i];
-	find_y_intercept(player, ray);
-	find_x_intercept(player, ray);
-	find_step_inc(ray);
+	set_horz_y_intercept(player, ray);
+	set_horz_x_intercept(player, ray);
+	set_horz_steps_inc(ray);
+}
+
+bool	is_within_win(double x, double y)
+{
+	return (x >= 0 && x <= W_WIDTH && y >= 0 && y <= W_HEIGHT);
+}
+
+void	set_horz_wall_hit(t_main *main, int i)
+{
+	t_ray		*ray;
+	t_impact	*horz;
+
+	ray = &main->raycast.rays[i];
+	horz = &ray->horz;
+	horz->next_x = horz->x_intercept;
+	horz->next_y = horz->y_intercept;
+	if (ray->is_facing_up)
+		horz->next_y--;
+	while (is_within_win(horz->next_x, horz->next_y))
+	{
+		if (has_wall_at(main, horz->next_x, horz->next_y))
+		{
+			horz->wall_hit_x = horz->next_x;
+			horz->wall_hit_y = horz->next_y;
+			break ;
+		}
+		else
+		{
+			horz->next_x += horz->x_step;
+			horz->next_y += horz->y_step;
+		}
+	}
+	t_points	points;
+	points.x0 = main->player.center_x;
+	points.y0 = main->player.center_y;
+	points.x1 = horz->wall_hit_x;
+	points.y1 = horz->wall_hit_y;
+	dda(main, &points);
+}
+
+void	find_horz_impact(t_main *main, int i)
+{
+	set_horz_intersection(main, i);
+	set_horz_wall_hit(main, i);
 }
 
 void	set_wall_distance(t_main *main)
@@ -105,7 +155,7 @@ void	set_wall_distance(t_main *main)
 	i = 0;
 	while (i < main->raycast.num_of_rays)
 	{
-		find_horizontal_intersection(main, i);
+		find_horz_impact(main, i);
 		i++;
 	}
 }
@@ -113,5 +163,6 @@ void	set_wall_distance(t_main *main)
 void	cast_rays(t_main *main)
 {
 	set_rays_angle(main);
-	draw_rays(main);
+	set_wall_distance(main);
+	// draw_rays(main);
 }

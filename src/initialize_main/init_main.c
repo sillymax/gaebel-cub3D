@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 02:08:16 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/17 06:58:56 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/18 03:13:41 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	init_player(t_player *player)
 void	init_raycast(t_raycast *raycast)
 {
 	raycast->fov_angle = 60 * (PI / 180);
-	raycast->ray_width = 50;
+	raycast->ray_width = 60;
 	raycast->num_of_rays = W_WIDTH / raycast->ray_width;
 	raycast->rays = ft_calloc(sizeof(t_ray), raycast->num_of_rays);
 }
