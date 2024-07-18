@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/18 03:05:37 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/18 10:00:08 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ typedef struct	s_ray
 	bool		is_facing_left;
 	bool		is_facing_right;
 	t_impact	horz;
-	t_impact	vertical;
+	t_impact	vert;
 }	t_ray;
 
 typedef struct	s_raycast
