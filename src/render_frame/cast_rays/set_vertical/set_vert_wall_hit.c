@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 10:09:59 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/18 10:11:13 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/18 10:36:29 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	set_vert_wall_hit(t_main *main, int i)
 	{
 		if (has_wall_at(main, vert->next_x, vert->next_y))
 		{
+			vert->found_wall_hit = true;
 			vert->wall_hit_x = vert->next_x;
 			vert->wall_hit_y = vert->next_y;
 			break ;
@@ -37,10 +38,4 @@ void	set_vert_wall_hit(t_main *main, int i)
 			vert->next_y += vert->y_step;
 		}
 	}
-	t_points	points;
-	points.x0 = main->player.center_x;
-	points.y0 = main->player.center_y;
-	points.x1 = vert->wall_hit_x;
-	points.y1 = vert->wall_hit_y;
-	dda(main, &points);
 }

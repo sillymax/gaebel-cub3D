@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 09:56:17 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/18 09:56:25 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/18 10:34:15 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	set_horz_wall_hit(t_main *main, int i)
 	{
 		if (has_wall_at(main, horz->next_x, horz->next_y))
 		{
+			horz->found_wall_hit = true;
 			horz->wall_hit_x = horz->next_x;
 			horz->wall_hit_y = horz->next_y;
 			break ;
@@ -37,10 +38,4 @@ void	set_horz_wall_hit(t_main *main, int i)
 			horz->next_y += horz->y_step;
 		}
 	}
-	t_points	points;
-	points.x0 = main->player.center_x;
-	points.y0 = main->player.center_y;
-	points.x1 = horz->wall_hit_x;
-	points.y1 = horz->wall_hit_y;
-	dda(main, &points);
 }
