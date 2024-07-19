@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 20:36:38 by ychng             #+#    #+#             */
-/*   Updated: 2024/04/22 18:18:11 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/19 22:38:51 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ char	*ft_strjoin(const char *s1, const char *s2, int free_option)
 		free_str(s1, s2, free_option);
 		return (NULL);
 	}
+	*result = '\0';
 	ft_strcpy(result, s1);
 	ft_strcat(result, s2);
 	free_str(s1, s2, free_option);
