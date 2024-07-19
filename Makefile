@@ -3,83 +3,64 @@
 # Program name
 NAME := cub3D
 
-# Directory paths
+# Compiler
+CC := gcc
+
+# Compiler flags
+CFLAGS := -Wall -Wextra -Werror
+
+# Directories
 SRC_DIR := src
 OBJ_DIR := obj
-BIN_DIR := bin
-INCLUDES_DIR := includes
+INC_DIR := include
 
-LIBFT_DIR := libft
+LFT_DIR := libft
 MLX_DIR := mlx_linux
 
-# Exclude files (relative to $(SRC_DIR))
-# Use EXCLUDE_DIRS for directories to exclude (e.g., dir1 dir2)
-# Use EXCLUDE_SRCS for specific files to exclude (e.g., dir1/file1.c)
-EXCLUDE_DIRS :=
-EXCLUDE_SRCS :=
-EXCLUDE_FILES := $(addprefix $(SRC_DIR)/, $(addsuffix /*, $(EXCLUDE_DIRS))) \
-				 $(addprefix $(SRC_DIR)/, $(EXCLUDE_SRCS))
+# .c files
+SRCS_PATTERN := "*.c"
+SRCS := $(shell find $(SRC_DIR)/ -type f -name $(SRCS_PATTERN))
 
-# Source files
-SRC_FILES := $(shell find $(SRC_DIR)/ -type f -name "*.c")
-SRCS := $(filter-out $(EXCLUDE_FILES), $(SRC_FILES))
+# .o files
+OBJS := $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
 
-# Object files
-OBJS := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
-# OBJS := $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%,$(SRCS:.c=.o))
+# Include flags (-I flags)
+INCFLAGS := $(addprefix -I,$(shell find . -type d -name "include" -exec find "{}" -type d ";"))
+INCFLAGS += -I$(MLX_DIR)/
 
-# Compiler settings
-CC := gcc
-CFLAGS := -MMD -MP -Wall -Werror -Wextra $(if $(W),-w)
-
-# Include directories to search for header files
-IDIRS := $(if $(wildcard $(INCLUDES_DIR)/*), $(addprefix -I, $(shell find $(INCLUDES_DIR)/ -type d)),)
-IDIRS += $(if $(wildcard $(LIBFT_DIR)/$(INCLUDES_DIR)/*), $(addprefix -I, $(shell find $(LIBFT_DIR)/$(INCLUDES_DIR) -type d)))
-IDIRS += -I$(MLX_DIR)/
-
-# For debugging purposes, to see the include paths
-# $(info Include paths: $(IDIRS))
-
-# Linker flags and libraries
-LDFLAGS := -L$(LIBFT_DIR)/ -L$(MLX_DIR)/
+# Linker flags (-l and -L flags)
+LDFLAGS := -L$(LFT_DIR)/ -L$(MLX_DIR)/
 LDLIBS := -lft -lmlx_Linux -lXext -lX11 -lm -lz
 
-# Default target
-all: $(BIN_DIR)/$(NAME)
+# Default target: Build program
+all: $(LFT_DIR)/libft.a $(NAME)
 
-# Rule to build library
-$(BIN_DIR)/$(NAME): $(OBJS) | $(BIN_DIR)
-	$(CC) $^ $(LDFLAGS) $(LDLIBS) -o $@
+# Rule to build libft.a
+$(LFT_DIR)/libft.a:
+	@$(MAKE) -C $(LFT_DIR)
 
-# Pattern rule to compile source files
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)/%/
-	$(CC) $(CFLAGS) $(IDIRS) -c $< -o $@
+# Linking rule
+$(NAME): $(OBJS)
+	@$(CC) $(LDFLAGS) $^ -o $@ $(LDLIBS)
 
-# Target to set W=1
-w:
-	$(MAKE) W=1
+# Compilation rule
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) $(INCFLAGS) -c $< -o $@
 
-# Remove object directory
+# Clean target: Removes .o files
 clean:
-	rm -rf $(OBJ_DIR)
+	@rm -rf $(OBJ_DIR)
+	@$(MAKE) -C $(LFT_DIR) clean
 
-# Remove generated files
+# Full clean target: Removes .o files and program
 fclean: clean
-	rm -rf $(BIN_DIR)
+	@rm -rf $(NAME)
+	@$(MAKE) -C $(LFT_DIR) fclean
 
-# Rebuild library
+# Rebuild default target: Cleans and rebuilds the entire program
 re: fclean all
 
-# Create bin and obj directory if they don't exist
-$(BIN_DIR) $(OBJ_DIR):
-	mkdir -p $@
-
-# Create obj directory for specific source file
-$(OBJ_DIR)/%/:
-	mkdir -p $@
-
-# Phony targets
-.PHONY: all w clean fclean re
-
-# Include dependency files
--include $(OBJS:.o=.d)
+# Phony target
+PHONY:
+	all clean fclean re

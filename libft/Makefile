@@ -3,62 +3,55 @@
 # Library name
 NAME := libft.a
 
-# Directory paths
+# Compiler
+CC := cc
+
+# Compiler flags
+CFLAGS := -Wall -Wextra -Werror
+
+# Directories
 SRC_DIR := src
 OBJ_DIR := obj
-INCLUDES_DIR := includes
+INC_DIR := include
 
-# Exclude files (relative to $(SRC_DIR))
-# Use EXCLUDE_DIRS for directories to exclude (e.g., dir1 dir2)
-# Use EXCLUDE_SRCS for specific files to exclude (e.g., dir1/file1.c)
-EXCLUDE_DIRS :=
-EXCLUDE_SRCS :=
-EXCLUDE_FILES := $(addprefix $(SRC_DIR)/, $(addsuffix /*, $(EXCLUDE_DIRS))) \
-				 $(addprefix $(SRC_DIR)/, $(EXCLUDE_SRCS))
+# .c files
+SRCS_PATTERN := "*.c"
+SRCS := $(shell find $(SRC_DIR)/ -type f -name $(SRCS_PATTERN))
 
-# Source files
-SRC_FILES := $(shell find $(SRC_DIR)/ -type f -name "*.c")
-SRCS := $(filter-out $(EXCLUDE_FILES), $(SRC_FILES))
+# .o files
+OBJS := $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
 
-# Object files
-OBJS := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+# Include flags (-I flags)
+INCFLAGS := $(addprefix -I,$(shell find . -type d -name "include" -exec find "{}" -type d ";"))
+INCFLAGS += -I$(MLX_DIR)/
 
-# Compiler settings
-CC := gcc
-CFLAGS := -MMD -MP -Wall -Werror -Wextra $(if $(WARN),-w)
+# Linker flags (-l and -L flags)
+# LDFLAGS :=
+# LDLIBS :=
 
-# Include directories to search for header files
-IDIRS := $(addprefix -I, $(shell find $(INCLUDES_DIR)/ -type d))
-
-# Linker flags and libraries
-LDFLAGS :=
-LDLIBS :=
-
-# Default target
+# Default target: Build library
 all: $(NAME)
 
-# Rule to build library
+# Archive rule
 $(NAME): $(OBJS)
-	ar -rcs $@ $^
+	@ar -rcs $@ $^
 
-# Pattern rule to compile source files
+# Compilation rule
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	mkdir -p $(@D)
-	$(CC) $(CFLAGS) $(IDIRS) $(LDFLAGS) -c $< $(LDLIBS) -o $@
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) $(INCFLAGS) -c $< -o $@
 
-# Remove object directory
+# Clean target: Removes .o files
 clean:
-	rm -rf $(OBJ_DIR)
+	@rm -rf $(OBJ_DIR)
 
-# Remove generated files
+# Full clean target: Removes .o files and program
 fclean: clean
-	rm -rf $(NAME)
+	@rm -rf $(NAME)
 
-# Rebuild library
+# Rebuild default target: Cleans and rebuilds the entire program
 re: fclean all
 
-# Phony targets
-.PHONY: all clean fclean re
-
-# Include dependency files
--include $(OBJS:.o=.d)
+# Phony target
+PHONY:
+	all clean fclean re
