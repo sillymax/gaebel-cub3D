@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 09:54:53 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/24 03:02:58 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/24 03:07:00 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,18 @@ void	set_horz_steps_inc(t_ray *ray)
 	ray->horz.y_step = TILE_SIZE;
 	if (ray->is_facing_up)
 		ray->horz.y_step *= -1;
-	ray->horz.x_step = TILE_SIZE / tan(ray->ray_angle);
-	if (ray->is_facing_left && ray->horz.x_step > 0)
-		ray->horz.x_step *= -1;
-	if (ray->is_facing_right && ray->horz.x_step < 0)
-		ray->horz.x_step *= -1;
+	if (is_close_to(ray->ray_angle, 0, EPSILON) || \
+		is_close_to(ray->ray_angle, PI, EPSILON) || \
+		is_close_to(ray->ray_angle, PI * 2, EPSILON))
+		ray->horz.x_step = 0;
+	else
+	{
+		ray->horz.x_step = TILE_SIZE / tan(ray->ray_angle);
+		if (ray->is_facing_left && ray->horz.x_step > 0)
+			ray->horz.x_step *= -1;
+		if (ray->is_facing_right && ray->horz.x_step < 0)
+			ray->horz.x_step *= -1;
+	}
 }
 
 void	set_horz_intersection(t_main *main, int i)
