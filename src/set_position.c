@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 03:38:33 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/17 03:39:27 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/24 02:05:33 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	set_player_origin(t_main *main, int i, int j)
 
 void	set_player_topleft(t_main *main)
 {
-	int	radius;
+	double	radius;
 
 	radius = PLAYER_SIZE / 2;
 	main->player.topleft_y = main->player.center_y - radius;

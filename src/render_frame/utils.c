@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 23:40:34 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/17 05:47:02 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/24 02:27:38 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ void	pixel_put(t_image *image, int x, int y, int color)
 	int		x_bytes;
 	char	*dst;
 
-	if (!(x >= 0 && x <= W_WIDTH && y >= 0 && y <= W_HEIGHT))
-		return ;
 	y_bytes = y * image->stride;
 	x_bytes = x * (image->bpp / 8);
 	dst = image->addr + y_bytes + x_bytes; 
