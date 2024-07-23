@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/24 02:34:04 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/24 02:46:27 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@
 # define PLAYER_SIZE 5
 # define LINE_LENGTH 15
 
-# define PI 3.14159265358979323846264338327950288420
+# define PI 3.141593
+# define EPSILON 0.00001
 
 # define UBUNTU_ESC 65307
 # define UBUNTU_UP_ARROW 65362

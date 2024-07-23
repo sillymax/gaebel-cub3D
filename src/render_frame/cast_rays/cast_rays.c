@@ -50,58 +50,58 @@ void	set_wall_distance(t_main *main)
 	while (i < main->raycast.num_of_rays)
 	{
 		find_horz_impact(main, i);
-		find_vert_impact(main, i);
+		// find_vert_impact(main, i);
 		i++;
 	}
-	double		horz_hit_distance;
-	double		vert_hit_distance;
-	t_points	points;
+	// double		horz_hit_distance;
+	// double		vert_hit_distance;
+	// t_points	points;
 
-	i = 0;
-	while (i < main->raycast.num_of_rays)
-	{
-		if (main->raycast.rays[i].horz.found_wall_hit)
-		{
-			points.x0 = main->player.center_x;
-			points.y0 = main->player.center_y;
-			points.x1 = main->raycast.rays[i].horz.wall_hit_x;
-			points.y1 = main->raycast.rays[i].horz.wall_hit_y;
-			horz_hit_distance = distance_between_points(&points);
-		}
-		else
-			horz_hit_distance = INT_MAX;
+	// i = 0;
+	// while (i < main->raycast.num_of_rays)
+	// {
+	// 	if (main->raycast.rays[i].horz.found_wall_hit)
+	// 	{
+	// 		points.x0 = main->player.center_x;
+	// 		points.y0 = main->player.center_y;
+	// 		points.x1 = main->raycast.rays[i].horz.wall_hit_x;
+	// 		points.y1 = main->raycast.rays[i].horz.wall_hit_y;
+	// 		horz_hit_distance = distance_between_points(&points);
+	// 	}
+	// 	else
+	// 		horz_hit_distance = INT_MAX;
 		
-		if (main->raycast.rays[i].vert.found_wall_hit)
-		{
-			points.x0 = main->player.center_x;
-			points.y0 = main->player.center_y;
-			points.x1 = main->raycast.rays[i].vert.wall_hit_x;
-			points.y1 = main->raycast.rays[i].vert.wall_hit_y;
-			vert_hit_distance = distance_between_points(&points);
-		}
-		else
-			vert_hit_distance = INT_MAX;
+	// 	if (main->raycast.rays[i].vert.found_wall_hit)
+	// 	{
+	// 		points.x0 = main->player.center_x;
+	// 		points.y0 = main->player.center_y;
+	// 		points.x1 = main->raycast.rays[i].vert.wall_hit_x;
+	// 		points.y1 = main->raycast.rays[i].vert.wall_hit_y;
+	// 		vert_hit_distance = distance_between_points(&points);
+	// 	}
+	// 	else
+	// 		vert_hit_distance = INT_MAX;
 		
-		if (horz_hit_distance < vert_hit_distance)
-		{
-			main->raycast.rays[i].wall_hit_x = main->raycast.rays[i].horz.wall_hit_x;
-			main->raycast.rays[i].wall_hit_y = main->raycast.rays[i].horz.wall_hit_y;
-			main->raycast.rays[i].distance = horz_hit_distance;
-		}
-		else
-		{
-			main->raycast.rays[i].wall_hit_x = main->raycast.rays[i].vert.wall_hit_x;
-			main->raycast.rays[i].wall_hit_y = main->raycast.rays[i].vert.wall_hit_y;
-			main->raycast.rays[i].distance = vert_hit_distance;
-		}
+	// 	if (horz_hit_distance < vert_hit_distance)
+	// 	{
+	// 		main->raycast.rays[i].wall_hit_x = main->raycast.rays[i].horz.wall_hit_x;
+	// 		main->raycast.rays[i].wall_hit_y = main->raycast.rays[i].horz.wall_hit_y;
+	// 		main->raycast.rays[i].distance = horz_hit_distance;
+	// 	}
+	// 	else
+	// 	{
+	// 		main->raycast.rays[i].wall_hit_x = main->raycast.rays[i].vert.wall_hit_x;
+	// 		main->raycast.rays[i].wall_hit_y = main->raycast.rays[i].vert.wall_hit_y;
+	// 		main->raycast.rays[i].distance = vert_hit_distance;
+	// 	}
 		
-		points.x0 = main->player.center_x;
-		points.y0 = main->player.center_y;
-		points.x1 = main->raycast.rays[i].wall_hit_x;
-		points.y1 = main->raycast.rays[i].wall_hit_y;
-		dda(main, &points);
-		i++;
-	}
+	// 	points.x0 = main->player.center_x;
+	// 	points.y0 = main->player.center_y;
+	// 	points.x1 = main->raycast.rays[i].wall_hit_x;
+	// 	points.y1 = main->raycast.rays[i].wall_hit_y;
+	// 	dda(main, &points);
+	// 	i++;
+	// }
 }
 
 void	cast_rays(t_main *main)
