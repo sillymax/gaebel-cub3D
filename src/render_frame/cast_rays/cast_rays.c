@@ -15,6 +15,9 @@
 
 void	find_horz_impact(t_main *main, int i)
 {
+	// main->raycast.rays[i].ray_angle = PI * 1.5;
+	// main->raycast.rays[i].is_facing_down = is_ray_facing_down(main->raycast.rays[i].ray_angle);
+	// main->raycast.rays[i].is_facing_up = !is_ray_facing_down(main->raycast.rays[i].ray_angle);
 	set_horz_intersection(main, i);
 	set_horz_wall_hit(main, i);
 	// t_points	points;
