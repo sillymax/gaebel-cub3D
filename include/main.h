@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/24 02:15:13 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/24 02:34:04 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,9 +152,9 @@ typedef struct	s_points
 
 typedef struct	s_dda
 {
-	int			delta_x;
-	int			delta_y;
-	int			side_len;
+	long long	delta_x;
+	long long	delta_y;
+	long long	side_len;
 	double		x_inc;
 	double		y_inc;
 	double		curr_x;
@@ -216,7 +216,7 @@ int		render_frame(void *main);
 double	normalized_angle(double angle);
 bool	is_ray_facing_down(double angle);
 bool	is_ray_facing_right(double angle);
-bool	is_within_win_bounds(double x, double y);
+bool	is_within_win_bounds(int x, int y);
 void	set_horz_intersection(t_main *main, int i);
 void	set_horz_wall_hit(t_main *main, int i);
 void	set_vert_intersection(t_main *main, int i);

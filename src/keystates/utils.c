@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 05:35:55 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/24 02:19:27 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/24 02:37:33 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ bool	has_wall_at(t_main *main, double x, double y)
 	int	i;	
 	int	j;
 
-	i = floor(y / TILE_SIZE);
-	j = floor(x / TILE_SIZE);
+	i = y / TILE_SIZE;
+	j = x / TILE_SIZE;
 	if (!is_within_map_bounds(main, i, j))
 		return (true);
 	return (main->mapdata.map2d[i][j] == '1');

@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 15:36:14 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/24 02:15:02 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/24 02:33:43 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ bool	is_ray_facing_right(double angle)
 	return (angle < (PI * 0.5) || angle > (PI * 1.5));
 }
 
-bool	is_within_win_bounds(double x, double y)
+bool	is_within_win_bounds(int x, int y)
 {
 	return (x >= 0 && x < W_WIDTH && y >= 0 && y < W_HEIGHT);
 }
