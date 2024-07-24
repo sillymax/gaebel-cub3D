@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/24 02:46:27 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/24 18:03:05 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ typedef struct	s_image
 	char	*addr;
 	int		bpp;
 	int		stride;
-	int		endian;		
+	int		endian;
 }	t_image;
 
 typedef struct	s_minilibx
@@ -218,6 +218,7 @@ double	normalized_angle(double angle);
 bool	is_ray_facing_down(double angle);
 bool	is_ray_facing_right(double angle);
 bool	is_within_win_bounds(int x, int y);
+bool	is_close_to(double value, double target);
 void	set_horz_intersection(t_main *main, int i);
 void	set_horz_wall_hit(t_main *main, int i);
 void	set_vert_intersection(t_main *main, int i);

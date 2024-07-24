@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/17 06:09:53 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/17 17:01:15by ychng            ###   ########.fr       */
+/*   Created: 2024/07/24 18:02:03 by ychng             #+#    #+#             */
+/*   Updated: 2024/07/24 18:04:30 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,8 @@
 
 void	find_horz_impact(t_main *main, int i)
 {
-	// main->raycast.rays[i].ray_angle = PI * 1.5;
-	// main->raycast.rays[i].is_facing_down = is_ray_facing_down(main->raycast.rays[i].ray_angle);
-	// main->raycast.rays[i].is_facing_up = !is_ray_facing_down(main->raycast.rays[i].ray_angle);
 	set_horz_intersection(main, i);
 	set_horz_wall_hit(main, i);
-	// t_points	points;
-
-	// points.x0 = main->player.center_x;
-	// points.y0 = main->player.center_y;
-	// points.x1 = main->raycast.rays[i].horz.wall_hit_x;
-	// points.y1 = main->raycast.rays[i].horz.wall_hit_y;
-	// dda(main, &points);
 }
 
 void	find_vert_impact(t_main *main, int i)

@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 09:58:09 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/18 10:08:49 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/24 18:05:23 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,8 @@ void	set_vert_steps_inc(t_ray *ray)
 	if (ray->is_facing_left)
 		ray->vert.x_step *= -1;
 	ray->vert.y_step = TILE_SIZE * tan(ray->ray_angle);
-	if (ray->is_facing_up && ray->vert.y_step > 0)
-		ray->vert.y_step *= -1;
-	if (ray->is_facing_down && ray->vert.y_step < 0)
+	if ((ray->is_facing_up && ray->vert.y_step > 0) || \
+		(ray->is_facing_down && ray->vert.y_step < 0))
 		ray->vert.y_step *= -1;
 }
 
@@ -48,7 +47,7 @@ void	set_vert_intersection(t_main *main, int i)
 	player = &main->player;
 	raycast = &main->raycast;
 	ray = &raycast->rays[i];
-	set_vert_y_intercept(player, ray);
 	set_vert_x_intercept(player, ray);
+	set_vert_y_intercept(player, ray);
 	set_vert_steps_inc(ray);
 }
