@@ -6,23 +6,47 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 18:02:03 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/24 18:04:30 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/24 22:26:00 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-
 void	find_horz_impact(t_main *main, int i)
 {
+	main->raycast.rays[i].ray_angle = PI/2;
+	main->raycast.rays[i].is_facing_down = is_ray_facing_down(main->raycast.rays[i].ray_angle);
+	main->raycast.rays[i].is_facing_up = !is_ray_facing_down(main->raycast.rays[i].ray_angle);
+	main->raycast.rays[i].is_facing_right = is_ray_facing_right(main->raycast.rays[i].ray_angle);
+	main->raycast.rays[i].is_facing_left = !is_ray_facing_right(main->raycast.rays[i].ray_angle);
 	set_horz_intersection(main, i);
 	set_horz_wall_hit(main, i);
+	t_points	points;
+
+	points.x0 = main->player.center_x;
+	points.y0 = main->player.center_y;
+	points.x1 = main->raycast.rays[i].horz.x_intercept;
+	points.y1 = main->raycast.rays[i].horz.y_intercept;
+	dda(main, &points);
 }
+
 
 void	find_vert_impact(t_main *main, int i)
 {
+	main->raycast.rays[i].ray_angle = PI*1.5;
+	main->raycast.rays[i].is_facing_down = is_ray_facing_down(main->raycast.rays[i].ray_angle);
+	main->raycast.rays[i].is_facing_up = !is_ray_facing_down(main->raycast.rays[i].ray_angle);
+	main->raycast.rays[i].is_facing_right = is_ray_facing_right(main->raycast.rays[i].ray_angle);
+	main->raycast.rays[i].is_facing_left = !is_ray_facing_right(main->raycast.rays[i].ray_angle);
 	set_vert_intersection(main, i);
 	set_vert_wall_hit(main, i);
+	t_points	points;
+
+	points.x0 = main->player.center_x;
+	points.y0 = main->player.center_y;
+	points.x1 = main->raycast.rays[i].vert.x_intercept;
+	points.y1 = main->raycast.rays[i].vert.y_intercept;
+	dda(main, &points);
 }
 
 double	distance_between_points(t_points *points)
