@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 10:09:59 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/24 02:17:48 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/25 01:45:42 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	set_vert_wall_hit(t_main *main, int i)
 	vert->next_y = vert->y_intercept;
 	if (ray->is_facing_left)
 		vert->next_x--;
-	while (is_within_win_bounds(vert->next_x, vert->next_y))
+	while (is_within_2dmap_bounds(main, vert->next_x, vert->next_y))
 	{
 		if (has_wall_at(main, vert->next_x, vert->next_y))
 		{

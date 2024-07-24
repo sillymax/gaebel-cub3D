@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/24 18:03:05 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/25 01:44:36 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,6 +196,10 @@ void	parse_map(t_main *main, char *mapname);
 void	set_player_topleft(t_main *main);
 void	set_initial_player_pos(t_main *main);
 
+// is_within_bounds.c
+bool	is_within_win_bounds(int x, int y);
+bool	is_within_2dmap_bounds(t_main *main, double x, double y);
+
 // keystates/
 bool	has_wall_at(t_main *main, double x, double y);
 void	rotate_player(t_main *main, int turn_direction);
@@ -217,7 +221,6 @@ int		render_frame(void *main);
 double	normalized_angle(double angle);
 bool	is_ray_facing_down(double angle);
 bool	is_ray_facing_right(double angle);
-bool	is_within_win_bounds(int x, int y);
 bool	is_close_to(double value, double target);
 void	set_horz_intersection(t_main *main, int i);
 void	set_horz_wall_hit(t_main *main, int i);

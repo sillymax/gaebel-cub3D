@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 09:56:17 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/24 02:15:26 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/25 01:45:27 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	set_horz_wall_hit(t_main *main, int i)
 	horz->next_y = horz->y_intercept;
 	if (ray->is_facing_up)
 		horz->next_y--;
-	while (is_within_win_bounds(horz->next_x, horz->next_y))
+	while (is_within_2dmap_bounds(main, horz->next_x, horz->next_y))
 	{
 		if (has_wall_at(main, horz->next_x, horz->next_y))
 		{

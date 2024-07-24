@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   is_within_bounds.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/17 05:35:55 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/25 01:43:27 by ychng            ###   ########.fr       */
+/*   Created: 2024/07/25 01:40:22 by ychng             #+#    #+#             */
+/*   Updated: 2024/07/25 01:49:41 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-bool	has_wall_at(t_main *main, double x, double y)
+bool	is_within_win_bounds(int x, int y)
 {
-	int	i;	
+	return (x >= 0 && x < W_WIDTH && y >= 0 && y < W_HEIGHT);
+}
+
+bool	is_within_2dmap_bounds(t_main *main, double x, double y)
+{
+	int	i;
 	int	j;
 
-	if (!is_within_2dmap_bounds(main, x, y))
-		return (true);
-	i = y / TILE_SIZE;
-	j = x / TILE_SIZE;
-	return (main->mapdata.map2d[i][j] == '1');
+	i = floor(y / TILE_SIZE);
+	j = floor(x / TILE_SIZE);
+	return ((i >= 0 && i < main->mapdata.rows) && \
+			(j >= 0 && j < main->mapdata.cols));
 }
