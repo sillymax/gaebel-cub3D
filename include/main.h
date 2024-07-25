@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/25 17:35:13 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/25 20:26:49 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ typedef struct	s_ray
 	double		wall_hit_x;
 	double		wall_hit_y;
 	double		distance;
+	bool		was_hit_vert;
 }	t_ray;
 
 typedef struct	s_raycast
@@ -233,8 +234,10 @@ void	set_horz_intersection(t_main *main, int i);
 void	set_horz_wall_hit(t_main *main, int i);
 void	set_vert_intersection(t_main *main, int i);
 void	set_vert_wall_hit(t_main *main, int i);
-void	draw_rays(t_main *main);
+// void	draw_rays(t_main *main);
 void	set_rays_angle(t_main *main);
+void	set_closest_points(t_main *main, int i);
+void	draw_closest_rays(t_main *main);
 void	cast_rays(t_main *main);
 
 
