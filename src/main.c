@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 05:25:54 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/25 15:42:19 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/25 16:47:11 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	main(int argc, char **argv)
 		exit_with_error("wrong number of args.");
 	init_main(&main);
 	parse_map(&main, argv[1]);
+	set_minilibx_properties(&main);
 	set_player_properties(&main);
 	set_raycast_properties(&main);
 	mlx_hook(main.minilibx.win, 2, 1L<<0, key_press, &main);

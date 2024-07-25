@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/25 16:29:27 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/25 17:35:13 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,13 @@
 # define PASS true
 # define FAIL false
 
-# define W_WIDTH 1260
-# define W_HEIGHT 720
-
 # define M_WALL '1'
 # define M_PATH '0'
 # define M_NORTH 'N'
 
 # define TILE_SIZE 30
 # define PLAYER_SIZE 5
-# define LINE_LENGTH 15
+# define LINE_LENGTH 1500
 
 # define PI 3.141593
 # define EPSILON 0.00001
@@ -194,6 +191,9 @@ bool	validate_2d_map(t_mapdata *mapdata);
 bool	meets_required_data(t_main *main, int fd);
 void	parse_map(t_main *main, char *mapname);
 
+// set_minilibx_properties
+void	set_minilibx_properties(t_main *main);
+
 // set_player_properties
 void	set_player_topleft(t_main *main);
 void	set_initial_position(t_main *main);
@@ -204,7 +204,7 @@ void	set_player_properties(t_main *main);
 void	set_raycast_properties(t_main *main);
 
 // is_within_bounds.c
-bool	is_within_win_bounds(int x, int y);
+bool	is_within_win_bounds(t_main *main, int x, int y);
 bool	is_within_2dmap_bounds(t_main *main, double x, double y);
 
 // keystates/
@@ -233,6 +233,7 @@ void	set_horz_intersection(t_main *main, int i);
 void	set_horz_wall_hit(t_main *main, int i);
 void	set_vert_intersection(t_main *main, int i);
 void	set_vert_wall_hit(t_main *main, int i);
+void	draw_rays(t_main *main);
 void	set_rays_angle(t_main *main);
 void	cast_rays(t_main *main);
 

@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 23:40:34 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/24 02:33:50 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/25 17:35:04 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	dda(t_main *main, t_points *points)
 	i = 0;
 	while (i < dda.side_len)
 	{
-		if (!is_within_win_bounds(dda.curr_x, dda.curr_y))
+		if (!is_within_win_bounds(main, dda.curr_x, dda.curr_y))
 			break ;
 		color = rgb(255, 0, 0);
 		pixel_put(&main->minilibx.image, dda.curr_x, dda.curr_y, color);
