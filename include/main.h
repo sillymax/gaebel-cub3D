@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/25 15:36:36 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/25 16:29:27 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,6 +199,9 @@ void	set_player_topleft(t_main *main);
 void	set_initial_position(t_main *main);
 void	set_initial_movement(t_main *main);
 void	set_player_properties(t_main *main);
+
+// set_raycast_properties
+void	set_raycast_properties(t_main *main);
 
 // is_within_bounds.c
 bool	is_within_win_bounds(int x, int y);

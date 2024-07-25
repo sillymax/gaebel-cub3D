@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 03:27:58 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/25 15:39:16 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/25 16:32:37 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	set_map_dimensions(t_main *main)
 {
-	main->mapdata.m_height = main->mapdata.rows;
-	main->mapdata.m_width = main->mapdata.cols;
+	main->mapdata.m_height = main->mapdata.rows * TILE_SIZE;
+	main->mapdata.m_width = main->mapdata.cols * TILE_SIZE;
 }
 
 void	open_map(t_main *main, char *mapname)
