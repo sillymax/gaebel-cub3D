@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 02:08:16 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/24 18:01:42 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/25 15:35:59 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	init_mapdata(t_mapdata *mapdata)
 	mapdata->cols = 0;
 	mapdata->rows = 0;
 	mapdata->map2d = NULL;
+	mapdata->m_width = 0;
+	mapdata->m_height = 0;
 }
 
 void	init_player(t_player *player)
@@ -45,9 +47,9 @@ void	init_player(t_player *player)
 	player->center_y = 0;
 	player->topleft_x = 0;
 	player->topleft_y = 0;
-	player->rotation_angle = PI / 2;
-	player->rotation_speed = 0.6 * (PI / 180);
-	player->move_speed = 0.25;
+	player->rotation_angle = 0;
+	player->rotation_speed = 0;
+	player->move_speed = 0;
 }
 
 void	init_raycast(t_raycast *raycast)

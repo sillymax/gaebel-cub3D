@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/25 01:44:36 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/25 15:36:36 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ typedef struct	s_mapdata
 	int		rows;
 	int		cols;
 	char	**map2d;
+	int		m_width;
+	int		m_height;
 }	t_mapdata;
 
 typedef struct	s_image
@@ -192,9 +194,11 @@ bool	validate_2d_map(t_mapdata *mapdata);
 bool	meets_required_data(t_main *main, int fd);
 void	parse_map(t_main *main, char *mapname);
 
-// set_position.c
+// set_player_properties
 void	set_player_topleft(t_main *main);
-void	set_initial_player_pos(t_main *main);
+void	set_initial_position(t_main *main);
+void	set_initial_movement(t_main *main);
+void	set_player_properties(t_main *main);
 
 // is_within_bounds.c
 bool	is_within_win_bounds(int x, int y);

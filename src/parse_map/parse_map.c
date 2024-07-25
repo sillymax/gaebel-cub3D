@@ -6,11 +6,17 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 03:27:58 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/16 06:43:59 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/25 15:39:16 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
+
+void	set_map_dimensions(t_main *main)
+{
+	main->mapdata.m_height = main->mapdata.rows;
+	main->mapdata.m_width = main->mapdata.cols;
+}
 
 void	open_map(t_main *main, char *mapname)
 {
@@ -30,6 +36,7 @@ void	open_map(t_main *main, char *mapname)
 		exit_with_error("wrong map data.");
 	}
 	close(fd);
+	set_map_dimensions(main);
 }
 
 void	parse_map(t_main *main, char *mapname)
