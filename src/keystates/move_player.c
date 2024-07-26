@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 05:28:38 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/17 05:35:44 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/26 19:17:02 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	move_left_right(t_main *main, int side_direction)
 	double	new_y;
 	double	angle_offset;
 
-	intensity = 0.15;
+	intensity = 0.5;
 	velocity = side_direction * main->player.move_speed * intensity;
 	angle_offset = PI / 2;
 	new_x = main->player.center_x + cos(main->player.rotation_angle + angle_offset) * velocity;
