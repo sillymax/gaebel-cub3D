@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 18:31:08 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/26 23:39:32 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/27 00:25:11 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,8 @@ void	draw_rect(t_main *main, int width, int height, int i)
 		x = start_x;
 		while (x < (start_x + width))
 		{
-			if (!is_within_win_bounds(main, x, y))
-				break ;
-			pixel_put(&main->minilibx.image, x, y, rgb(255, 0, 0));
+			if (is_within_win_bounds(main, x, y))
+				pixel_put(&main->minilibx.image, x, y, rgb(255, 0, 0));
 			x++;
 		}
 		y++;
