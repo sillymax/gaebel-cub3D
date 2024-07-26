@@ -20,10 +20,10 @@ void	draw_ray(t_main *main, int i)
 
 	player = &main->player;
 	ray = &main->raycast.rays[i];
-	points.x0 = player->center_x;
-	points.y0 = player->center_y;
-	points.x1 = ray->wall_hit_x;
-	points.y1 = ray->wall_hit_y;
+	points.x0 = player->center_x * M_SCALE_FACTOR;
+	points.y0 = player->center_y * M_SCALE_FACTOR;
+	points.x1 = ray->wall_hit_x * M_SCALE_FACTOR;
+	points.y1 = ray->wall_hit_y * M_SCALE_FACTOR;
 	dda(main, &points);
 }
 

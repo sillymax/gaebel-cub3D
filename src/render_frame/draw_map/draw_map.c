@@ -6,26 +6,28 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 23:39:52 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/16 23:41:09 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/26 17:33:21 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-void	draw_tile(t_image *image, int start_y, int start_x, int color)
+void	draw_tile(t_image *image, int i, int j, int color)
 {
-	int	size;
+	int	start_y;
+	int	start_x;
 	int	y;
 	int	x;
 
-	size = TILE_SIZE;
+	start_y = i * TILE_SIZE;
+	start_x = j * TILE_SIZE;
 	y = start_y;
-	while (y < (start_y + size))
+	while (y < (start_y + TILE_SIZE))
 	{
 		x = start_x;
-		while (x < (start_x + size))
+		while (x < (start_x + TILE_SIZE))
 		{
-			pixel_put(image, x, y, color);
+			pixel_put(image, x * M_SCALE_FACTOR, y * M_SCALE_FACTOR, color);
 			x++;
 		}
 		y++;
@@ -40,7 +42,7 @@ void	draw_at(t_main *main, int i, int j)
 		color = rgb(255, 255, 255);
 	else
 		color = rgb(0, 0, 0);
-	draw_tile(&main->minilibx.image, i * TILE_SIZE, j * TILE_SIZE, color);
+	draw_tile(&main->minilibx.image, i, j, color);
 }
 
 void	draw_map(t_main *main)

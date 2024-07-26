@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 23:41:59 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/24 02:23:19 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/26 17:36:06 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,11 @@ void	draw_player_dot(t_main *main)
 		x = topleft_x;
 		while (x < (topleft_x + PLAYER_SIZE))
 		{
-			pixel_put(&main->minilibx.image, x, y, rgb(255, 255, 0));
+			pixel_put(
+				&main->minilibx.image, \
+				x * M_SCALE_FACTOR, \
+				y * M_SCALE_FACTOR, \
+				rgb(255, 255, 0));
 			x++;
 		}
 		y++;
