@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/26 17:36:32 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/26 19:00:34 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define M_NORTH 'N'
 
 # define M_SCALE_FACTOR 0.3
-# define TILE_SIZE 32
+# define TILE_SIZE 64
 # define PLAYER_SIZE 6
 # define LINE_LENGTH 1500
 
@@ -129,7 +129,7 @@ typedef struct	s_ray
 typedef struct	s_raycast
 {
 	double	fov_angle;
-	int		ray_width;
+	int		wall_strip_width;
 	int		num_of_rays;
 	t_ray	*rays;
 }	t_raycast;
@@ -241,5 +241,7 @@ void	set_closest_points(t_main *main, int i);
 void	draw_closest_rays(t_main *main);
 void	cast_rays(t_main *main);
 
+// 3d_projection/
+void	cast_wall_strips(t_main *main);
 
 #endif

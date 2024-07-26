@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 02:08:16 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/25 17:00:54 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/26 18:29:27 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	init_player(t_player *player)
 void	init_raycast(t_raycast *raycast)
 {
 	raycast->fov_angle = 0;
-	raycast->ray_width = 0;
+	raycast->wall_strip_width = 0;
 	raycast->num_of_rays = 0;
 	raycast->rays = NULL;
 }

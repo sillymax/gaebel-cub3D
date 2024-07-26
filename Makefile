@@ -7,7 +7,7 @@ NAME := cub3D
 CC := gcc
 
 # Compiler flags
-CFLAGS := -Wall -Wextra -Werror
+CFLAGS := -Wall -Wextra -Werror -w
 
 # Directories
 SRC_DIR := src
