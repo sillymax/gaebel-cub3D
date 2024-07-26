@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/26 19:00:34 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/27 03:45:43 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 # define M_NORTH 'N'
 
 # define M_SCALE_FACTOR 0.3
-# define TILE_SIZE 64
-# define PLAYER_SIZE 6
+# define TILE_SIZE 32
+# define PLAYER_SIZE 4
 # define LINE_LENGTH 1500
 
 # define PI 3.141593
