@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 23:40:34 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/25 17:35:04 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/27 23:19:11 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ void	pixel_put(t_image *image, int x, int y, int color)
 	*(int *)dst = color;
 }
 
-long long	find_longest_side(long long delta_x, long long delta_y)
+double	find_longest_side(double delta_x, double delta_y)
 {
-	if (llabs(delta_x) >= llabs(delta_y))
-		return (llabs(delta_x));
-	return (llabs(delta_y));
+	if (fabs(delta_x) >= fabs(delta_y))
+		return (fabs(delta_x));
+	return (fabs(delta_y));
 }
 
 void	dda(t_main *main, t_points *points)
@@ -42,11 +42,11 @@ void	dda(t_main *main, t_points *points)
 	int		i;
 	int		color;
 
-	dda.delta_x = points->x1 - (long long)points->x0;
-	dda.delta_y = points->y1 - (long long)points->y0;
+	dda.delta_x = points->x1 - points->x0;
+	dda.delta_y = points->y1 - points->y0;
 	dda.side_len = find_longest_side(dda.delta_x, dda.delta_y);
-	dda.x_inc = dda.delta_x / (double)dda.side_len;
-	dda.y_inc = dda.delta_y / (double)dda.side_len;
+	dda.x_inc = dda.delta_x / dda.side_len;
+	dda.y_inc = dda.delta_y / dda.side_len;
 	dda.curr_x = points->x0;
 	dda.curr_y = points->y0;
 	i = 0;

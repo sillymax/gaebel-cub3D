@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/27 22:44:02 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/27 23:18:17 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,21 +148,21 @@ typedef struct	s_main
 
 typedef struct	s_points
 {
-	int	x0;
-	int	y0;
-	int	x1;
-	int	y1;
+	double	x0;
+	double	y0;
+	double	x1;
+	double	y1;
 }	t_points;
 
 typedef struct	s_dda
 {
-	long long	delta_x;
-	long long	delta_y;
-	long long	side_len;
-	double		x_inc;
-	double		y_inc;
-	double		curr_x;
-	double		curr_y;
+	double	delta_x;
+	double	delta_y;
+	double	side_len;
+	double	x_inc;
+	double	y_inc;
+	double	curr_x;
+	double	curr_y;
 }	t_dda;
 
 
