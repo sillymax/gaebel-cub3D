@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/27 16:28:02 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/27 17:10:59 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,8 +130,10 @@ typedef struct	s_raycast
 {
 	double	fov_angle;
 	int		wall_strip_width;
+	int		wall_strip_height;
 	int		num_of_rays;
 	t_ray	*rays;
+	double	correct_wall_dist;
 }	t_raycast;
 
 typedef struct	s_main
@@ -244,7 +246,7 @@ void	set_rays_properties(t_main *main);
 // draw_rays/
 void	draw_rays(t_main *main);
 
-// 3d_projection/
-void	cast_wall_strips(t_main *main);
+// draw_walls/
+void	draw_walls(t_main *main);
 
 #endif

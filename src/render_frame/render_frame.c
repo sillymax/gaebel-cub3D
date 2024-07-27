@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 05:28:06 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/27 16:29:22 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/27 17:03:59 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	render_frame(void *main)
 {
 	clear_screen(main);
 	set_rays_properties(main);
-	cast_wall_strips(main);
+	draw_walls(main);
 	draw_map(main);
 	draw_rays(main);
 	draw_player(main);
