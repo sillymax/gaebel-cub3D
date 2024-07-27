@@ -6,30 +6,11 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 09:53:46 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/25 20:31:49 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/27 16:30:19 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
-
-// void	draw_rays(t_main *main)
-// {
-// 	int			i;
-// 	t_points	points;
-// 	t_ray		*ray;
-
-// 	i = 0;
-// 	while (i < main->raycast.num_of_rays)
-// 	{
-// 		ray = &main->raycast.rays[i];
-// 		points.x0 = main->player.center_x;
-// 		points.y0 = main->player.center_y;
-// 		points.x1 = points.x0 + cos(ray->ray_angle) * LINE_LENGTH;
-// 		points.y1 = points.y0 + sin(ray->ray_angle) * LINE_LENGTH;
-// 		dda(main, &points);
-// 		i++;
-// 	}
-// }
 
 void	set_rays_angle(t_main *main)
 {

@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/27 03:45:43 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/27 16:28:02 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,15 +231,18 @@ double	normalized_angle(double angle);
 bool	is_ray_facing_down(double angle);
 bool	is_ray_facing_right(double angle);
 bool	is_close_to(double value, double target);
+void	set_rays_angle(t_main *main);
 void	set_horz_intersection(t_main *main, int i);
 void	set_horz_wall_hit(t_main *main, int i);
 void	set_vert_intersection(t_main *main, int i);
 void	set_vert_wall_hit(t_main *main, int i);
-// void	draw_rays(t_main *main);
-void	set_rays_angle(t_main *main);
-void	set_closest_points(t_main *main, int i);
-void	draw_closest_rays(t_main *main);
-void	cast_rays(t_main *main);
+void	set_horz_impact(t_main *main, int i);
+void	set_vert_impact(t_main *main, int i);
+void	set_closest_impact(t_main *main, int i);
+void	set_rays_properties(t_main *main);
+
+// draw_rays/
+void	draw_rays(t_main *main);
 
 // 3d_projection/
 void	cast_wall_strips(t_main *main);

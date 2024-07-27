@@ -1,46 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cast_rays.c                                        :+:      :+:    :+:   */
+/*   draw_rays.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/24 18:02:03 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/25 20:24:47 by ychng            ###   ########.fr       */
+/*   Created: 2024/07/27 16:21:38 by ychng             #+#    #+#             */
+/*   Updated: 2024/07/27 16:21:55 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-void	find_horz_impact(t_main *main, int i)
+void	draw_ray(t_main *main, int i)
 {
-	set_horz_intersection(main, i);
-	set_horz_wall_hit(main, i);
+	t_player	*player;
+	t_ray		*ray;
+	t_points	points;
+
+	player = &main->player;
+	ray = &main->raycast.rays[i];
+	points.x0 = player->center_x * M_SCALE_FACTOR;
+	points.y0 = player->center_y * M_SCALE_FACTOR;
+	points.x1 = ray->wall_hit_x * M_SCALE_FACTOR;
+	points.y1 = ray->wall_hit_y * M_SCALE_FACTOR;
+	dda(main, &points);
 }
 
-void	find_vert_impact(t_main *main, int i)
-{
-	set_vert_intersection(main, i);
-	set_vert_wall_hit(main, i);
-}
-
-void	set_wall_distance(t_main *main)
+void	draw_rays(t_main *main)
 {
 	int	i;
 
 	i = 0;
 	while (i < main->raycast.num_of_rays)
 	{
-		find_horz_impact(main, i);
-		find_vert_impact(main, i);
+		draw_ray(main, i);
 		i++;
 	}
-}
-
-void	cast_rays(t_main *main)
-{
-	set_rays_angle(main);
-	set_wall_distance(main);
-	draw_closest_rays(main);
-	// draw_rays(main);
 }

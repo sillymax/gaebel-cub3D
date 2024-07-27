@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_closest_points.c                               :+:      :+:    :+:   */
+/*   set_closest_impact.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 20:25:35 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/25 20:30:31 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/27 16:22:40 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ double	find_closest_distance(t_main *main, int i)
 	return (vert_hit_distance);
 }
 
-void	set_closest_points(t_main *main, int i)
+void	set_closest_impact(t_main *main, int i)
 {
 	t_ray	*ray;
 
