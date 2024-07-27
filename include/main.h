@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/27 17:10:59 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/27 22:44:02 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,6 +247,7 @@ void	set_rays_properties(t_main *main);
 void	draw_rays(t_main *main);
 
 // draw_walls/
+int		find_color(int color[3]);
 void	draw_walls(t_main *main);
 
 #endif

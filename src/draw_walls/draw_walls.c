@@ -6,40 +6,42 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 18:31:08 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/27 20:22:11 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/27 22:44:16 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-void	draw_rect_pixel(t_main *main, int i, int top_pixel_y, int bottom_pixel_y)
+void	draw_column(t_main *main, int x, int start_y, int end_y, int color)
+{
+	t_image	*image;
+	int		y;
+
+	image = &main->minilibx.image;
+	y = start_y;
+	while (y < end_y)
+	{
+		pixel_put(image, x, y, color);
+		y++;
+	}
+}
+
+void	draw_rect_pixel(t_main *main, int i, int top_pixel_y, \
+			int bottom_pixel_y)
 {
 	int	start_x;
 	int	x;
-	int	y;
 
 	start_x = main->raycast.wall_strip_width * i;
 	x = start_x;
 	while (x < (start_x + main->raycast.wall_strip_width))
 	{
-		y = 0;
-		while (y < top_pixel_y)
-		{
-			pixel_put(&main->minilibx.image, x, y, rgb(105, 105, 105));
-			y++;
-		}
-		y = top_pixel_y;
-		while (y < bottom_pixel_y)
-		{
-			pixel_put(&main->minilibx.image, x, y, rgb(55, 55, 55));
-			y++;
-		}
-		y = bottom_pixel_y;
-		while (y < main->mapdata.m_height)
-		{
-			pixel_put(&main->minilibx.image, x, y, rgb(25, 25, 25));
-			y++;
-		}
+		draw_column(main, x, 0, top_pixel_y, \
+			find_color(main->mapinfo.ceilingcolor));
+		draw_column(main, x, top_pixel_y, bottom_pixel_y, \
+			rgb(255, 255, 0));
+		draw_column(main, x, bottom_pixel_y, main->mapdata.m_height, \
+			find_color(main->mapinfo.floorcolor));
 		x++;
 	}
 }
