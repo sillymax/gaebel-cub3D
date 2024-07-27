@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 18:31:08 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/27 18:41:54 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/27 20:22:11 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,26 +25,19 @@ void	draw_rect_pixel(t_main *main, int i, int top_pixel_y, int bottom_pixel_y)
 		y = 0;
 		while (y < top_pixel_y)
 		{
-			if (is_within_win_bounds(main, x, y))
-				pixel_put(&main->minilibx.image, x, y, rgb(105, 105, 105));
-			else
-				break ;
+			pixel_put(&main->minilibx.image, x, y, rgb(105, 105, 105));
 			y++;
 		}
 		y = top_pixel_y;
 		while (y < bottom_pixel_y)
 		{
-			if (is_within_win_bounds(main, x, y))
-				pixel_put(&main->minilibx.image, x, y, rgb(55, 55, 55));
+			pixel_put(&main->minilibx.image, x, y, rgb(55, 55, 55));
 			y++;
 		}
 		y = bottom_pixel_y;
 		while (y < main->mapdata.m_height)
 		{
-			if (is_within_win_bounds(main, x, y))
-				pixel_put(&main->minilibx.image, x, y, rgb(25, 25, 25));
-			else
-				break ;
+			pixel_put(&main->minilibx.image, x, y, rgb(25, 25, 25));
 			y++;
 		}
 		x++;
@@ -74,6 +67,8 @@ void	set_correct_wall_dist(t_main *main, int i)
 	ray = &raycast->rays[i];
 	raycast->correct_wall_dist = \
 		ray->distance * cos(ray->ray_angle - player->rotation_angle);
+	if (raycast->correct_wall_dist == 0)
+		raycast->correct_wall_dist = 0.1;
 }
 
 void	set_wall_strip_height(t_main *main)
@@ -87,6 +82,8 @@ void	set_wall_strip_height(t_main *main)
 	dist_proj_plane = (mapdata->m_width / 2) / tan(raycast->fov_angle / 2);
 	raycast->wall_strip_height = \
 		(TILE_SIZE / raycast->correct_wall_dist) * dist_proj_plane;
+	if (raycast->wall_strip_height > mapdata->m_height)
+		raycast->wall_strip_height = mapdata->m_height;
 }
 
 void	draw_wall_strip(t_main *main, int i)
