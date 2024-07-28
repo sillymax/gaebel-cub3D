@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 03:13:56 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/28 15:15:53 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/28 15:16:44 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ bool	parse_texture(char **texture, bool *is_set)
 			return (return_with_error("empty path."));
 		if (!is_valid_path(path))
 			return (return_with_error("wrong path format."));
-		*texture = ft_strdup(path);
+		*texture = ft_strtrim(path, "\n");
 		*is_set = true;
 	}
 	return (PASS);
