@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 16:47:43 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/25 16:55:19 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/28 15:26:12 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,25 @@ void	set_minilibx(t_main *main)
 							"CUB3D");
 }
 
+void	set_texture(t_main *main)
+{
+	int	size;
+
+	size = TILE_SIZE;
+	main->minilibx.texture.img = mlx_xpm_file_to_image( \
+									main->minilibx.mlx, \
+									main->mapinfo.north_texture, \
+									&size, &size);
+	main->minilibx.texture.addr = mlx_get_data_addr( \
+									main->minilibx.texture.img,
+									&main->minilibx.texture.bpp,
+									&main->minilibx.texture.stride,
+									&main->minilibx.texture.endian);
+}
+
 void	set_minilibx_properties(t_main *main)
 {
 	set_minilibx(main);
 	set_image(main);
+	set_texture(main);
 }

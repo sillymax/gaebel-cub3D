@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/27 23:18:17 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/28 15:21:22 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ typedef struct	s_minilibx
 	void	*mlx;
 	void	*win;
 	t_image	image;
+	t_image	texture;
 }	t_minilibx;
 
 typedef struct	s_player
