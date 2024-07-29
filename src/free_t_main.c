@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 18:13:48 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/29 18:18:42 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/30 00:12:01 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ void	free_t_main(t_main *main)
 {
 	free_mapinfo(&main->mapinfo);
 	free_mapdata(&main->mapdata);
+	free(main->minilibx.texture);
 	free(main->raycast.rays);
 }

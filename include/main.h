@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/29 23:58:09 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/30 00:16:52 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ typedef struct	s_minilibx
 	void	*mlx;
 	void	*win;
 	t_image	image;
-	t_image	texture;
+	t_image	*texture;
 }	t_minilibx;
 
 typedef struct	s_player
@@ -265,6 +265,9 @@ int		find_color(int color[3]);
 void	draw_column_wall(t_main *main, int x, t_column_wall *params, int i);
 void	draw_rect(t_main *main, int i);
 void	draw_walls(t_main *main);
+
+// destroy_mlx.c
+void	destroy_mlx(t_main *main);
 
 // free_t_main.c
 void	free_t_main(t_main *main);

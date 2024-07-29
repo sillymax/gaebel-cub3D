@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_minilibx.c                                    :+:      :+:    :+:   */
+/*   destroy_mlx.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/17 00:25:14 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/30 00:00:33 by ychng            ###   ########.fr       */
+/*   Created: 2024/07/30 00:12:30 by ychng             #+#    #+#             */
+/*   Updated: 2024/07/30 00:14:11 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-void	init_image(t_minilibx *minilibx)
+void	destroy_mlx(t_main *main)
 {
-	minilibx->image.img = NULL;
-	minilibx->image.addr = NULL;
-	minilibx->image.bpp = 0;
-	minilibx->image.stride = 0;
-	minilibx->image.endian = 0;
-}
+	t_minilibx	*minilibx;
+	int			i;
 
-void	init_minilibx(t_minilibx *minilibx)
-{
-	minilibx->mlx = NULL;
-	minilibx->win = NULL;
-	init_image(minilibx);
-	minilibx->texture = NULL;
+	minilibx = &main->minilibx;
+	mlx_destroy_image(minilibx->mlx, minilibx->image.img);
+	i = -1;
+	while (++i < 4)
+		mlx_destroy_image(minilibx->mlx, minilibx->texture[i].img);
+	mlx_destroy_window(minilibx->mlx, main->minilibx.win);
 }

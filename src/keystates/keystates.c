@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 05:31:22 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/29 18:13:34 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/30 00:16:23 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,8 @@ void	apply_keystates(t_main *main)
 
 	if (main->key_states[UBUNTU_ESC])
 	{
+		destroy_mlx(main);
 		free_t_main(main);
-		mlx_destroy_image(main->minilibx.mlx, main->minilibx.image.img);
-		mlx_destroy_image(main->minilibx.mlx, main->minilibx.texture.img);
-		mlx_destroy_window(main->minilibx.mlx, main->minilibx.win);
 		exit(PASS);
 	}
 	if (main->key_states[UBUNTU_UP_ARROW])

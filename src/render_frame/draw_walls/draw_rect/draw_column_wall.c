@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 23:54:40 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/29 23:55:01 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/30 00:07:47 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,20 @@ int	find_y_offset(t_main *main, int y)
 	return (dist_from_top * (TILE_SIZE / (double)wall_strip_height));
 }
 
+t_image	*find_direction_texture(t_main *main, int i)
+{
+	t_ray	*ray;
+
+	ray = &main->raycast.rays[i];
+	if (ray->hit_direction == NORTH)
+		return (&main->minilibx.texture[NORTH]);
+	else if (ray->hit_direction == SOUTH)
+		return (&main->minilibx.texture[SOUTH]);
+	else if (ray->hit_direction == EAST)
+		return (&main->minilibx.texture[EAST]);
+	return (&main->minilibx.texture[WEST]);
+}
+
 void	draw_column_wall(t_main *main, int x, t_column_wall *params, int i)
 {
 	t_image		*image;
@@ -55,7 +69,7 @@ void	draw_column_wall(t_main *main, int x, t_column_wall *params, int i)
 	int			y;
 
 	image = &main->minilibx.image;
-	texture = &main->minilibx.texture;
+	texture = find_direction_texture(main, i);
 	params->x_offset = find_x_offset(main, i);
 	y = params->start_y;
 	while (y < params->end_y)
