@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 18:31:08 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/29 15:29:42 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/29 15:30:20 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,11 @@ void	draw_rect(t_main *main, int i)
 
 	half_screen = (main->mapdata.m_height / 2);
 	top_pixel_y = half_screen - (main->raycast.wall_strip_height / 2);
+	if (top_pixel_y < 0)
+		top_pixel_y = 0;
 	bottom_pixel_y = half_screen + (main->raycast.wall_strip_height / 2);
+	if (bottom_pixel_y > main->mapdata.m_height)
+		bottom_pixel_y = main->mapdata.m_height;
 	draw_rect_pixel(main, i, top_pixel_y, bottom_pixel_y);
 }
 
