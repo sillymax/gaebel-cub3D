@@ -1,38 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_output.c                                     :+:      :+:    :+:   */
+/*   free_t_main.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/16 01:59:58 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/29 18:22:33 by ychng            ###   ########.fr       */
+/*   Created: 2024/07/29 18:13:48 by ychng             #+#    #+#             */
+/*   Updated: 2024/07/29 18:18:42 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-void	exit_with_error(char *msg)
+void	free_mapinfo(t_mapinfo *mapinfo)
 {
-	int	fd;
-
-	fd = 2;
-	ft_putstr_fd("Error\n", fd);
-	ft_putstr_fd("msg: ", fd);
-	ft_putstr_fd(msg, fd);
-	ft_putstr_fd("\n", fd);
-	exit(FAIL);
+	free(mapinfo->north_texture);
+	free(mapinfo->south_texture);
+	free(mapinfo->east_texture);
+	free(mapinfo->west_texture);
 }
 
-bool	return_with_error(char *msg)
+void	free_mapdata(t_mapdata *mapdata)
 {
-	int	fd;
+	int	i;
 
-	fd = 2;
-	ft_putstr_fd("Error\n", fd);
-	ft_putstr_fd("msg: ", fd);
-	ft_putstr_fd(msg, fd);
-	ft_putstr_fd("\n", fd);
+	i = 0;
+	while (i < mapdata->rows)
+	{
+		free(mapdata->map2d[i]);
+		i++;
+	}
+	free(mapdata->map2d);
+}
 
-	return (FAIL);
+void	free_t_main(t_main *main)
+{
+	free_mapinfo(&main->mapinfo);
+	free_mapdata(&main->mapdata);
+	free(main->raycast.rays);
 }

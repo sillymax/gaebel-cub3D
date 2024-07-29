@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 02:08:16 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/27 18:12:40 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/29 18:16:44 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	init_mapinfo(t_mapinfo *mapinfo)
 	mapinfo->north_texture = NULL;
 	mapinfo->south_texture = NULL;
 	mapinfo->east_texture = NULL;
-	mapinfo->west_testure = NULL;
+	mapinfo->west_texture = NULL;
 	mapinfo->floorcolor[0] = 0;
 	mapinfo->floorcolor[1] = 0;
 	mapinfo->floorcolor[2] = 0;

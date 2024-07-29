@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/28 17:16:27 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/29 18:21:46 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct	s_mapinfo
 	char	*north_texture;
 	char	*south_texture;
 	char	*east_texture;
-	char	*west_testure;
+	char	*west_texture;
 	int		floorcolor[3];
 	int		ceilingcolor[3];
 	bool	is_north_texture_set;
@@ -258,5 +258,8 @@ void	draw_rays(t_main *main);
 // draw_walls/
 int		find_color(int color[3]);
 void	draw_walls(t_main *main);
+
+// free_t_main.c
+void	free_t_main(t_main *main);
 
 #endif

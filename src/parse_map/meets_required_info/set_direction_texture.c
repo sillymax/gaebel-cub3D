@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 03:13:56 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/28 15:16:44 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/29 18:16:44 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ bool	set_east_and_west_texture(t_mapinfo *mapinfo, char *token)
 	}
 	else if (ft_strcmp(token, "WE") == 0)
 	{
-		texture = &mapinfo->west_testure;
+		texture = &mapinfo->west_texture;
 		is_set = &mapinfo->is_west_texture_set;
 	}
 	return (parse_texture(texture, is_set));
