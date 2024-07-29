@@ -6,11 +6,32 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 18:02:03 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/27 16:25:48 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/29 23:14:50 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
+
+void	set_wall_direction(t_main *main, int i)
+{
+	t_ray	*ray;
+
+	ray = &main->raycast.rays[i];
+	if (ray->was_hit_vert)
+	{
+		if (ray->ray_angle > (PI * 0.5) && ray->ray_angle < (PI * 1.5))
+			main->raycast.rays[i].wall_hit_direction = WEST;
+		else
+			main->raycast.rays[i].wall_hit_direction = EAST;
+	}
+	else
+	{
+		if (ray->ray_angle > 0 && ray->ray_angle < PI)
+			main->raycast.rays[i].wall_hit_direction = SOUTH;
+		else
+			main->raycast.rays[i].wall_hit_direction = NORTH;
+	}
+}
 
 void	set_rays_impact(t_main *main)
 {
@@ -22,6 +43,7 @@ void	set_rays_impact(t_main *main)
 		set_horz_impact(main, i);
 		set_vert_impact(main, i);
 		set_closest_impact(main, i);
+		set_ray_direction(main, i);
 		i++;
 	}
 }

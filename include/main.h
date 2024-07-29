@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/29 18:21:46 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/29 23:15:35 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,11 @@
 # define UBUNTU_D_KEY 100
 # define UBUNTU_W_KEY 119
 # define UBUNTU_S_KEY 115
+
+# define NORTH 0
+# define SOUTH 1
+# define EAST 2
+# define WEST 3
 
 typedef struct	s_mapinfo
 {
@@ -125,6 +130,7 @@ typedef struct	s_ray
 	double		wall_hit_y;
 	double		distance;
 	bool		was_hit_vert;
+	int			wall_hit_direction;
 }	t_ray;
 
 typedef struct	s_raycast
