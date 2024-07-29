@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/29 23:15:35 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/29 23:46:46 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ typedef struct	s_ray
 	double		wall_hit_y;
 	double		distance;
 	bool		was_hit_vert;
-	int			wall_hit_direction;
+	int			hit_direction;
 }	t_ray;
 
 typedef struct	s_raycast
@@ -143,13 +143,6 @@ typedef struct	s_raycast
 	double	correct_wall_dist;
 }	t_raycast;
 
-typedef struct	s_texture
-{
-	int	x_offset;
-	int	y_offset;
-	int	color;
-}	t_texture;
-
 typedef struct	s_main
 {
 	t_mapinfo	mapinfo;
@@ -157,7 +150,6 @@ typedef struct	s_main
 	t_minilibx	minilibx;
 	t_player	player;
 	t_raycast	raycast;
-	t_texture	texture;
 	int			key_states[KEY_COUNT];
 }	t_main;
 
@@ -180,6 +172,13 @@ typedef struct	s_dda
 	double	curr_y;
 }	t_dda;
 
+typedef struct	s_column_wall
+{
+	int	x_offset;
+	int	y_offset;
+	int	start_y;
+	int	end_y;
+}	t_column_wall;
 
 // get_nextline/
 bool	contains_newline(char *remaining_line);

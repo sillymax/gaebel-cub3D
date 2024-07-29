@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 18:31:08 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/29 15:30:20 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/29 23:53:13 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,26 +38,46 @@ int	pixel_get(t_image *texture, int x, int y)
 	return (*(int *)dst);
 }
 
-void	draw_column_wall(t_main *main, int x, int start_y, int end_y)
+int	find_x_offset(t_main *main, int i)
+{
+	t_ray	*ray;
+
+	ray = &main->raycast.rays[i];
+	if (ray->was_hit_vert)
+		return ((int)ray->wall_hit_y % TILE_SIZE);
+	return ((int)ray->wall_hit_x % TILE_SIZE);
+}
+
+int	find_y_offset(t_main *main, int y)
 {
 	t_raycast	*raycast;
-	t_image		*image;
-	t_image		*texture;
-	int			y;
+	t_mapdata	*mapdata;
+	int			wall_strip_height;
 	int			dist_from_top;
 
 	raycast = &main->raycast;
+	mapdata = &main->mapdata;
+	wall_strip_height = raycast->wall_strip_height;
+	dist_from_top = y + (wall_strip_height / 2) - (mapdata->m_height / 2);
+	return (dist_from_top * (TILE_SIZE / (double)wall_strip_height));
+}
+
+void	draw_column_wall(t_main *main, int x, t_column_wall *params, int i)
+{
+	t_image		*image;
+	t_image		*texture;
+	int			y;
+
 	image = &main->minilibx.image;
 	texture = &main->minilibx.texture;
-	y = start_y;
-	while (y < end_y)
+	params->x_offset = find_x_offset(main, i);
+	y = params->start_y;
+	while (y < params->end_y)
 	{
-		dist_from_top = \
-			y + (raycast->wall_strip_height / 2) - (main->mapdata.m_height / 2);
-		main->texture.y_offset = \
-			dist_from_top * (TILE_SIZE / (float)raycast->wall_strip_height);
-		pixel_put(image, x, y, \
-			pixel_get(texture, main->texture.x_offset, main->texture.y_offset));
+		params->y_offset = find_y_offset(main, y);
+		pixel_put(image, x, y, pixel_get( \
+			texture, params->x_offset, params->y_offset
+			));
 		y++;
 	}
 }
@@ -65,22 +85,20 @@ void	draw_column_wall(t_main *main, int x, int start_y, int end_y)
 void	draw_rect_pixel(t_main *main, int i, int top_pixel_y, \
 			int bottom_pixel_y)
 {
-	t_ray	*ray;
-	int		start_x;
-	int		x;
+	t_column_wall	params;
+	int				start_x;
+	int				x;
 
-	ray = &main->raycast.rays[i];
+	params = (t_column_wall){0};
 	start_x = main->raycast.wall_strip_width * i;
 	x = start_x;
 	while (x < (start_x + main->raycast.wall_strip_width))
 	{
 		draw_column(main, x, 0, top_pixel_y, \
 			find_color(main->mapinfo.ceilingcolor));
-		if (ray->was_hit_vert)
-			main->texture.x_offset = (int)ray->wall_hit_y % TILE_SIZE;
-		else
-			main->texture.x_offset = (int)ray->wall_hit_x % TILE_SIZE;
-		draw_column_wall(main, x, top_pixel_y, bottom_pixel_y);
+		params.start_y = top_pixel_y;
+		params.end_y = bottom_pixel_y;
+		draw_column_wall(main, x, &params, i);
 		draw_column(main, x, bottom_pixel_y, main->mapdata.m_height, \
 			find_color(main->mapinfo.floorcolor));
 		x++;
