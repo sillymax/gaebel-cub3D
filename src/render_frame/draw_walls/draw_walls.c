@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 18:31:08 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/27 22:44:16 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/29 15:29:42 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,61 @@ void	draw_column(t_main *main, int x, int start_y, int end_y, int color)
 	}
 }
 
+int	pixel_get(t_image *texture, int x, int y)
+{
+	int		y_bytes;
+	int		x_bytes;
+	char	*dst;
+
+	y_bytes = y * texture->stride;
+	x_bytes = x * (texture->bpp / 8);
+	dst = texture->addr + y_bytes + x_bytes; 
+	return (*(int *)dst);
+}
+
+void	draw_column_wall(t_main *main, int x, int start_y, int end_y)
+{
+	t_raycast	*raycast;
+	t_image		*image;
+	t_image		*texture;
+	int			y;
+	int			dist_from_top;
+
+	raycast = &main->raycast;
+	image = &main->minilibx.image;
+	texture = &main->minilibx.texture;
+	y = start_y;
+	while (y < end_y)
+	{
+		dist_from_top = \
+			y + (raycast->wall_strip_height / 2) - (main->mapdata.m_height / 2);
+		main->texture.y_offset = \
+			dist_from_top * (TILE_SIZE / (float)raycast->wall_strip_height);
+		pixel_put(image, x, y, \
+			pixel_get(texture, main->texture.x_offset, main->texture.y_offset));
+		y++;
+	}
+}
+
 void	draw_rect_pixel(t_main *main, int i, int top_pixel_y, \
 			int bottom_pixel_y)
 {
-	int	start_x;
-	int	x;
+	t_ray	*ray;
+	int		start_x;
+	int		x;
 
+	ray = &main->raycast.rays[i];
 	start_x = main->raycast.wall_strip_width * i;
 	x = start_x;
 	while (x < (start_x + main->raycast.wall_strip_width))
 	{
 		draw_column(main, x, 0, top_pixel_y, \
 			find_color(main->mapinfo.ceilingcolor));
-		draw_column(main, x, top_pixel_y, bottom_pixel_y, \
-			rgb(255, 255, 0));
+		if (ray->was_hit_vert)
+			main->texture.x_offset = (int)ray->wall_hit_y % TILE_SIZE;
+		else
+			main->texture.x_offset = (int)ray->wall_hit_x % TILE_SIZE;
+		draw_column_wall(main, x, top_pixel_y, bottom_pixel_y);
 		draw_column(main, x, bottom_pixel_y, main->mapdata.m_height, \
 			find_color(main->mapinfo.floorcolor));
 		x++;
@@ -84,8 +125,8 @@ void	set_wall_strip_height(t_main *main)
 	dist_proj_plane = (mapdata->m_width / 2) / tan(raycast->fov_angle / 2);
 	raycast->wall_strip_height = \
 		(TILE_SIZE / raycast->correct_wall_dist) * dist_proj_plane;
-	if (raycast->wall_strip_height > mapdata->m_height)
-		raycast->wall_strip_height = mapdata->m_height;
+	// if (raycast->wall_strip_height > mapdata->m_height)
+	// 	raycast->wall_strip_height = mapdata->m_height;
 }
 
 void	draw_wall_strip(t_main *main, int i)

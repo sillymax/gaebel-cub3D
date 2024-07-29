@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/28 15:21:22 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/28 17:16:27 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,13 @@ typedef struct	s_raycast
 	double	correct_wall_dist;
 }	t_raycast;
 
+typedef struct	s_texture
+{
+	int	x_offset;
+	int	y_offset;
+	int	color;
+}	t_texture;
+
 typedef struct	s_main
 {
 	t_mapinfo	mapinfo;
@@ -144,6 +151,7 @@ typedef struct	s_main
 	t_minilibx	minilibx;
 	t_player	player;
 	t_raycast	raycast;
+	t_texture	texture;
 	int			key_states[KEY_COUNT];
 }	t_main;
 
