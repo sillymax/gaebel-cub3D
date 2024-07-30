@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 00:12:30 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/30 00:14:11 by ychng            ###   ########.fr       */
+/*   Updated: 2024/07/31 01:00:38 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,6 @@ void	destroy_mlx(t_main *main)
 	while (++i < 4)
 		mlx_destroy_image(minilibx->mlx, minilibx->texture[i].img);
 	mlx_destroy_window(minilibx->mlx, main->minilibx.win);
+	mlx_destroy_display(minilibx->mlx);
+	free(minilibx->mlx);
 }
