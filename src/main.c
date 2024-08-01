@@ -6,11 +6,20 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 05:25:54 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/25 16:47:11 by ychng            ###   ########.fr       */
+/*   Updated: 2024/08/01 22:33:22 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
+
+int	close_window(void *param)
+{
+	t_main	*main;
+
+	main = param;
+	cleanup(main);
+	exit(0);
+}
 
 int	main(int argc, char **argv)
 {
@@ -25,7 +34,7 @@ int	main(int argc, char **argv)
 	set_raycast_properties(&main);
 	mlx_hook(main.minilibx.win, 2, 1L<<0, key_press, &main);
 	mlx_hook(main.minilibx.win, 3, 1L<<1, key_release, &main);
+	mlx_hook(main.minilibx.win, 17, 0, close_window, &main);
 	mlx_loop_hook(main.minilibx.mlx, render_frame, &main);
 	mlx_loop(main.minilibx.mlx);
-	return (PASS);
 }
