@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 03:32:09 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/16 06:28:29 by ychng            ###   ########.fr       */
+/*   Updated: 2024/08/01 23:03:10 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ bool	parse_color(int *color, bool *is_set)
 	if (color && is_set)
 	{
 		rgb = ft_strtok(NULL, " ");
-		if (rgb == NULL)
+		if (rgb == NULL || rgb[0] == '\n')
 			return (return_with_error("empty floor / ceiling color."));
-		if (ft_strchr(rgb, '\n') && rgb[0] != '\n')
+		if (ft_strchr(rgb, '\n'))
 			rgb_cpy = ft_strtrim(rgb, "\n");
 		if (validate_color_format(rgb_cpy) == FAIL)
 			return (return_with_error("wrong color format."));
