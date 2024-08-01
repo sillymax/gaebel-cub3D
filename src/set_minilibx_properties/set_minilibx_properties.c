@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 16:47:43 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/30 00:10:49 by ychng            ###   ########.fr       */
+/*   Updated: 2024/08/01 23:08:06 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	set_texture(t_main *main)
 										main->minilibx.mlx, \
 										find_texture_path(main, i), \
 										&size, &size);
+		if (!main->minilibx.texture[i].img)
+			exit_with_error("need a proper texture path.");
 		main->minilibx.texture[i].addr = mlx_get_data_addr( \
 										main->minilibx.texture[i].img,
 										&main->minilibx.texture[i].bpp,
