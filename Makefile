@@ -9,13 +9,21 @@ CC := gcc
 # Compiler flags
 CFLAGS := -Wall -Wextra -Werror
 
+# Detect the operating system
+OS := $(shell uname -s)
+
 # Directories
 SRC_DIR := src
 OBJ_DIR := obj
 INC_DIR := include
 
 LFT_DIR := libft
-MLX_DIR := mlx_linux
+
+ifeq ($(OS),Linux)
+	MLX_DIR := mlx_linux
+else ifeq ($(OS),Darwin)
+	MLX_DIR := mlx_mac
+endif
 
 # .c files
 SRCS_PATTERN := "*.c"
@@ -30,7 +38,12 @@ INCFLAGS += -I$(MLX_DIR)/
 
 # Linker flags (-l and -L flags)
 LDFLAGS := -L$(LFT_DIR)/ -L$(MLX_DIR)/
-LDLIBS := -lft -lmlx_Linux -lXext -lX11 -lm -lz
+LDLIBS := -lft
+ifeq ($(OS),Linux)
+	LDLIBS += -lmlx_Linux -lXext -lX11 -lm -lz
+else ifeq ($(OS),Darwin)
+	LDLIBS += -Lmlx -lmlx -framework OpenGL -framework AppKit
+endif
 
 # Default target: Build program
 all: $(LFT_DIR)/libft.a $(NAME)
