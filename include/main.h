@@ -6,44 +6,35 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/08/01 22:30:48 by ychng            ###   ########.fr       */
+/*   Updated: 2024/08/02 00:26:28 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAIN_H
 # define MAIN_H
 
+# ifdef __LINUX__
+#  define KEY_COUNT 65536
+#  include "linux_keycode.h"
+# else
+#  define KEY_COUNT 255
+#  include "mac_keycode.h"
+# endif
+
 # include "system.h"
 # include "libft.h"
 # include "mlx.h"
 
-# define KEY_COUNT 65536
-
 # define PASS true
 # define FAIL false
-
-# define M_WALL '1'
-# define M_PATH '0'
-# define M_NORTH 'N'
 
 # define M_SCALE_FACTOR 0.3
 # define TILE_SIZE 32
 # define PLAYER_SIZE 4
+
 # define LINE_LENGTH 1500
 
 # define PI 3.141593
-# define EPSILON 0.00001
-
-# define UBUNTU_ESC 65307
-# define UBUNTU_UP_ARROW 65362
-# define UBUNTU_DOWN_ARROW 65364
-# define UBUNTU_LEFT_ARROW 65361
-# define UBUNTU_RIGHT_ARROW 65363
-
-# define UBUNTU_A_KEY 97
-# define UBUNTU_D_KEY 100
-# define UBUNTU_W_KEY 119
-# define UBUNTU_S_KEY 115
 
 # define NORTH 0
 # define SOUTH 1
@@ -246,7 +237,6 @@ int		render_frame(void *main);
 double	normalized_angle(double angle);
 bool	is_ray_facing_down(double angle);
 bool	is_ray_facing_right(double angle);
-bool	is_close_to(double value, double target);
 void	set_rays_angle(t_main *main);
 void	set_horz_intersection(t_main *main, int i);
 void	set_horz_wall_hit(t_main *main, int i);

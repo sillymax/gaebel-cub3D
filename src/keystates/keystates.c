@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 05:31:22 by ychng             #+#    #+#             */
-/*   Updated: 2024/08/01 22:32:16 by ychng            ###   ########.fr       */
+/*   Updated: 2024/08/02 00:25:55 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,25 +33,25 @@ int	key_release(int keycode, t_main *main)
 void	apply_keystates(t_main *main)
 {
 
-	if (main->key_states[UBUNTU_ESC])
+	if (main->key_states[KEY_ESC])
 	{
 		cleanup(main);
 		exit(0);
 	}
-	if (main->key_states[UBUNTU_UP_ARROW])
+	if (main->key_states[KEY_UP])
 		move_forward_backward(main, 1);
-	if (main->key_states[UBUNTU_DOWN_ARROW])
+	if (main->key_states[KEY_DOWN])
 		move_forward_backward(main, -1);
-	if (main->key_states[UBUNTU_LEFT_ARROW])
+	if (main->key_states[KEY_LEFT])
 		rotate_player(main, -1);
-	if (main->key_states[UBUNTU_RIGHT_ARROW])
+	if (main->key_states[KEY_RIGHT])
 		rotate_player(main, 1);
-	if (main->key_states[UBUNTU_W_KEY])
+	if (main->key_states[KEY_W])
 		move_forward_backward(main, 1);
-	if (main->key_states[UBUNTU_S_KEY])
+	if (main->key_states[KEY_S])
 		move_forward_backward(main, -1);
-	if (main->key_states[UBUNTU_D_KEY])
+	if (main->key_states[KEY_D])
 		move_left_right(main, 1);
-	if (main->key_states[UBUNTU_A_KEY])
+	if (main->key_states[KEY_A])
 		move_left_right(main, -1);
 }

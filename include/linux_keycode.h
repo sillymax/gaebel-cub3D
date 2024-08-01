@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   linux_keycode.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/17 15:36:14 by ychng             #+#    #+#             */
-/*   Updated: 2024/08/02 00:23:17 by ychng            ###   ########.fr       */
+/*   Created: 2024/08/01 23:56:14 by ychng             #+#    #+#             */
+/*   Updated: 2024/08/02 00:00:29by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
+#ifndef LINUX_KEYCODE_H
+# define LINUX_KEYCODE_H
 
-double	normalized_angle(double angle)
-{
-	angle = fmod(angle, 2 * PI);
-	if (angle < 0)
-		angle += 2 * PI;
-	return (angle);
-}
+// Letters
+# define KEY_A 97
+# define KEY_D 100
+# define KEY_W 119
+# define KEY_S 115
 
-bool	is_ray_facing_down(double angle)
-{
-	return (angle > 0 && angle < PI);
-}
+// Arrows
+# define KEY_LEFT 65361
+# define KEY_RIGHT 65363
+# define KEY_UP 65362
+# define KEY_DOWN 65364
 
-bool	is_ray_facing_right(double angle)
-{
-	return (angle < (PI * 0.5) || angle > (PI * 1.5));
-}
+// Miscellaneous
+# define KEY_ESC 65307
+
+#endif

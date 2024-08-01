@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   mac_keycode.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/17 15:36:14 by ychng             #+#    #+#             */
-/*   Updated: 2024/08/02 00:23:17 by ychng            ###   ########.fr       */
+/*   Created: 2024/08/02 00:02:15 by ychng             #+#    #+#             */
+/*   Updated: 2024/08/02 00:06:32 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
+#ifndef MAC_KEYCODE_H
+# define MAC_KEYCODE_H
 
-double	normalized_angle(double angle)
-{
-	angle = fmod(angle, 2 * PI);
-	if (angle < 0)
-		angle += 2 * PI;
-	return (angle);
-}
+// Letters
+# define KEY_A 0
+# define KEY_D 2
+# define KEY_W 13
+# define KEY_S 1
 
-bool	is_ray_facing_down(double angle)
-{
-	return (angle > 0 && angle < PI);
-}
+// Arrows
+# define KEY_LEFT 123
+# define KEY_RIGHT 124
+# define KEY_UP 126
+# define KEY_DOWN 125
 
-bool	is_ray_facing_right(double angle)
-{
-	return (angle < (PI * 0.5) || angle > (PI * 1.5));
-}
+// Miscellaneous
+# define KEY_ESC 53
+
+#endif

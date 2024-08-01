@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 23:39:52 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/26 17:33:21 by ychng            ###   ########.fr       */
+/*   Updated: 2024/08/02 00:22:05 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	draw_at(t_main *main, int i, int j)
 {
 	int	color;
 
-	if (main->mapdata.map2d[i][j] == M_WALL)
+	if (main->mapdata.map2d[i][j] == '1')
 		color = rgb(255, 255, 255);
 	else
 		color = rgb(0, 0, 0);

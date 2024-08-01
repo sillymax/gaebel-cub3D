@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 23:41:59 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/26 17:36:06 by ychng            ###   ########.fr       */
+/*   Updated: 2024/08/02 00:22:40 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,4 @@ void	draw_player_dot(t_main *main)
 void	draw_player(t_main *main)
 {
 	draw_player_dot(main);
-	// draw_angle_line(main);
 }

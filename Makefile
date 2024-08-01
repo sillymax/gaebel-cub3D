@@ -1,5 +1,8 @@
 # Makefile for cub3D
 
+# Detect the operating system
+OS := $(shell uname -s)
+
 # Program name
 NAME := cub3D
 
@@ -8,9 +11,9 @@ CC := gcc
 
 # Compiler flags
 CFLAGS := -Wall -Wextra -Werror
-
-# Detect the operating system
-OS := $(shell uname -s)
+ifeq ($(OS),Linux)
+	CFLAGS += -D __LINUX__
+endif
 
 # Directories
 SRC_DIR := src
@@ -21,7 +24,7 @@ LFT_DIR := libft
 
 ifeq ($(OS),Linux)
 	MLX_DIR := mlx_linux
-else ifeq ($(OS),Darwin)
+else
 	MLX_DIR := mlx_mac
 endif
 
@@ -41,7 +44,7 @@ LDFLAGS := -L$(LFT_DIR)/ -L$(MLX_DIR)/
 LDLIBS := -lft
 ifeq ($(OS),Linux)
 	LDLIBS += -lmlx_Linux -lXext -lX11 -lm -lz
-else ifeq ($(OS),Darwin)
+else
 	LDLIBS += -Lmlx -lmlx -framework OpenGL -framework AppKit
 endif
 
