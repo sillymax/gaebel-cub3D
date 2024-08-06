@@ -6,7 +6,7 @@
 /*   By: ghwa <ghwa@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/08/06 10:39:05 by ghwa             ###   ########.fr       */
+/*   Updated: 2024/08/06 20:41:54 by ghwa             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,10 @@ typedef struct s_player
 	double		rotation_angle;
 	double		rotation_speed;
 	double		move_speed;
+	int			mouse_x;
+	int			mouse_y;
+	int			new_mouse_x;
+	int			new_mouse_y;
 }	t_player;
 
 typedef struct s_impact
