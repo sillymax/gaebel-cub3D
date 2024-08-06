@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pad_2d_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: ghwa <ghwa@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 06:01:48 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/16 06:57:14 by ychng            ###   ########.fr       */
+/*   Updated: 2024/08/06 10:23:21 by ghwa             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-bool	pad_row(char** row, int max_col)
+bool	pad_row(char **row, int max_col)
 {
 	int	curr_len;
 	int	old_size;

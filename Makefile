@@ -45,7 +45,7 @@ LDLIBS := -lft
 ifeq ($(OS),Linux)
 	LDLIBS += -lmlx_Linux -lXext -lX11 -lm -lz
 else
-	LDLIBS += -Lmlx -lmlx -framework OpenGL -framework AppKit
+	LDLIBS += -lmlx -framework OpenGL -framework AppKit
 endif
 
 # Default target: Build program

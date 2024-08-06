@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_snprintf.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: ghwa <ghwa@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 21:40:16 by ychng             #+#    #+#             */
-/*   Updated: 2024/04/23 20:24:30 by ychng            ###   ########.fr       */
+/*   Updated: 2024/08/06 10:35:32 by ghwa             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	initinfo(t_resultinfo *info, char *buffer, size_t size)
 	info->size = size;
 }
 
-static void processformat(t_resultinfo *info, const char *format, va_list args)
+static void	processformat(t_resultinfo *info, const char *format, va_list args)
 {
 	int	pos;
 

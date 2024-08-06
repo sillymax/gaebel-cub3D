@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: ghwa <ghwa@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/08/02 00:26:28 by ychng            ###   ########.fr       */
+/*   Updated: 2024/08/06 10:39:05 by ghwa             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 # define EAST 2
 # define WEST 3
 
-typedef struct	s_mapinfo
+typedef struct s_mapinfo
 {
 	char	*north_texture;
 	char	*south_texture;
@@ -57,7 +57,7 @@ typedef struct	s_mapinfo
 	bool	is_ceilingcolor_set;
 }	t_mapinfo;
 
-typedef struct	s_mapdata
+typedef struct s_mapdata
 {
 	int		rows;
 	int		cols;
@@ -66,7 +66,7 @@ typedef struct	s_mapdata
 	int		m_height;
 }	t_mapdata;
 
-typedef struct	s_image
+typedef struct s_image
 {
 	void	*img;
 	char	*addr;
@@ -75,7 +75,7 @@ typedef struct	s_image
 	int		endian;
 }	t_image;
 
-typedef struct	s_minilibx
+typedef struct s_minilibx
 {
 	void	*mlx;
 	void	*win;
@@ -83,7 +83,7 @@ typedef struct	s_minilibx
 	t_image	*texture;
 }	t_minilibx;
 
-typedef struct	s_player
+typedef struct s_player
 {
 	double		center_x;
 	double		center_y;
@@ -94,7 +94,7 @@ typedef struct	s_player
 	double		move_speed;
 }	t_player;
 
-typedef struct	s_impact
+typedef struct s_impact
 {
 	double	x_intercept;
 	double	y_intercept;
@@ -107,7 +107,7 @@ typedef struct	s_impact
 	bool	found_wall_hit;
 }	t_impact;
 
-typedef struct	s_ray
+typedef struct s_ray
 {
 	int			columnid;
 	double		ray_angle;
@@ -124,7 +124,7 @@ typedef struct	s_ray
 	int			hit_direction;
 }	t_ray;
 
-typedef struct	s_raycast
+typedef struct s_raycast
 {
 	double	fov_angle;
 	int		wall_strip_width;
@@ -134,7 +134,7 @@ typedef struct	s_raycast
 	double	correct_wall_dist;
 }	t_raycast;
 
-typedef struct	s_main
+typedef struct s_main
 {
 	t_mapinfo	mapinfo;
 	t_mapdata	mapdata;
@@ -144,7 +144,7 @@ typedef struct	s_main
 	int			key_states[KEY_COUNT];
 }	t_main;
 
-typedef struct	s_points
+typedef struct s_points
 {
 	double	x0;
 	double	y0;
@@ -152,7 +152,7 @@ typedef struct	s_points
 	double	y1;
 }	t_points;
 
-typedef struct	s_dda
+typedef struct s_dda
 {
 	double	delta_x;
 	double	delta_y;
@@ -163,7 +163,7 @@ typedef struct	s_dda
 	double	curr_y;
 }	t_dda;
 
-typedef struct	s_column_wall
+typedef struct s_column_wall
 {
 	int	x_offset;
 	int	y_offset;

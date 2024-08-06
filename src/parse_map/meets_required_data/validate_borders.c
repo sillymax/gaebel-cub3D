@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_borders.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: ghwa <ghwa@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 05:34:31 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/16 06:58:29 by ychng            ###   ########.fr       */
+/*   Updated: 2024/08/06 10:08:13 by ghwa             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ bool	validate_rows(t_mapdata *mapdata)
 			left_col = mapdata->map2d[row][col];
 			curr_col = mapdata->map2d[row][col + 1];
 			right_col = mapdata->map2d[row][col + 2];
-			if ((left_col == ' ' || right_col == ' ') && ft_strchr("0NSEW", curr_col))
+			if ((left_col == ' ' || right_col == ' ') && \
+			ft_strchr("0NSEW", curr_col))
 				return (return_with_error("got gap above / below a point."));
 			col++;
 		}
@@ -111,7 +112,8 @@ bool	validate_cols(t_mapdata *mapdata)
 			top_col = mapdata->map2d[row][col];
 			curr_col = mapdata->map2d[row + 1][col];
 			bottom_col = mapdata->map2d[row + 2][col];
-			if ((top_col == ' ' || bottom_col == ' ') && ft_strchr("0NSEW", curr_col))
+			if ((top_col == ' ' || bottom_col == ' ') && \
+			ft_strchr("0NSEW", curr_col))
 				return (return_with_error("got gap left / right a point."));
 			row++;
 		}

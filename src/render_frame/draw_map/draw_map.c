@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: ghwa <ghwa@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 23:39:52 by ychng             #+#    #+#             */
-/*   Updated: 2024/08/02 00:22:05 by ychng            ###   ########.fr       */
+/*   Updated: 2024/08/06 10:07:06 by ghwa             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	draw_map(t_main *main)
 	int	j;
 
 	i = 0;
-	while(i < main->mapdata.rows)
+	while (i < main->mapdata.rows)
 	{
 		j = 0;
 		while (j < main->mapdata.cols)

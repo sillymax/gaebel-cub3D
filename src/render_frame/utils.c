@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: ghwa <ghwa@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 23:40:34 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/27 23:19:11 by ychng            ###   ########.fr       */
+/*   Updated: 2024/08/06 10:07:24 by ghwa             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	pixel_put(t_image *image, int x, int y, int color)
 
 	y_bytes = y * image->stride;
 	x_bytes = x * (image->bpp / 8);
-	dst = image->addr + y_bytes + x_bytes; 
+	dst = image->addr + y_bytes + x_bytes;
 	*(int *)dst = color;
 }
 

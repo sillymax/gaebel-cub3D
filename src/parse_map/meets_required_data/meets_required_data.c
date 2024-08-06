@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   meets_required_data.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: ghwa <ghwa@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 04:17:55 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/16 06:23:35 by ychng            ###   ########.fr       */
+/*   Updated: 2024/08/06 10:22:53 by ghwa             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,5 @@
 bool	meets_required_data(t_main *main, int fd)
 {
 	return (parse_data(main, fd) && \
-			validate_2d_map(&main->mapdata));
+	validate_2d_map(&main->mapdata));
 }

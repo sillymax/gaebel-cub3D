@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_snprintf.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: ghwa <ghwa@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 20:04:45 by ychng             #+#    #+#             */
-/*   Updated: 2024/04/23 20:51:37 by ychng            ###   ########.fr       */
+/*   Updated: 2024/08/06 10:37:17 by ghwa             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_SNPRINTF_H
 # define FT_SNPRINTF_H
 
-typedef	struct	s_resultinfo
+typedef struct	s_resultinfo
 {
 	char	*buffer;
 	size_t	size;

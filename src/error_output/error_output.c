@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_output.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: ghwa <ghwa@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 01:59:58 by ychng             #+#    #+#             */
-/*   Updated: 2024/08/01 22:32:38 by ychng            ###   ########.fr       */
+/*   Updated: 2024/08/06 10:23:32 by ghwa             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,5 @@ bool	return_with_error(char *msg)
 	ft_putstr_fd("msg: ", fd);
 	ft_putstr_fd(msg, fd);
 	ft_putstr_fd("\n", fd);
-
 	return (FAIL);
 }

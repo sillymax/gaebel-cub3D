@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: ghwa <ghwa@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 16:35:06 by ychng             #+#    #+#             */
-/*   Updated: 2024/04/22 16:51:47 by ychng            ###   ########.fr       */
+/*   Updated: 2024/08/06 10:36:34 by ghwa             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	process_intpart(const char **nptr)
 		result = result * 10 + (**nptr - '0');
 		(*nptr)++;
 	}
-	return (result);	
+	return (result);
 }
 
 int	ft_atoi(const char *nptr)

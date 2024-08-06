@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keystates.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: ghwa <ghwa@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 05:31:22 by ychng             #+#    #+#             */
-/*   Updated: 2024/08/02 00:25:55 by ychng            ###   ########.fr       */
+/*   Updated: 2024/08/06 10:14:10 by ghwa             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	key_release(int keycode, t_main *main)
 
 void	apply_keystates(t_main *main)
 {
-
 	if (main->key_states[KEY_ESC])
 	{
 		cleanup(main);

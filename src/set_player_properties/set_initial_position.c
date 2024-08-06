@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_initial_position.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: ghwa <ghwa@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 03:38:33 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/25 15:33:33 by ychng            ###   ########.fr       */
+/*   Updated: 2024/08/06 10:04:49 by ghwa             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	set_initial_position(t_main *main)
 	int	j;
 
 	i = 0;
-	while (i < main->mapdata.rows)	
+	while (i < main->mapdata.rows)
 	{
 		j = 0;
 		while (j < main->mapdata.cols)

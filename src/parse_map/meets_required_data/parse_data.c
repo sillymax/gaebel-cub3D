@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_data.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: ghwa <ghwa@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/16 05:47:20 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/16 06:52:55 ychng            ###   ########.fr       */
+/*   Created: 2024/08/06 10:08:33 by ghwa              #+#    #+#             */
+/*   Updated: 2024/08/06 10:09:04 by ghwa             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 bool	is_empty_line(char *line)
 {
 	return (*line == '\0' || *line == '\n');
-
 }
 
 bool	store_2d_map(t_mapdata *mapdata, char *line)
@@ -65,7 +64,7 @@ bool	parse_data(t_main *main, int fd)
 			return (free(line), return_with_error("has empty line in map."));
 		started = true;
 		if (store_2d_map(&main->mapdata, line) == FAIL)
-			return (free(line), return_with_error("can't stop map as 2d form."));
+			return (free(line), return_with_error("can't stop map as 2d."));
 		free(line);
 	}
 	return (free(line), pad_2d_map(&main->mapdata));

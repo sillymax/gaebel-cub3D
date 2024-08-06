@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_column_wall.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: ghwa <ghwa@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 23:54:40 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/30 00:07:47 by ychng            ###   ########.fr       */
+/*   Updated: 2024/08/06 10:06:30 by ghwa             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	pixel_get(t_image *texture, int x, int y)
 
 	y_bytes = y * texture->stride;
 	x_bytes = x * (texture->bpp / 8);
-	dst = texture->addr + y_bytes + x_bytes; 
+	dst = texture->addr + y_bytes + x_bytes;
 	return (*(int *)dst);
 }
 
@@ -75,9 +75,8 @@ void	draw_column_wall(t_main *main, int x, t_column_wall *params, int i)
 	while (y < params->end_y)
 	{
 		params->y_offset = find_y_offset(main, y);
-		pixel_put(image, x, y, pixel_get( \
-			texture, params->x_offset, params->y_offset
-			));
+		pixel_put(image, x, y, pixel_get(\
+		texture, params->x_offset, params->y_offset));
 		y++;
 	}
 }

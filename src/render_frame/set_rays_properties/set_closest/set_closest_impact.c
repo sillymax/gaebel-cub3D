@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_closest_impact.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: ghwa <ghwa@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 20:25:35 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/27 16:22:40 by ychng            ###   ########.fr       */
+/*   Updated: 2024/08/06 10:05:25 by ghwa             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ double	calc_distance(t_player *player, t_impact *impact)
 
 	if (impact->found_wall_hit)
 	{
-		points.x0 = player->center_x;	
+		points.x0 = player->center_x;
 		points.y0 = player->center_y;
 		points.x1 = impact->wall_hit_x;
 		points.y1 = impact->wall_hit_y;

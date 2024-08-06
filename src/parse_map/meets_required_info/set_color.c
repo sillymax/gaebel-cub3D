@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_color.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: ghwa <ghwa@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 03:32:09 by ychng             #+#    #+#             */
-/*   Updated: 2024/08/01 23:03:10 by ychng            ###   ########.fr       */
+/*   Updated: 2024/08/06 11:00:44 by ghwa             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ bool	parse_color(int *color, bool *is_set)
 			return (return_with_error("empty floor / ceiling color."));
 		if (ft_strchr(rgb, '\n'))
 			rgb_cpy = ft_strtrim(rgb, "\n");
+		else
+			rgb_cpy = ft_strdup(rgb);
 		if (validate_color_format(rgb_cpy) == FAIL)
 			return (return_with_error("wrong color format."));
 		free(rgb_cpy);

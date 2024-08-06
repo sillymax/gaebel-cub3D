@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: ghwa <ghwa@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 16:58:29 by ychng             #+#    #+#             */
-/*   Updated: 2024/04/22 17:36:42 by ychng            ###   ########.fr       */
+/*   Updated: 2024/08/06 10:36:21 by ghwa             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static int	get_len(int num)
 		num /= 10;
 	}
 	return (len);
-	
 }
 
 static char	*generate_str(int num, int len)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_minilibx_properties.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: ghwa <ghwa@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 16:47:43 by ychng             #+#    #+#             */
-/*   Updated: 2024/08/01 23:08:06 by ychng            ###   ########.fr       */
+/*   Updated: 2024/08/06 10:04:20 by ghwa             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	set_image(t_main *main)
 {
-	main->minilibx.image.img = mlx_new_image( \
+	main->minilibx.image.img = mlx_new_image(\
 								main->minilibx.mlx, \
 								main->mapdata.m_width, \
 								main->mapdata.m_height);
-	main->minilibx.image.addr = mlx_get_data_addr( \
+	main->minilibx.image.addr = mlx_get_data_addr(\
 									main->minilibx.image.img, \
 									&main->minilibx.image.bpp, \
 									&main->minilibx.image.stride, \
@@ -28,7 +28,7 @@ void	set_image(t_main *main)
 void	set_minilibx(t_main *main)
 {
 	main->minilibx.mlx = mlx_init();
-	main->minilibx.win = mlx_new_window( \
+	main->minilibx.win = mlx_new_window(\
 							main->minilibx.mlx, \
 							main->mapdata.m_width, \
 							main->mapdata.m_height, \
@@ -56,16 +56,16 @@ void	set_texture(t_main *main)
 	main->minilibx.texture = ft_calloc(4, sizeof(t_image));
 	while (i < 4)
 	{
-		main->minilibx.texture[i].img = mlx_xpm_file_to_image( \
+		main->minilibx.texture[i].img = mlx_xpm_file_to_image(\
 										main->minilibx.mlx, \
 										find_texture_path(main, i), \
 										&size, &size);
 		if (!main->minilibx.texture[i].img)
 			exit_with_error("need a proper texture path.");
-		main->minilibx.texture[i].addr = mlx_get_data_addr( \
-										main->minilibx.texture[i].img,
-										&main->minilibx.texture[i].bpp,
-										&main->minilibx.texture[i].stride,
+		main->minilibx.texture[i].addr = mlx_get_data_addr(\
+										main->minilibx.texture[i].img, \
+										&main->minilibx.texture[i].bpp, \
+										&main->minilibx.texture[i].stride, \
 										&main->minilibx.texture[i].endian);
 		i++;
 	}
