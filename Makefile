@@ -77,6 +77,9 @@ fclean: clean
 # Rebuild default target: Cleans and rebuilds the entire program
 re: fclean all
 
+# Bonus target: Build with bonus features
+bonus: all
+
 # Phony target
 PHONY:
-	all clean fclean re
+	all clean fclean re bonus
