@@ -69,6 +69,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 clean:
 	@rm -rf $(OBJ_DIR)
 	@$(MAKE) -C $(LFT_DIR) clean
+	@$(MAKE) -C $(BNS_DIR) clean
 
 # Full clean target: Removes .o files and program
 fclean: clean
