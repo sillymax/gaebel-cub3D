@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
+#include "main_bonus.h"
 
 void	set_vert_wall_hit(t_main *main, int i)
 {

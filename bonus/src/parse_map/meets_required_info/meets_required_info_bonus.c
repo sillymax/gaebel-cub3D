@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
+#include "main_bonus.h"
 
 bool	all_required_info_set(t_mapinfo *mapinfo)
 {

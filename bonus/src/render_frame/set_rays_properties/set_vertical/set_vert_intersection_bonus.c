@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
+#include "main_bonus.h"
 
 void	set_vert_x_intercept(t_player *player, t_ray *ray)
 {

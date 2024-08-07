@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
+#include "main_bonus.h"
 
 void	draw_column(t_main *main, int x, t_column_wall *params, int color)
 {

@@ -6,7 +6,7 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/08/07 17:12:37 by ychng            ###   ########.fr       */
+/*   Updated: 2024/08/07 17:36:51 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 
 # ifdef __LINUX__
 #  define KEY_COUNT 65536
-#  include "linux_keycode.h"
+#  include "linux_keycode_bonus.h"
 # else
 #  define KEY_COUNT 255
-#  include "mac_keycode.h"
+#  include "mac_keycode_bonus.h"
 # endif
 
-# include "system.h"
+# include "system_bonus.h"
 # include "libft.h"
 # include "mlx.h"
 

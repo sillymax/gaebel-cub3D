@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
+#include "main_bonus.h"
 
 static char	*read_fd_until_newline(int fd, char *remaining_line)
 {

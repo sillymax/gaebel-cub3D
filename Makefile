@@ -19,6 +19,7 @@ endif
 SRC_DIR := src
 OBJ_DIR := obj
 INC_DIR := include
+BNS_DIR := bonus
 
 LFT_DIR := libft
 
@@ -78,7 +79,12 @@ fclean: clean
 re: fclean all
 
 # Bonus target: Build with bonus features
-bonus: all
+bonus: $(BNS_DIR)/$(NAME)
+	@mv $(BNS_DIR)/$(NAME) .
+
+# Build bonus program
+$(BNS_DIR)/$(NAME):
+	@$(MAKE) -C $(BNS_DIR) re
 
 # Phony target
 PHONY:
