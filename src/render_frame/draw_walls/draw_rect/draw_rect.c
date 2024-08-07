@@ -6,20 +6,20 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 23:57:17 by ychng             #+#    #+#             */
-/*   Updated: 2024/07/29 23:57:38 by ychng            ###   ########.fr       */
+/*   Updated: 2024/08/07 16:33:32 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-void	draw_column(t_main *main, int x, int start_y, int end_y, int color)
+void	draw_column(t_main *main, int x, t_column_wall *params, int color)
 {
 	t_image	*image;
 	int		y;
 
 	image = &main->minilibx.image;
-	y = start_y;
-	while (y < end_y)
+	y = params->start_y;
+	while (y < params->end_y)
 	{
 		pixel_put(image, x, y, color);
 		y++;
@@ -38,13 +38,15 @@ void	draw_rect_pixel(t_main *main, int i, int top_pixel_y, \
 	x = start_x;
 	while (x < (start_x + main->raycast.wall_strip_width))
 	{
-		draw_column(main, x, 0, top_pixel_y, \
-			find_color(main->mapinfo.ceilingcolor));
+		params.start_y = 0;
+		params.end_y = top_pixel_y;
+		draw_column(main, x, &params, find_color(main->mapinfo.ceilingcolor));
 		params.start_y = top_pixel_y;
 		params.end_y = bottom_pixel_y;
 		draw_column_wall(main, x, &params, i);
-		draw_column(main, x, bottom_pixel_y, main->mapdata.m_height, \
-			find_color(main->mapinfo.floorcolor));
+		params.start_y = bottom_pixel_y;
+		params.end_y = main->mapdata.m_height;
+		draw_column(main, x, &params, find_color(main->mapinfo.floorcolor));
 		x++;
 	}
 }
