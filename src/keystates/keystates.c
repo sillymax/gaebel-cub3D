@@ -6,7 +6,7 @@
 /*   By: ghwa <ghwa@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 05:31:22 by ychng             #+#    #+#             */
-/*   Updated: 2024/08/06 20:41:39 by ghwa             ###   ########.fr       */
+/*   Updated: 2024/08/07 16:50:51 by ghwa             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,6 @@ int	key_release(int keycode, t_main *main)
 		main->key_states[keycode] = 0;
 	return (PASS);
 }
-
-// int cmouse_move(t_main *main) {
-// 	// mlx_mouse_get_pos(main->minilibx.mlx, main->minilibx.win, &main->player.mouse_x, &main->player.mouse_y);
-// 	printf("mouse %d\n", main->player.mouse_x);
-// 	mlx_mouse_show();
-// 	// sleep(1000);
-// 	return (0);
-// }
 
 void	apply_keystates(t_main *main)
 {
