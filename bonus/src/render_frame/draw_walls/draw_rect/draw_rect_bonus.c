@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   draw_rect_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ghwa <ghwa@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 23:57:17 by ychng             #+#    #+#             */
-/*   Updated: 2024/08/08 12:17:05 by ghwa             ###   ########.fr       */
+/*   Updated: 2024/08/08 12:25:31 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
+#include "main_bonus.h"
 
 void	draw_column_wall(t_main *main, int x, t_column_wall *params, int i)
 {
