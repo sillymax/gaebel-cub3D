@@ -6,7 +6,7 @@
 /*   By: ghwa <ghwa@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/08/06 20:41:54 by ghwa             ###   ########.fr       */
+/*   Updated: 2024/08/08 12:15:01 by ghwa             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,6 +232,7 @@ void	apply_keystates(t_main *main);
 // render_frame/
 int		rgb(int r, int g, int b);
 void	pixel_put(t_image *image, int x, int y, int color);
+int		pixel_get(t_main *main, t_image *texture, int x, int y);
 void	dda(t_main *main, t_points *points);
 void	draw_map(t_main *main);
 void	draw_player(t_main *main);
@@ -259,6 +260,10 @@ int		find_color(int color[3]);
 void	draw_column_wall(t_main *main, int x, t_column_wall *params, int i);
 void	draw_rect(t_main *main, int i);
 void	draw_walls(t_main *main);
+int		add_shader(t_main *main, char *dst);
+int		find_x_offset(t_main *main, int i);
+int		find_y_offset(t_main *main, int y);
+t_image	*find_direction_texture(t_main *main, int i);
 
 // cleanup/
 void	destroy_mlx(t_main *main);

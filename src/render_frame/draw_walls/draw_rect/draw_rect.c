@@ -3,14 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   draw_rect.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: ghwa <ghwa@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 23:57:17 by ychng             #+#    #+#             */
-/*   Updated: 2024/08/07 16:33:32 by ychng            ###   ########.fr       */
+/*   Updated: 2024/08/08 12:14:53 by ghwa             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
+
+void	draw_column_wall(t_main *main, int x, t_column_wall *params, int i)
+{
+	t_image		*image;
+	t_image		*texture;
+	int			y;
+
+	image = &main->minilibx.image;
+	texture = find_direction_texture(main, i);
+	params->x_offset = find_x_offset(main, i);
+	y = params->start_y;
+	while (y < params->end_y)
+	{
+		params->y_offset = find_y_offset(main, y);
+		pixel_put(image, x, y, pixel_get(main, texture, \
+		params->x_offset, params->y_offset));
+		y++;
+	}
+}
 
 void	draw_column(t_main *main, int x, t_column_wall *params, int color)
 {
