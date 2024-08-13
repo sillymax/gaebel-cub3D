@@ -6,12 +6,12 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 00:02:15 by ychng             #+#    #+#             */
-/*   Updated: 2024/08/07 17:12:28 by ychng            ###   ########.fr       */
+/*   Updated: 2024/08/13 10:25:17 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAC_KEYCODE_H
-# define MAC_KEYCODE_H
+#ifndef MAC_KEYCODE_BONUS_H
+# define MAC_KEYCODE_BONUS_H
 
 // Letters
 # define KEY_A 0

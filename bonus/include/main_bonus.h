@@ -6,12 +6,12 @@
 /*   By: ychng <ychng@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:11:02 by ychng             #+#    #+#             */
-/*   Updated: 2024/08/08 12:25:10 by ychng            ###   ########.fr       */
+/*   Updated: 2024/08/13 10:27:48 by ychng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
+#ifndef MAIN_BONUS_H
+# define MAIN_BONUS_H
 
 # ifdef __LINUX__
 #  define KEY_COUNT 65536
